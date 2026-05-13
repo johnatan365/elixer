@@ -55,8 +55,8 @@ body{background:var(--black);font-family:'Helvetica Neue',Arial,sans-serif;color
 .modal-box{background:#111;width:100%;max-width:600px;max-height:92vh;overflow-y:auto;border-radius:20px 20px 0 0;padding:0 0 32px;}
 .modal-handle{width:40px;height:4px;background:#444;border-radius:4px;margin:12px auto 0;}
 .modal-header{padding:20px 20px 0;display:flex;justify-content:space-between;align-items:center;}
-.modal-title{font-size:18px;font-weight:800;color:var(--gold);}
-.modal-close{background:#222;border:none;color:#aaa;width:32px;height:32px;border-radius:18px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.modal-title{font-size:15px;font-weight:800;color:var(--gold);}
+.modal-close{background:#222;border:none;color:#aaa;width:32px;height:32px;border-radius:999px;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .modal-body{padding:20px;}
 
 /* step indicator */
@@ -75,11 +75,11 @@ body{background:var(--black);font-family:'Helvetica Neue',Arial,sans-serif;color
 .pack-card:hover{border-color:var(--gold);background:rgba(201,168,76,.05);}
 .pack-card.selected{border-color:var(--gold);background:rgba(201,168,76,.1);}
 .pack-badge{position:absolute;top:-10px;right:12px;background:var(--gold);color:#000;font-size:10px;font-weight:800;letter-spacing:1px;padding:3px 10px;border-radius:20px;text-transform:uppercase;}
-.pack-name{font-size:18px;font-weight:800;color:var(--white);margin-bottom:4px;}
+.pack-name{font-size:15px;font-weight:800;color:var(--white);margin-bottom:4px;}
 .pack-desc{font-size:12px;color:#aaa;margin-bottom:8px;}
 .pack-price{font-size:22px;font-weight:900;color:var(--gold);}
 .pack-envio{font-size:11px;color:#6b6;font-weight:700;margin-top:2px;}
-.pack-check{position:absolute;top:16px;right:16px;width:24px;height:24px;border:2px solid #555;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s;}
+.pack-check{position:absolute;top:16px;right:16px;width:24px;height:24px;border:2px solid #555;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s;}
 .pack-card.selected .pack-check{background:var(--gold);border-color:var(--gold);color:#000;font-weight:900;}
 
 /* ── PASO 2: ADDONS ── */
@@ -95,7 +95,7 @@ body{background:var(--black);font-family:'Helvetica Neue',Arial,sans-serif;color
 .addon-name{font-size:13px;font-weight:800;color:var(--white);}
 .addon-why{font-size:11px;color:#aaa;margin-top:2px;line-height:1.4;}
 .addon-price{font-size:14px;font-weight:800;color:var(--gold);margin-top:4px;}
-.addon-chk{width:26px;height:26px;border:2px solid #555;border-radius:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:14px;}
+.addon-chk{width:26px;height:26px;border:2px solid #555;border-radius:999px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:14px;}
 .addon-card.selected .addon-chk{background:var(--gold);border-color:var(--gold);color:#000;font-weight:900;}
 .addon-skip{background:none;border:none;color:#666;font-size:13px;cursor:pointer;text-decoration:underline;width:100%;text-align:center;margin-top:8px;padding:8px;}
 
@@ -136,12 +136,12 @@ fbq('init','1284056950349379');fbq('track','PageView');
 .floating-cta{
 position:fixed;
 left:50%;
-transform:translateX(-50%);
+margin-left:-47.5px;
 bottom:22px;
 z-index:9999;
-width:220px;
-height:68px;
-border-radius:18px;
+width:95px;
+height:95px;
+border-radius:999px;
 border:none;
 cursor:pointer;
 background:linear-gradient(145deg,#ffdf75,#c9951a,#ffea9a);
@@ -153,17 +153,17 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-weight:900;
-font-size:18px;
+font-size:15px;
 line-height:1.1;
 text-align:center;
 color:#1b1200;
-padding:0 20px;
+padding:10px;
 animation:floatPulse 2.6s ease-in-out infinite;
 transition:.25s ease;
 }
 
 .floating-cta:hover{
-transform:scale(1.08);
+scale:1.08;
 box-shadow:
 0 0 0 6px rgba(255,215,100,.22),
 0 0 35px rgba(255,215,100,.85),
@@ -267,7 +267,7 @@ function goStep2(){
 function renderStep2(){
   return `
   <div style="background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.05));border:1.5px solid var(--gold-dark);border-radius:10px;padding:14px;margin-bottom:16px;text-align:center;">
-    <div style="font-size:18px;margin-bottom:6px;">🌟</div>
+    <div style="font-size:15px;margin-bottom:6px;">🌟</div>
     <div style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:4px;">¡Potencia tus resultados al máximo!</div>
     <div style="font-size:12px;color:#bbb;line-height:1.6;">Estos complementos están diseñados para multiplicar el efecto de tu tratamiento. El <strong style="color:#fff;">Gorro Térmico</strong> activa los aminoácidos con calor, el <strong style="color:#fff;">Gorro de Satín</strong> protege el tratamiento mientras duermes y el <strong style="color:#fff;">Cepillo de Aguacate</strong> sella todo con un acabado profesional.</div>
   </div>
