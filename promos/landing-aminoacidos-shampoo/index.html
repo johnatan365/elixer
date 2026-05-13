@@ -206,10 +206,20 @@ function openModal(){
   renderStep();
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow='hidden';
+
+  const floatingBtn=document.querySelector('.floating-cta');
+  if(floatingBtn){
+    floatingBtn.style.display='none';
+  }
 }
 function closeModal(){
   document.getElementById('modal').classList.remove('open');
   document.body.style.overflow='';
+
+  const floatingBtn=document.querySelector('.floating-cta');
+  if(floatingBtn){
+    floatingBtn.style.display='flex';
+  }
 }
 
 function renderStep(){
