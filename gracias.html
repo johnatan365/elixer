@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡Gracias por tu pedido! — Elixer</title>
+  <meta name="robots" content="noindex" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ════════════════════════════════════════
+       META PIXEL — REEMPLAZA TU_PIXEL_ID
+       con el ID real de tu Pixel de Elixer
+       ════════════════════════════════════════ -->
+  <script>
+    !function(f,b,e,v,n,t,s){
+      if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)
+    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '1284056950349379');
+    fbq('track', 'PageView');
+    if (!sessionStorage.getItem('elixer_purchase_fired')) {
+      fbq('track', 'Purchase', {
+        currency: 'COP',
+        value: 0
+      });
+      sessionStorage.setItem('elixer_purchase_fired', '1');
+    }
+  </script>
+  <!-- noscript Purchase removido para evitar duplicación de eventos -->
+  <!-- ════════════════════════════════════════ -->
+
+  <style>
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C96A; --gold-dark: #8B6914;
+      --black: #080808; --black-soft: #111111; --black-card: #161616;
+      --cream: #F5EDD6; --white: #fff; --gray: #888; --gray-light: #ccc;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black); color: var(--cream);
+      font-family: 'Montserrat', sans-serif; font-weight: 300;
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+
+    /* NOISE */
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.35;
+    }
+
+    /* NAV */
+    nav {
+      padding: 20px 60px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      background: rgba(8,8,8,0.98);
+    }
+    .nav-logo img { height: 48px; width: auto; filter: drop-shadow(0 2px 8px rgba(201,168,76,0.3)); }
+
+    /* MAIN */
+    main {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 60px 20px;
+    }
+    .thanks-card {
+      background: var(--black-card); border: 1px solid rgba(201,168,76,0.2);
+      max-width: 640px; width: 100%; padding: 64px 56px;
+      position: relative; text-align: center;
+    }
+    .thanks-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .thanks-icon {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 32px; font-size: 36px;
+      animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .thanks-tag {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px; display: block;
+      animation: fadeUp 0.6s ease 0.2s both;
+    }
+    .thanks-title {
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 5vw, 52px);
+      color: var(--white); line-height: 1.1; margin-bottom: 20px;
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+    .thanks-title em { color: var(--gold); font-style: italic; }
+    .thanks-text {
+      font-size: 14px; color: var(--gray-light); line-height: 1.9; margin-bottom: 40px;
+      animation: fadeUp 0.6s ease 0.4s both;
+    }
+
+    .thanks-steps {
+      display: flex; flex-direction: column; gap: 0;
+      margin-bottom: 40px; text-align: left;
+      animation: fadeUp 0.6s ease 0.5s both;
+    }
+    .thanks-step {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .thanks-step:last-child { border-bottom: none; }
+    .step-num {
+      width: 32px; height: 32px; border: 1px solid rgba(201,168,76,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: var(--gold); flex-shrink: 0;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .step-text { font-size: 13px; color: var(--gray-light); line-height: 1.7; padding-top: 6px; }
+    .step-text strong { color: var(--white); }
+
+    .thanks-actions {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.6s ease 0.6s both;
+    }
+    .btn-gold {
+      background: var(--gold); color: var(--black); border: none;
+      padding: 14px 32px; font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; cursor: pointer;
+      font-family: 'Montserrat', sans-serif; font-weight: 600;
+      text-decoration: none; display: inline-block; transition: all 0.3s;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--cream);
+      border: 1px solid rgba(245,237,214,0.3);
+      padding: 14px 32px; font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      text-decoration: none; display: inline-block; transition: all 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .whatsapp-note {
+      margin-top: 32px; padding: 16px;
+      background: rgba(37,211,102,0.07); border: 1px solid rgba(37,211,102,0.2);
+      font-size: 12px; color: #25D166; letter-spacing: 1px; line-height: 1.8;
+      animation: fadeUp 0.6s ease 0.7s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 24px 60px; border-top: 1px solid rgba(201,168,76,0.08);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 11px; color: var(--gray); }
+    .footer-ig {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--gold); text-decoration: none;
+      letter-spacing: 1px; transition: opacity 0.2s;
+    }
+    .footer-ig:hover { opacity: 0.7; }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .thanks-card { padding: 40px 24px; }
+      footer { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="logo%20Elixer.png" alt="Elixer" />
+  </a>
+  <a href="https://instagram.com/elixer_colombia" target="_blank" style="font-size:11px; color:var(--gold); text-decoration:none; letter-spacing:2px;">@elixer_colombia</a>
+</nav>
+
+<main>
+  <div class="thanks-card">
+    <div class="thanks-icon">✦</div>
+    <span class="thanks-tag">Pedido confirmado</span>
+    <h1 class="thanks-title">¡Gracias por<br>confiar en <em>Elixer</em>!</h1>
+    <p class="thanks-text">
+      Tu pedido fue recibido exitosamente. Nuestro equipo lo revisará y te contactará muy pronto para confirmar los detalles de entrega.
+    </p>
+
+    <div class="thanks-steps">
+      <div class="thanks-step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Confirmación por WhatsApp</strong><br>Nuestro equipo te escribirá al número que nos dejaste en las próximas 2 horas para confirmar tu pedido.</div>
+      </div>
+      <div class="thanks-step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Preparación y envío</strong><br>Empacamos tu pedido con cuidado y lo despachamos. El tiempo de entrega varía según tu ciudad.</div>
+      </div>
+      <div class="thanks-step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Pago al recibir</strong><br>Pagas únicamente cuando el producto llega a la puerta de tu casa. <strong style="color:var(--gold)">Envío 100% gratis.</strong></div>
+      </div>
+    </div>
+
+    <div class="thanks-actions">
+      <a href="/" class="btn-gold">Ver más productos</a>
+      <a href="https://wa.me/573041443377" target="_blank" class="btn-outline">Hablar con soporte</a>
+    </div>
+
+    <div class="whatsapp-note">
+      📱 Si tienes dudas sobre tu pedido escríbenos directamente:<br>
+      <strong>+57 304 144 3377</strong>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span class="footer-copy">© 2025 Elixer — Tratamientos Capilares</span>
+  <a href="https://instagram.com/elixer_colombia" target="_blank" class="footer-ig">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    @elixer_colombia
+  </a>
+</footer>
+
+</body>
+</html>

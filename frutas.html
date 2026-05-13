@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bomba de Frutas Elixer — Hidratación Capilar con 10 Frutas</title>
+<meta name="description" content="Repolarizador capilar con 10 frutas activas. Hidratación profunda, crecimiento y brillo desde la primera aplicación. Envío gratis a todo Colombia."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--gold:#C9A84C;--gold-light:#E8C96A;--gold-dark:#8B6914;--black:#080808;--black-soft:#111;--black-card:#1a1a1a;--cream:#F5EDD6;--white:#fff;--gray:#888;--gray-light:#ccc;--orange:#F5A623;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#fff;color:#222;font-family:'Montserrat',sans-serif;font-weight:400;line-height:1.7;overflow-x:hidden;}
+.banner{padding:12px;text-align:center;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
+nav{padding:16px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nav-logo img{height:44px;width:auto;}
+.nav-back{color:var(--gold);font-size:13px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;}
+.nav-cta-btn{padding:10px 24px;font-size:13px;font-weight:700;text-decoration:none;border-radius:4px;font-family:'Montserrat',sans-serif;}
+
+/* HERO - DARK */
+.hero-section{display:flex;align-items:center;gap:40px;padding:60px 60px;min-height:90vh;}
+.hero-section.dark-hero{background:var(--black);}
+.hero-content{flex:1;max-width:560px;}
+.hero-pretag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:8px 18px;margin-bottom:24px;}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6vw,80px);line-height:1.0;margin-bottom:20px;}
+.hero-sub{font-size:16px;line-height:1.85;margin-bottom:28px;}
+.hero-checks{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;}
+.hero-check{display:flex;align-items:center;gap:12px;font-size:14px;}
+.check-ico{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-main{padding:16px 36px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.3s;font-family:'Montserrat',sans-serif;border:none;}
+.btn-main:hover{transform:translateY(-2px);}
+.btn-sec{background:transparent;border:2px solid rgba(255,255,255,0.25);color:var(--white);padding:16px 36px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.3s;font-family:'Montserrat',sans-serif;}
+.btn-sec:hover{border-color:var(--gold);color:var(--gold);}
+.hero-trust-strip{display:flex;gap:28px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.1);flex-wrap:wrap;}
+.trust-item{text-align:center;}
+.trust-num{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:700;display:block;line-height:1;}
+.trust-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+.hero-visual{flex:1;display:flex;align-items:center;justify-content:center;position:relative;}
+.hero-visual img{max-width:100%;max-height:520px;object-fit:contain;position:relative;z-index:2;}
+.hero-glow{position:absolute;width:420px;height:420px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);}
+
+/* PROBLEM SECTION - LIGHT */
+.problem-section{background:#f8f6f0;padding:80px 60px;}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto;}
+.section-pretitle{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;display:block;}
+.section-h2-light{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,50px);color:#111;margin-bottom:16px;line-height:1.15;}
+.section-p-light{font-size:15px;color:#555;line-height:1.85;margin-bottom:24px;}
+.problem-list{display:flex;flex-direction:column;gap:14px;}
+.problem-item{display:flex;align-items:flex-start;gap:12px;background:#fff;padding:16px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.problem-ico{font-size:22px;flex-shrink:0;}
+.problem-title{font-size:14px;font-weight:700;color:#111;margin-bottom:3px;}
+.problem-desc{font-size:13px;color:#666;line-height:1.6;}
+.solution-card{background:var(--black);border-radius:12px;padding:36px;color:var(--white);}
+.solution-title{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:700;margin-bottom:16px;}
+.solution-desc{font-size:14px;color:var(--gray-light);line-height:1.85;margin-bottom:24px;}
+.solution-points{display:flex;flex-direction:column;gap:10px;}
+.solution-point{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--gray-light);}
+.sol-check{flex-shrink:0;margin-top:2px;}
+
+/* HOW TO USE - DARK */
+.uso-section{background:var(--black-soft);padding:80px 60px;}
+.uso-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto;}
+.section-h2-dark{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,50px);color:var(--white);margin-bottom:16px;line-height:1.15;}
+.section-p-dark{font-size:15px;color:var(--gray);line-height:1.85;margin-bottom:32px;}
+.uso-steps{display:flex;flex-direction:column;gap:0;}
+.uso-step{display:flex;gap:20px;align-items:flex-start;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.uso-step:last-child{border-bottom:none;}
+.uso-num{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;line-height:1;flex-shrink:0;width:40px;}
+.uso-step-title{font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.uso-step-desc{font-size:13px;color:var(--gray);line-height:1.7;}
+.uso-tip{padding:20px;border-radius:8px;margin-top:20px;}
+.uso-tip-title{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.uso-tip-desc{font-size:13px;line-height:1.7;}
+.uso-img{text-align:center;}
+.uso-img img{max-width:100%;max-height:480px;object-fit:contain;}
+
+/* BENEFITS - LIGHT */
+.benefits-section{background:#fff;padding:80px 60px;}
+.benefits-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto;}
+.benefit-card{background:#f8f6f0;border-radius:10px;padding:28px 20px;text-align:center;}
+.benefit-card-ico{font-size:36px;margin-bottom:14px;display:block;}
+.benefit-card-title{font-size:15px;font-weight:700;color:#111;margin-bottom:8px;}
+.benefit-card-desc{font-size:13px;color:#666;line-height:1.7;}
+
+/* KITS - DARK */
+.kits-section{background:var(--black);padding:80px 60px;}
+.kits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:40px auto 0;}
+.kit-card{background:var(--black-card);border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);transition:transform 0.3s,border-color 0.3s;}
+.kit-card:hover{transform:translateY(-4px);}
+.kit-card.featured{border-color:rgba(201,168,76,0.4);}
+.kit-card-top{padding:8px 16px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center;}
+.kit-card-imgs{padding:28px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:160px;}
+.kit-card-imgs img{max-height:130px;max-width:33%;object-fit:contain;}
+.kit-card-body{padding:20px 24px 28px;}
+.kit-card-name{font-family:'Montserrat',sans-serif;font-size:17px;font-weight:700;color:var(--white);margin-bottom:8px;}
+.kit-card-desc{font-size:13px;color:var(--gray);line-height:1.7;margin-bottom:16px;}
+.kit-card-includes{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;}
+.kit-includes-item{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--gray-light);}
+.kit-price{font-family:'Montserrat',sans-serif;font-size:29px;font-weight:700;margin-bottom:4px;}
+.kit-price-note{font-size:11px;color:var(--gray);margin-bottom:16px;}
+.kit-btn{display:block;text-align:center;padding:14px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;border:none;width:100%;font-family:'Montserrat',sans-serif;transition:opacity 0.2s;}
+.kit-btn:hover{opacity:0.85;}
+
+/* TESTIMONIOS - LIGHT */
+.testimonios-section{background:#f8f6f0;padding:80px 60px;}
+.testimonios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:40px auto 0;}
+.testi-card{background:#fff;border-radius:10px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,0.06);}
+.testi-stars{font-size:18px;margin-bottom:14px;letter-spacing:2px;}
+.testi-text{font-size:14px;color:#444;line-height:1.8;margin-bottom:20px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;font-weight:600;flex-shrink:0;}
+.testi-name{font-size:14px;font-weight:700;color:#111;}
+.testi-loc{font-size:12px;color:#888;}
+.testi-prod{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:3px;}
+
+/* ORDER - DARK */
+.order-section{background:var(--black-soft);padding:80px 60px;}
+.order-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1100px;margin:0 auto;align-items:start;}
+.order-info-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,48px);color:var(--white);margin-bottom:16px;}
+.order-info-desc{font-size:15px;color:var(--gray);line-height:1.85;margin-bottom:32px;}
+.order-guarantees{display:flex;flex-direction:column;gap:16px;}
+.order-guarantee{display:flex;gap:14px;align-items:flex-start;background:var(--black-card);padding:18px;border-radius:8px;}
+.order-guarantee-ico{font-size:22px;flex-shrink:0;}
+.order-guarantee-title{font-size:14px;font-weight:700;color:var(--white);margin-bottom:3px;}
+.order-guarantee-desc{font-size:13px;color:var(--gray);line-height:1.6;}
+.order-form-wrap{background:var(--black-card);border-radius:12px;padding:36px;}
+.form-title{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--white);margin-bottom:24px;}
+.form-lbl{display:block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.form-inp,.form-sel,.form-ta{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--cream);padding:13px 16px;font-size:14px;font-family:'Montserrat',sans-serif;outline:none;border-radius:6px;margin-bottom:16px;transition:border-color 0.2s;appearance:none;}
+.form-inp:focus,.form-sel:focus,.form-ta:focus{border-color:var(--gold);}
+.form-ta{resize:vertical;min-height:70px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.check-group{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.check-item{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.check-item input{display:none;}
+.check-box{width:20px;height:20px;border:2px solid rgba(255,255,255,0.2);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.check-item input:checked+.check-box{background:var(--gold);border-color:var(--gold);}
+.check-item input:checked+.check-box::after{content:'✓';font-size:12px;font-weight:700;color:var(--black);}
+.check-lbl{font-size:13px;color:var(--gray-light);}
+.check-price{font-size:13px;margin-left:auto;}
+.order-summary-box{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px;margin-bottom:16px;display:none;}
+.order-summary-box.show{display:block;}
+.summary-head{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.summary-line{display:flex;justify-content:space-between;font-size:13px;color:var(--gray-light);margin-bottom:6px;}
+.summary-total-line{display:flex;justify-content:space-between;font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:var(--white);border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;margin-top:6px;}
+.form-submit-btn{width:100%;padding:18px;font-size:15px;font-weight:700;cursor:pointer;border:none;border-radius:6px;font-family:'Montserrat',sans-serif;transition:all 0.3s;}
+.form-submit-btn:hover{transform:translateY(-2px);}
+.form-note{font-size:12px;color:var(--gray);text-align:center;margin-top:12px;line-height:1.7;}
+.form-err{display:none;background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.3);color:#e05252;padding:12px 16px;border-radius:6px;font-size:13px;margin-bottom:14px;}
+.form-err.show{display:block;}
+
+/* FAQ - LIGHT */
+.faq-section{background:#fff;padding:80px 60px;}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1100px;margin:40px auto 0;align-items:start;}
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{border-bottom:1px solid #eee;}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:18px 0;font-size:15px;font-weight:600;color:#111;cursor:pointer;display:flex;justify-content:space-between;gap:12px;font-family:'Montserrat',sans-serif;}
+.faq-q-icon{font-size:20px;color:var(--gold);flex-shrink:0;}
+.faq-a{font-size:14px;color:#555;line-height:1.85;padding-bottom:18px;display:none;}
+.faq-a.open{display:block;}
+.faq-visual{background:var(--black);border-radius:12px;padding:36px;color:var(--white);}
+.faq-visual-title{font-family:'Montserrat',sans-serif;font-size:21px;font-weight:700;margin-bottom:24px;}
+.faq-stat-row{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
+.faq-stat-row:last-child{border-bottom:none;}
+.faq-stat-num{font-family:'Montserrat',sans-serif;font-size:34px;font-weight:700;line-height:1;flex-shrink:0;width:80px;}
+.faq-stat-text strong{display:block;font-size:14px;color:var(--white);margin-bottom:3px;}
+.faq-stat-text span{font-size:13px;color:var(--gray);}
+
+/* FOOTER */
+footer{background:#111;padding:56px 40px 40px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:40px;}
+.footer-logo img{height:48px;margin-bottom:16px;display:block;}
+.footer-desc{font-size:13px;color:#666;line-height:1.8;max-width:280px;}
+.footer-col-title{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-links a{font-size:13px;color:#666;text-decoration:none;}
+.footer-links a:hover{color:var(--white);}
+.footer-bottom{border-top:1px solid #222;padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:#555;}
+.footer-wa{display:flex;align-items:center;gap:8px;color:#25D166;font-size:13px;text-decoration:none;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-section{flex-direction:column;padding:48px 24px;min-height:auto;}
+  .hero-content{max-width:100%;text-align:center;}
+  .hero-checks{align-items:flex-start;text-align:left;}
+  .hero-btns{justify-content:center;}
+  .hero-trust-strip{justify-content:center;}
+  .hero-visual{width:100%;max-width:340px;}
+  .hero-visual img{max-height:300px;}
+  .problem-grid,.uso-grid,.order-grid,.faq-grid{grid-template-columns:1fr;gap:36px;}
+  .benefits-grid-4{grid-template-columns:1fr 1fr;}
+  .kits-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto;}
+  .testimonios-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr;gap:28px;}
+  .hero-section,.problem-section,.uso-section,.benefits-section,.kits-section,.testimonios-section,.order-section,.faq-section{padding:56px 24px;}
+  nav{padding:14px 20px;}
+  footer{padding:48px 24px 40px;}
+}
+@media(max-width:700px){
+  .addon-img-grid{grid-template-columns:1fr !important;}
+}
+@media(max-width:480px){
+  nav{padding:12px 16px;}
+  .hero-section{padding:32px 16px;}
+  .hero-visual img{max-height:260px;}
+  .hero-trust-strip{gap:16px;}
+  .benefits-grid-4{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .problem-section,.uso-section,.benefits-section,.kits-section,.testimonios-section,.order-section,.faq-section{padding:48px 16px;}
+  footer{padding:40px 16px 40px;}
+}
+
+/* ===== MODAL FORMULARIO ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-box{background:#fff;border-radius:16px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;position:relative;transform:translateY(32px);transition:transform 0.3s;box-shadow:0 24px 80px rgba(0,0,0,0.35);}
+.modal-overlay.open .modal-box{transform:translateY(0);}
+.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-dark));border-radius:16px 16px 0 0;}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:24px 28px 0;}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:#111;line-height:1.2;}
+.modal-subtitle{font-size:13px;color:#888;margin-top:4px;}
+.modal-close{width:36px;height:36px;border-radius:50%;border:2px solid #eee;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:#666;transition:all 0.2s;flex-shrink:0;}
+.modal-close:hover{border-color:#ccc;color:#111;}
+.modal-body{padding:20px 28px 28px;}
+</style>
+
+  <!-- Meta Pixel — Elixer -->
+  <script>
+    !function(f,b,e,v,n,t,s){
+      if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)
+    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1284056950349379');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1284056950349379&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- Fin Meta Pixel -->
+</head>
+<body>
+
+<div class="banner" style="background:linear-gradient(90deg,#b87400,#F5A623,#b87400);color:#000;">
+  ENVÍO GRATIS A TODO COLOMBIA — PAGA CUANDO LO RECIBAS
+</div>
+
+<nav style="background:var(--black);border-bottom:1px solid rgba(245,166,35,0.15);">
+  <a href="/"><img src="logo%20Elixer.png" alt="Elixer" style="height:44px;"/></a>
+  <a href="/" class="nav-back" style="color:var(--orange);">← Volver al inicio</a>
+  <a href="#order-section" class="nav-cta-btn" style="background:var(--orange);color:#000;">Pedir ahora</a>
+</nav>
+
+<!-- HERO -->
+<!-- HERO AD IMAGE - ENCABEZADO COMPLETO -->
+<section style="width:100%;background:#080808;padding:0;margin:0;overflow:hidden;line-height:0;">
+  <a href="#order-section" style="display:block;cursor:pointer;">
+    <img
+      src="hero_frutas_ad.webp"
+      alt="Bomba de Frutas Elixer — Cabello más hidratado, suave y brillante"
+      style="width:100%;height:auto;display:block;max-width:600px;margin:0 auto;"
+      loading="eager"
+    />
+  </a>
+</section>
+
+<section class="hero-section dark-hero">
+  <div class="hero-content">
+    <div class="hero-pretag" style="background:rgba(245,166,35,0.15);border:1px solid rgba(245,166,35,0.3);color:var(--orange);">
+      Repolarizador Capilar — 10 Frutas Activas — INVIMA NSOC07531-21CO
+    </div>
+    <h1 class="hero-h1" style="color:var(--white);">
+      La <span style="color:var(--orange);">bomba de hidratación</span><br>que tu cabello<br>estaba esperando
+    </h1>
+    <p class="hero-sub" style="color:var(--gray-light);">
+      10 frutas con los extractos más potentes del mundo capilar. Restaura el cabello en un 60% desde la primera aplicación con un aroma delicioso y una hidratación que dura días.
+    </p>
+    <div class="hero-checks">
+      <div class="hero-check" style="color:var(--white);"><div class="check-ico" style="background:var(--orange);color:#000;">✓</div>Restaura el cabello en un 60% desde la primera aplicación</div>
+      <div class="hero-check" style="color:var(--white);"><div class="check-ico" style="background:var(--orange);color:#000;">✓</div>10 frutas activas + Keratina + Aceite de Argán + Biotina</div>
+      <div class="hero-check" style="color:var(--white);"><div class="check-ico" style="background:var(--orange);color:#000;">✓</div>Controla el frizz notablemente desde el primer uso</div>
+      <div class="hero-check" style="color:var(--white);"><div class="check-ico" style="background:var(--orange);color:#000;">✓</div>Apta para embarazadas — Sin parabenos ni siliconas</div>
+    </div>
+    <div class="hero-btns">
+      <a href="#order-section" class="btn-main" style="background:var(--orange);color:#000;">Pedir ahora — Pago al recibir</a>
+      <a href="#uso-section" class="btn-sec">Ver modo de uso</a>
+    </div>
+    <div class="hero-trust-strip">
+      <div class="trust-item"><span class="trust-num" style="color:var(--orange);">60%</span><div class="trust-lbl" style="color:var(--gray);">Restauración inmediata</div></div>
+      <div class="trust-item"><span class="trust-num" style="color:var(--orange);">10</span><div class="trust-lbl" style="color:var(--gray);">Frutas activas</div></div>
+      <div class="trust-item"><span class="trust-num" style="color:var(--orange);">1ra</span><div class="trust-lbl" style="color:var(--gray);">Aplicación visible</div></div>
+      <div class="trust-item"><span class="trust-num" style="color:var(--orange);">0</span><div class="trust-lbl" style="color:var(--gray);">Parabenos</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-glow" style="background:radial-gradient(circle,rgba(245,166,35,0.12),transparent 70%);"></div>
+    <img src="Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="Bomba de Frutas Elixer 500g" style="filter:drop-shadow(0 20px 60px rgba(245,166,35,0.25));"/>
+  </div>
+</section>
+
+<!-- PROBLEMA / SOLUCIÓN -->
+<section class="problem-section">
+  <div class="problem-grid">
+    <div>
+      <span class="section-pretitle" style="color:var(--orange);">El problema</span>
+      <h2 class="section-h2-light">¿Tu cabello está seco, sin vida o con caída?</h2>
+      <p class="section-p-light">El estrés, la contaminación, el calor y los procesos químicos drenan la hidratación natural del cabello. Tu cabello necesita nutrición real, no productos con rellenos baratos.</p>
+      <div class="problem-list">
+        <div class="problem-item"><div class="problem-ico">💔</div><div><div class="problem-title">Cabello seco y sin brillo</div><div class="problem-desc">La falta de hidratación hace que el cabello se vea apagado, áspero y difícil de manejar.</div></div></div>
+        <div class="problem-item"><div class="problem-ico">😰</div><div><div class="problem-title">Caída excesiva del cabello</div><div class="problem-desc">Un cuero cabelludo sin nutrición no produce cabello fuerte. Los folículos debilitados causan caída.</div></div></div>
+        <div class="problem-item"><div class="problem-ico">😩</div><div><div class="problem-title">Puntas abiertas y rotura</div><div class="problem-desc">Sin la hidratación correcta, el cabello se vuelve frágil, se rompe y las puntas se abren constantemente.</div></div></div>
+      </div>
+    </div>
+    <div class="solution-card">
+      <h3 class="solution-title" style="color:var(--orange);">La solución: Bomba de Frutas Elixer</h3>
+      <p class="solution-desc">Un repolarizador capilar desarrollado con los extractos de 10 frutas y componentes científicamente formulados para nutrir, reparar y estimular el crecimiento desde adentro.</p>
+      <div class="solution-points">
+        <div class="solution-point"><span class="sol-check" style="color:var(--orange);">✓</span>10 frutas: manzana, uva, naranja, fresa, mora, ciruela, guayaba, papaya, banano y mango</div>
+        <div class="solution-point"><span class="sol-check" style="color:var(--orange);">✓</span>Keratina + Vitamina E + Aloe vera + Aceite de argán</div>
+        <div class="solution-point"><span class="sol-check" style="color:var(--orange);">✓</span>Biotina + Zinc + Niacinamida + Proteína de soya</div>
+        <div class="solution-point"><span class="sol-check" style="color:var(--orange);">✓</span>100% libre de parabenos y siliconas</div>
+        <div class="solution-point"><span class="sol-check" style="color:var(--orange);">✓</span>Registro INVIMA NSOC07531-21CO</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODO DE USO -->
+<section class="uso-section" id="uso-section">
+  <div class="uso-grid">
+    <div>
+      <span class="section-pretitle" style="color:var(--orange);">Modo de uso</span>
+      <h2 class="section-h2-dark">Aplícalo 2 a 3 veces por semana</h2>
+      <p class="section-p-dark">No es un tratamiento de una sola vez — es una rutina semanal que va mejorando tu cabello con cada aplicación.</p>
+      <div class="uso-steps">
+        <div class="uso-step"><div class="uso-num" style="color:var(--orange);">1</div><div><div class="uso-step-title">Lava tu cabello</div><div class="uso-step-desc">Lava con el Shampoo Bomba de Frutas Elixer o tu shampoo de preferencia.</div></div></div>
+        <div class="uso-step"><div class="uso-num" style="color:var(--orange);">2</div><div><div class="uso-step-title">Aplica sobre el cabello húmedo</div><div class="uso-step-desc">Si tu cabello es graso no apliques en la raíz. Si es seco, impregna en la totalidad del cabello.</div></div></div>
+        <div class="uso-step"><div class="uso-num" style="color:var(--orange);">3</div><div><div class="uso-step-title">Masajea suavemente</div><div class="uso-step-desc">Distribuye el producto con un masaje suave por todo el cabello durante 2 a 3 minutos.</div></div></div>
+        <div class="uso-step"><div class="uso-num" style="color:var(--orange);">4</div><div><div class="uso-step-title">Espera mínimo 30 minutos</div><div class="uso-step-desc">Para resultados óptimos déjalo toda la noche con el Gorro Satín. El calor del Gorro Térmico potencia la absorción.</div></div></div>
+        <div class="uso-step"><div class="uso-num" style="color:var(--orange);">5</div><div><div class="uso-step-title">Enjuaga con abundante agua</div><div class="uso-step-desc">Retira completamente y finaliza el peinado como desees.</div></div></div>
+      </div>
+      <div class="uso-tip" style="background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.2);">
+        <div class="uso-tip-title" style="color:var(--orange);">Consejo de experta</div>
+        <div class="uso-tip-desc" style="color:var(--gray-light);">Desde la <strong style="color:var(--white);">3ra o 4ta aplicación</strong> notarás la reducción de la caída y el estímulo del crecimiento. Úsalo con el Gorro Térmico para potenciar al máximo la absorción.</div>
+      </div>
+    </div>
+    <div class="uso-img">
+      <img src="Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="Bomba de Frutas Elixer — modo de uso" style="filter:drop-shadow(0 20px 60px rgba(245,166,35,0.2));"/>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section class="benefits-section">
+  <div style="text-align:center;margin-bottom:48px;max-width:1100px;margin-left:auto;margin-right:auto;">
+    <span class="section-pretitle" style="color:var(--orange);">Beneficios</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,50px);color:#111;">Lo que experimentas con cada aplicación</h2>
+  </div>
+  <div class="benefits-grid-4">
+    <div class="benefit-card"><span class="benefit-card-ico">💧</span><div class="benefit-card-title">Ultra hidratación</div><div class="benefit-card-desc">Penetra la fibra capilar y la hidrata desde adentro. Cabello suave y manejable.</div></div>
+    <div class="benefit-card"><span class="benefit-card-ico">✨</span><div class="benefit-card-title">Brillo espectacular</div><div class="benefit-card-desc">Sella la cutícula y genera un brillo natural que se nota desde el primer uso.</div></div>
+    <div class="benefit-card"><span class="benefit-card-ico">🌱</span><div class="benefit-card-title">Estimula el crecimiento</div><div class="benefit-card-desc">Desde la 3ra aplicación notarás menor caída y cabello más largo y grueso.</div></div>
+    <div class="benefit-card"><span class="benefit-card-ico">💪</span><div class="benefit-card-title">Fortalece la fibra</div><div class="benefit-card-desc">Engrosa el cabello y le aporta resistencia y elasticidad contra la rotura.</div></div>
+    <div class="benefit-card"><span class="benefit-card-ico">🎨</span><div class="benefit-card-title">Prolonga el color</div><div class="benefit-card-desc">Sella la cutícula y extiende la duración de tus tintes y alisados.</div></div>
+    <div class="benefit-card"><span class="benefit-card-ico">🛡️</span><div class="benefit-card-title">Protección total</div><div class="benefit-card-desc">Protege del sol, el cloro y la contaminación. Barrera protectora en cada hebra.</div></div>
+    <div class="benefit-card"><span class="benefit-card-ico">🌀</span><div class="benefit-card-title">Controla el frizz</div><div class="benefit-card-desc">Disminuye el frizz notablemente desde la primera aplicación.</div></div>
+    <div class="benefit-card"><span class="benefit-card-ico">⏰</span><div class="benefit-card-title">Combate el envejecimiento</div><div class="benefit-card-desc">Los antioxidantes de las frutas protegen los folículos del envejecimiento prematuro.</div></div>
+  </div>
+</section>
+
+<!-- KITS -->
+<section class="kits-section">
+  <div style="text-align:center;max-width:1100px;margin:0 auto;">
+    <span class="section-pretitle" style="color:var(--orange);">Productos y kits</span>
+    <h2 class="section-h2-dark">Elige tu opción</h2>
+    <p style="font-size:15px;color:var(--gray);max-width:500px;margin:12px auto 0;line-height:1.8;">Envío gratis a todo Colombia. Pagas cuando el producto llega a tu puerta.</p>
+  </div>
+  <div class="kits-grid">
+    <div class="kit-card" onclick="selectKit('Bomba de Frutas 500g',73500)">
+      <div class="kit-card-top" style="background:rgba(245,166,35,0.1);color:var(--orange);">Producto individual</div>
+      <div class="kit-card-imgs"><img src="Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="Bomba de Frutas" style="max-height:150px;max-width:100%;"/></div>
+      <div class="kit-card-body">
+        <div class="kit-card-name">Bomba de Frutas 500g</div>
+        <div class="kit-card-desc">El repolarizador capilar con 10 frutas activas. Para 2 a 3 meses de uso frecuente.</div>
+        <div class="kit-card-includes">
+          <div class="kit-includes-item"><span style="color:var(--orange);">✓</span>Bomba de Frutas 500g</div>
+          <div class="kit-includes-item"><span style="color:var(--orange);">✓</span>Sin parabenos ni siliconas</div>
+          <div class="kit-includes-item"><span style="color:var(--orange);">✓</span>INVIMA NSOC07531-21CO</div>
+        </div>
+        <div class="kit-price" style="color:var(--orange);">$73.500</div>
+        <div class="kit-price-note" style="color:var(--gray);">Envío gratis — pago al recibir</div>
+        <button class="kit-btn" style="background:var(--orange);color:#000;">Pedir este producto</button>
+      </div>
+    </div>
+    <div class="kit-card featured" style="border-color:rgba(245,166,35,0.4);" onclick="selectKit('Kit Frutas + Shampoo - Bomba de Frutas 500g + Shampoo Bomba de Frutas 500g',110500)">
+      <div class="kit-card-top" style="background:var(--orange);color:#000;">Mas popular</div>
+      <div class="kit-card-imgs">
+        <img src="Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="Bomba" style="max-height:130px;max-width:48%;"/>
+        <img src="Shampoo%20Fondo%20Transparente%20500%20gr.webp" alt="Shampoo" style="max-height:130px;max-width:48%;"/>
+      </div>
+      <div class="kit-card-body">
+        <div class="kit-card-name">Kit Frutas + Shampoo</div>
+        <div class="kit-card-desc">La combinación perfecta. El shampoo prepara la fibra para que la Bomba penetre mejor y los resultados duren más.</div>
+        <div class="kit-card-includes">
+          <div class="kit-includes-item"><span style="color:var(--orange);">✓</span>Bomba de Frutas 500g</div>
+          <div class="kit-includes-item"><span style="color:var(--orange);">✓</span>Shampoo Bomba de Frutas 500g</div>
+        </div>
+        <div class="kit-price" style="color:var(--orange);">$110.500</div>
+        <div class="kit-price-note" style="color:var(--gray);">Envío gratis — pago al recibir</div>
+        <button class="kit-btn" style="background:var(--orange);color:#000;">Pedir este kit</button>
+      </div>
+    </div>
+    <div class="kit-card" onclick="selectKit('Kit Mágico - Bomba de Frutas + Shampoo + Proteína Capilar 500g',157000)">
+      <div class="kit-card-top" style="background:rgba(245,166,35,0.1);color:var(--orange);">El kit completo</div>
+      <div class="kit-card-imgs">
+        <img src="Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="Bomba" style="max-height:110px;max-width:32%;"/>
+        <img src="Shampoo%20Fondo%20Transparente%20500%20gr.webp" alt="Shampoo" style="max-height:110px;max-width:32%;"/>
+        <img src="Envase%20Aminoacido%20500%20gr%20sin%20fondo.webp" alt="Proteina" style="max-height:110px;max-width:32%;"/>
+      </div>
+      <div class="kit-card-body">
+        <div class="kit-card-name">Kit Mágico</div>
+        <div class="kit-card-desc">Los 3 productos que transforman completamente tu cabello. Limpia, hidrata y reconstruye la fibra en profundidad.</div>
+        <div class="kit-card-includes">
+          <div class="kit-includes-item"><span style="color:var(--orange);">✓</span>Bomba de Frutas 500g</div>
+          <div class="kit-includes-item"><span style="color:var(--orange);">✓</span>Shampoo Bomba de Frutas 500g</div>
+          <div class="kit-includes-item"><span style="color:var(--orange);">✓</span>Proteína Capilar 500g (Aminoácidos)</div>
+        </div>
+        <div class="kit-price" style="color:var(--orange);">$157.000</div>
+        <div class="kit-price-note" style="color:var(--gray);">Envío gratis — pago al recibir</div>
+        <button class="kit-btn" style="background:var(--orange);color:#000;">Pedir el Kit Mágico</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testimonios-section">
+  <div style="text-align:center;margin-bottom:48px;">
+    <span class="section-pretitle" style="color:var(--orange);">Testimonios</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,50px);color:#111;">Resultados reales de nuestras clientas</h2>
+  </div>
+  <div class="testimonios-grid">
+    <div class="testi-card">
+      <div class="testi-stars" style="color:var(--orange);">★★★★★</div>
+      <p class="testi-text">"Tenía el cabello muy reseco por la decoloración. Después de 3 aplicaciones de la Bomba de Frutas quedó suave, brillante y con un olor delicioso. No puedo creer lo rápido que funcionó."</p>
+      <div class="testi-author"><div class="testi-avatar" style="background:var(--orange);color:#000;">L</div><div><div class="testi-name">Laura Jiménez</div><div class="testi-loc">Medellín, Antioquia</div><div class="testi-prod" style="color:var(--orange);">Bomba de Frutas sola</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars" style="color:var(--orange);">★★★★★</div>
+      <p class="testi-text">"Compré el Kit Mágico y es la mejor inversión que he hecho. Los tres productos juntos son increíbles. Mi cabello creció notablemente en un mes de uso y el frizz desapareció."</p>
+      <div class="testi-author"><div class="testi-avatar" style="background:var(--orange);color:#000;">M</div><div><div class="testi-name">María Fernanda Castro</div><div class="testi-loc">Bogotá, Cundinamarca</div><div class="testi-prod" style="color:var(--orange);">Kit Mágico</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars" style="color:var(--orange);">★★★★★</div>
+      <p class="testi-text">"Lo apliqué de noche con el gorro térmico y al día siguiente mi cabello quedó como recién salido de la peluquería. El aroma es delicioso y el resultado duró varios días."</p>
+      <div class="testi-author"><div class="testi-avatar" style="background:var(--orange);color:#000;">A</div><div><div class="testi-name">Andrea Ríos</div><div class="testi-loc">Cali, Valle del Cauca</div><div class="testi-prod" style="color:var(--orange);">Bomba de Frutas + Gorro Térmico</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARIO -->
+
+
+
+<!-- COMPLEMENTOS PREMIUM -->
+<section style="background:var(--black-soft);padding:80px 60px;">
+  <div style="text-align:center;margin-bottom:56px;">
+    <span style="color:var(--orange);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:12px;">Complementos</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);color:var(--white);margin-bottom:14px;">Potencia tus resultados al máximo</h2>
+    <p style="font-size:15px;color:var(--gray);max-width:560px;margin:0 auto;line-height:1.8;">Estos accesorios fueron seleccionados específicamente para multiplicar los efectos de la Bomba de Frutas Elixer. Agrégalos a tu pedido directamente en el formulario.</p>
+  </div>
+  <div class="addon-img-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;max-width:1100px;margin:0 auto;">
+
+    <!-- GORRO TERMICO -->
+    <div style="background:var(--black-card);padding:40px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;border:1px solid rgba(245,166,35,0.12);transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.12)'">
+      <div style="height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:28px;">
+        <img src="addon_gorro_termico.webp" alt="Gorro Térmico" style="max-height:170px;max-width:100%;object-fit:contain;border-radius:16px;"/>
+      </div>
+      <div style="background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.25);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;margin-bottom:16px;">Potenciador de absorción</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin-bottom:12px;">Gorro Térmico</h3>
+      <p style="font-size:13px;color:var(--gray);line-height:1.8;margin-bottom:24px;">El calor controlado abre la cutícula capilar y permite que los aminoácidos penetren hasta 3 veces más profundo. Lo que normalmente toma semanas, lo logras en una sola sesión.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;width:100%;margin-bottom:24px;text-align:left;">
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Penetración 3 veces más profunda</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Resultados de salón en casa</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Calor uniforme y controlado</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Acelera el tiempo de tratamiento</div>
+      </div>
+      <div style="font-size:28px;font-weight:700;color:var(--orange);font-family:'Montserrat',sans-serif;">+ $29.500</div>
+      <div style="font-size:12px;color:var(--gray);margin-top:6px;">Se agrega en el formulario de pedido</div>
+    </div>
+
+    <!-- GORRO SATIN -->
+    <div style="background:var(--black-card);padding:40px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;border:1px solid rgba(245,166,35,0.12);transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.12)'">
+      <div style="height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:28px;">
+        <img src="addon_gorro_satin.webp" alt="Gorro de Satín" style="max-height:170px;max-width:100%;object-fit:contain;border-radius:16px;"/>
+      </div>
+      <div style="background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.25);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;margin-bottom:16px;">Protección nocturna</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin-bottom:12px;">Gorro de Satín</h3>
+      <p style="font-size:13px;color:var(--gray);line-height:1.8;margin-bottom:24px;">Mientras duermes, el satín previene la fricción con la almohada que destruye el tratamiento. Mantiene la hidratación activa toda la noche y protege el efecto del alisado.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;width:100%;margin-bottom:24px;text-align:left;">
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Mantiene el tratamiento activo toda la noche</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Elimina el frizz nocturno</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Protege el alisado mientras duermes</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Tela de satín suave y duradera</div>
+      </div>
+      <div style="font-size:28px;font-weight:700;color:var(--orange);font-family:'Montserrat',sans-serif;">+ $10.000</div>
+      <div style="font-size:12px;color:var(--gray);margin-top:6px;">Se agrega en el formulario de pedido</div>
+    </div>
+
+    <!-- CEPILLO AGUACATE -->
+    <div style="background:var(--black-card);padding:40px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;border:1px solid rgba(245,166,35,0.12);transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.12)'">
+      <div style="height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:28px;">
+        <img src="addon_cepillo.webp" alt="Cepillo Secador de Aguacate" style="max-height:170px;max-width:100%;object-fit:contain;border-radius:16px;"/>
+      </div>
+      <div style="background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.25);color:var(--orange);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;margin-bottom:16px;">Secado y modelado profesional</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin-bottom:12px;">Cepillo Secador de Aguacate</h3>
+      <p style="font-size:13px;color:var(--gray);line-height:1.8;margin-bottom:24px;">2000W con aceite de aguacate integrado. Seca y modela en un solo paso sellando la cutícula con calor controlado. El acabado perfecto después de tu tratamiento Elixer.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;width:100%;margin-bottom:24px;text-align:left;">
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Seca y modela en un solo paso</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>2000W — potencia profesional</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Aceite de aguacate que nutre mientras seca</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--gray-light);"><span style="color:var(--orange);font-weight:700;">✓</span>Sella la cutícula para mayor brillo</div>
+      </div>
+      <div style="font-size:28px;font-weight:700;color:var(--orange);font-family:'Montserrat',sans-serif;">+ $45.000</div>
+      <div style="font-size:12px;color:var(--gray);margin-top:6px;">Se agrega en el formulario de pedido</div>
+    </div>
+
+  </div>
+  <div style="text-align:center;margin-top:40px;padding:24px;background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.2);max-width:1100px;margin-left:auto;margin-right:auto;margin-top:24px;">
+    <p style="font-size:14px;color:var(--cream);line-height:1.8;"><strong style="color:var(--orange);">Consejo Elixer:</strong> Usa el Gorro Térmico durante el tratamiento, el Gorro Satín por la noche y el Cepillo para el acabado final. Los tres juntos multiplican y prolongan los resultados de tu Bomba de Frutas.</p>
+  </div>
+</section>
+<section class="order-section" id="order-section">
+  <div class="order-grid">
+    <div>
+      <span class="section-pretitle" style="color:var(--orange);">Haz tu pedido</span>
+      <h2 class="order-info-title">Tu cabello te lo va a agradecer</h2>
+      <p class="order-info-desc">Completa el formulario y te confirmamos en menos de 2 horas. Sin anticipos — pagas cuando el producto llega a tu puerta.</p>
+      <div class="order-guarantees">
+        <div class="order-guarantee"><div class="order-guarantee-ico">🚚</div><div><div class="order-guarantee-title">Envío GRATIS a todo Colombia</div><div class="order-guarantee-desc">Sin costo adicional hasta donde estés.</div></div></div>
+        <div class="order-guarantee"><div class="order-guarantee-ico">💳</div><div><div class="order-guarantee-title">Paga al recibir</div><div class="order-guarantee-desc">Pagas cuando el producto llega a tu puerta. Sin riesgos ni anticipos.</div></div></div>
+        <div class="order-guarantee"><div class="order-guarantee-ico">📱</div><div><div class="order-guarantee-title">Confirmación por WhatsApp en 2 horas</div><div class="order-guarantee-desc">Nuestro equipo te contacta para confirmar.</div></div></div>
+        <div class="order-guarantee"><div class="order-guarantee-ico">📦</div><div><div class="order-guarantee-title">1-2 días en ciudades principales</div><div class="order-guarantee-desc">Medellín, Bogotá, Cali, Barranquilla, Cartagena.</div></div></div>
+      </div>
+    </div>
+    <div class="order-form-wrap">
+      <h3 class="form-title">Datos de tu pedido</h3>
+      <div id="form-err" class="form-err"></div>
+      <div><label class="form-lbl" style="color:var(--orange);">Nombre completo</label><input id="f-name" class="form-inp" type="text" placeholder="Tu nombre y apellido"/></div>
+      <div class="form-row">
+        <div><label class="form-lbl" style="color:var(--orange);">Teléfono / WhatsApp</label><input id="f-phone" class="form-inp" type="tel" placeholder="3XX XXX XXXX"/></div>
+        <div><label class="form-lbl" style="color:var(--orange);">Ciudad</label><input id="f-city" class="form-inp" type="text" placeholder="Tu ciudad"/></div>
+      </div>
+      <div><label class="form-lbl" style="color:var(--orange);">Dirección de entrega</label><input id="f-address" class="form-inp" type="text" placeholder="Calle, barrio, número..."/></div>
+      <div>
+        <label class="form-lbl" style="color:var(--orange);">Producto o kit</label>
+        <select id="f-product" class="form-sel" onchange="updateSummary()" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22%3E%3Cpath d=%22M1 1l5 5 5-5%22 stroke=%22%23F5A623%22 stroke-width=%221.5%22 fill=%22none%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 14px center;">
+          <option value="">— Elige un producto —</option>
+          <option value="Bomba de Frutas 500g|73500">Bomba de Frutas 500g — $73.500</option>
+          <option value="Shampoo Bomba de Frutas 500g|51500">Shampoo Bomba de Frutas 500g — $51.500</option>
+          <option value="Kit Frutas + Shampoo - Bomba de Frutas 500g + Shampoo|110500">Kit Frutas + Shampoo — $110.500</option>
+          <option value="Kit Mágico - Bomba de Frutas + Shampoo + Proteína 500g|157000">Kit Mágico (3 productos) — $157.000</option>
+        </select>
+      </div>
+      <div id="addon-sec" style="display:none;">
+        <label class="form-lbl" style="color:var(--orange);">Agregar complementos</label>
+        <div class="check-group">
+          <label class="check-item"><input type="checkbox" value="Gorro Térmico|29500" onchange="updateSummary()"/><div class="check-box"></div><span class="check-lbl">Gorro Térmico — potencia el tratamiento 3x</span><span class="check-price" style="color:var(--orange);">+$29.500</span></label>
+          <label class="check-item"><input type="checkbox" value="Gorro Satín|10000" onchange="updateSummary()"/><div class="check-box"></div><span class="check-lbl">Gorro de Satín — protección nocturna</span><span class="check-price" style="color:var(--orange);">+$10.000</span></label>
+          <label class="check-item"><input type="checkbox" value="Cepillo Secador de Aguacate|45000" onchange="updateSummary()"/><div class="check-box"></div><span class="check-lbl">Cepillo Secador de Aguacate 2000W</span><span class="check-price" style="color:var(--orange);">+$45.000</span></label>
+        </div>
+      </div>
+      <div><label class="form-lbl" style="color:var(--orange);">Nota adicional (opcional)</label><textarea id="f-notes" class="form-ta" placeholder="Alguna indicación especial..."></textarea></div>
+      <div class="order-summary-box" id="order-summary-box">
+        <div class="summary-head" style="color:var(--orange);">Resumen de tu pedido</div>
+        <div id="summary-lines"></div>
+        <div class="summary-total-line"><span>Total (contra entrega)</span><span id="summary-total" style="color:var(--orange);"></span></div>
+      </div>
+      <button class="form-submit-btn" id="submit-btn" onclick="submitOrder()" style="background:var(--orange);color:#000;">Confirmar pedido — Pago al recibir</button>
+      <p class="form-note" style="color:var(--gray);">Te contactamos por WhatsApp para confirmar. Pagas solo cuando recibes tu producto en casa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div style="text-align:center;margin-bottom:48px;">
+    <span class="section-pretitle" style="color:var(--orange);">Preguntas frecuentes</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,50px);color:#111;">Todo lo que necesitas saber</h2>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Desde cuándo veo los resultados?<span class="faq-q-icon" style="color:var(--orange);">+</span></button><div class="faq-a">Desde la primera aplicación: sedosidad, reducción del frizz, brillo y ultra hidratación visibles al instante. Desde la 3ra o 4ta aplicación notarás la reducción de la caída.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Cada cuánto debo aplicarlo?<span class="faq-q-icon" style="color:var(--orange);">+</span></button><div class="faq-a">2 a 3 veces por semana para resultados óptimos. Puedes dejarlo 30 minutos o toda la noche para mayor intensidad.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Lo pueden usar embarazadas y niños?<span class="faq-q-icon" style="color:var(--orange);">+</span></button><div class="faq-a">Sí. Es 100% natural, libre de parabenos y siliconas. Apto para todo tipo de mujeres incluyendo embarazadas.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Funciona en cabello tinturado?<span class="faq-q-icon" style="color:var(--orange);">+</span></button><div class="faq-a">Perfecto. Restaura el daño de procesos químicos y además extiende la duración de tu tinte. Tu color dura semanas más.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Qué aroma y color tiene el producto?<span class="faq-q-icon" style="color:var(--orange);">+</span></button><div class="faq-a">Tiene un delicioso aroma a chicle que deja el cabello con una fragancia muy agradable. El producto es marrón claro por dentro.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Cuándo llega mi pedido?<span class="faq-q-icon" style="color:var(--orange);">+</span></button><div class="faq-a">En Medellín, Bogotá, Cali, Barranquilla, Cartagena y Neiva: 1 a 2 días hábiles. El resto del país desde Medellín por Envía, Interrapidísimo o Servientrega.</div></div>
+    </div>
+    <div class="faq-visual">
+      <h3 class="faq-visual-title" style="color:var(--orange);">La diferencia en números</h3>
+      <div class="faq-stat-row"><div class="faq-stat-num" style="color:var(--orange);">60%</div><div class="faq-stat-text"><strong>Restauración inmediata</strong><span>Desde la primera aplicación</span></div></div>
+      <div class="faq-stat-row"><div class="faq-stat-num" style="color:var(--orange);">10</div><div class="faq-stat-text"><strong>Frutas activas</strong><span>Los extractos más potentes del mundo capilar</span></div></div>
+      <div class="faq-stat-row"><div class="faq-stat-num" style="color:var(--orange);">2-3x</div><div class="faq-stat-text"><strong>Por semana</strong><span>Uso frecuente para mejores resultados</span></div></div>
+      <div class="faq-stat-row"><div class="faq-stat-num" style="color:var(--orange);">0</div><div class="faq-stat-text"><strong>Parabenos y siliconas</strong><span>Fórmula 100% segura y natural</span></div></div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="logo%20Elixer.png" alt="Elixer" style="height:48px;"/>
+      <p class="footer-desc">Tratamientos capilares premium con ingredientes naturales activos. Envío gratis a todo Colombia.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Productos</div>
+      <ul class="footer-links">
+        <li><a href="/aminoacidos.html">Proteína Capilar</a></li>
+        <li><a href="/frutas.html">Bomba de Frutas</a></li>
+        <li><a href="/">Inicio</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contacto</div>
+      <ul class="footer-links">
+        <li><a href="https://wa.me/573041443377" target="_blank">WhatsApp: +57 304 144 3377</a></li>
+        <li><a href="https://instagram.com/elixer_colombia" target="_blank">@elixer_colombia</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Elixer — Todos los derechos reservados.</span>
+    <a href="https://wa.me/573041443377" target="_blank" class="footer-wa"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> +57 304 144 3377</a>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const {createClient} = supabase;
+const sb = createClient('https://jtjnzdbgelezdcdpipmv.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0am56ZGJnZWxlemRjZHBpcG12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4MjAyODAsImV4cCI6MjA5MjM5NjI4MH0.nOqPWAjnX9nCYveL4zOjFKugdcSL0zOeWsDdr8X9rME');
+function toggleFaq(btn){btn.parentElement.querySelector('.faq-a').classList.toggle('open');}
+function updateSummary(accentColor){
+  const sel=document.getElementById('f-product');
+  const box=document.getElementById('order-summary-box');
+  const addonSec=document.getElementById('addon-sec');
+  if(!sel.value){box.classList.remove('show');if(addonSec)addonSec.style.display='none';return;}
+  if(addonSec)addonSec.style.display='block';
+  const[pName,pPrice]=sel.value.split('|');
+  let total=parseInt(pPrice);
+  let lines=`<div class="summary-line"><span>${pName}</span><span>$${parseInt(pPrice).toLocaleString('es-CO')}</span></div>`;
+  document.querySelectorAll('.check-item input:checked').forEach(cb=>{
+    const[aName,aPrice]=cb.value.split('|');
+    total+=parseInt(aPrice);
+    lines+=`<div class="summary-line"><span>+ ${aName}</span><span>$${parseInt(aPrice).toLocaleString('es-CO')}</span></div>`;
+  });
+  lines+='<div class="summary-line" style="color:#4CAF82"><span>Envio</span><span>GRATIS</span></div>';
+  document.getElementById('summary-lines').innerHTML=lines;
+  document.getElementById('summary-total').textContent='$'+total.toLocaleString('es-CO');
+  box.classList.add('show');
+}
+function selectKit(name,price){
+  const sel=document.getElementById('f-product');
+  for(let o of sel.options){if(o.value===name+'|'+price){sel.value=o.value;break;}}
+  updateSummary();
+  document.getElementById('order-section').scrollIntoView({behavior:'smooth'});
+}
+async function submitOrder(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const city=document.getElementById('f-city').value.trim();
+  const address=document.getElementById('f-address').value.trim();
+  const productSel=document.getElementById('f-product').value;
+  const notes=document.getElementById('f-notes').value.trim();
+  const errEl=document.getElementById('form-err');
+  errEl.classList.remove('show');
+  if(!name||!phone||!city||!address||!productSel){errEl.textContent='Por favor completa todos los campos.';errEl.classList.add('show');return;}
+  const[pName,pPrice]=productSel.split('|');
+  let total=parseInt(pPrice);
+  const addons=[];
+  document.querySelectorAll('.check-item input:checked').forEach(cb=>{
+    const[aName,aPrice]=cb.value.split('|');
+    addons.push({name:aName,price:parseInt(aPrice),qty:1});
+    total+=parseInt(aPrice);
+  });
+  const products=[{name:pName,price:parseInt(pPrice),qty:1},...addons];
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.textContent='Enviando...';
+  const{error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente'});
+  if(error){errEl.textContent='Error al enviar. Escríbenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido';return;}
+  window.location.href='/gracias.html';
+}
+
+// ===== MODAL =====
+const mAddons={termico:{name:'Gorro Termico',price:29500,selected:false},satin:{name:'Gorro de Satin',price:10000,selected:false}};
+function abrirModal(){
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('m-name').focus(),300);
+  updateModalSummary();
+}
+function cerrarModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function cerrarModalOverlay(e){if(e.target===document.getElementById('modal-overlay'))cerrarModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarModal();});
+function mToggleAddon(e,id,name,price){
+  e.stopPropagation();
+  mAddons[id].selected=!mAddons[id].selected;
+  const item=document.getElementById('m-check-'+id);
+  const box=document.getElementById('m-box-'+id);
+  if(mAddons[id].selected){item.classList.add('checked');box.innerHTML='&#10003;';}
+  else{item.classList.remove('checked');box.innerHTML='';}
+  updateModalSummary();
+}
+function updateModalSummary(){
+  let mTotal=73500;
+  let mLines='<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Bomba de Frutas Elixer</span><span>$73.500</span></div>';
+  Object.values(mAddons).forEach(a=>{if(a.selected){mTotal+=a.price;mLines+=`<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>+ ${a.name}</span><span>$${a.price.toLocaleString('es-CO')}</span></div>`;}} );
+  const hasA=Object.values(mAddons).some(a=>a.selected);
+  const sumEl=document.getElementById('modal-summary');
+  if(hasA){document.getElementById('modal-summary-lines').innerHTML=mLines;document.getElementById('modal-total').textContent='$'+mTotal.toLocaleString('es-CO');sumEl.style.display='block';}
+  else{sumEl.style.display='none';}
+}
+async function submitModal(){
+  const name=document.getElementById('m-name').value.trim();
+  const phone=document.getElementById('m-phone').value.trim();
+  const city=document.getElementById('m-city').value.trim();
+  const address=document.getElementById('m-address').value.trim();
+  const notes=document.getElementById('m-notes').value.trim();
+  const errEl=document.getElementById('modal-form-err');
+  errEl.classList.remove('show');
+  if(!name||!phone||!city||!address){errEl.textContent='Por favor completa todos los campos obligatorios.';errEl.classList.add('show');return;}
+  const btn=document.getElementById('modal-submit-btn');
+  btn.disabled=true;btn.textContent='Enviando pedido...';
+  const products=[{name:'Bomba de Frutas Elixer',price:73500,qty:1}];
+  let total=73500;
+  Object.values(mAddons).forEach(a=>{if(a.selected){products.push({name:a.name,price:a.price,qty:1});total+=a.price;}} );
+  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente'});
+  if(error){errEl.textContent='Error al enviar. Intentalo de nuevo o escribenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido — Pago al recibir';return;}
+  window.location.href='/gracias.html';
+}
+
+</script>
+
+
+<div class="modal-overlay" id="modal-overlay" onclick="cerrarModalOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Datos de tu pedido</div>
+        <div class="modal-subtitle">Bomba de Frutas Elixer — <strong style="color:#C9A84C;">$73.500</strong> · Envio gratis · Pago al recibir</div>
+      </div>
+      <button class="modal-close" onclick="cerrarModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div id="modal-form-err" class="form-err"></div>
+      <div><label class="form-lbl">Nombre completo</label><input id="m-name" class="form-inp" type="text" placeholder="Tu nombre y apellido"/></div>
+      <div class="form-row">
+        <div><label class="form-lbl">Telefono / WhatsApp</label><input id="m-phone" class="form-inp" type="tel" placeholder="3XX XXX XXXX"/></div>
+        <div><label class="form-lbl">Ciudad</label><input id="m-city" class="form-inp" type="text" placeholder="Tu ciudad"/></div>
+      </div>
+      <div><label class="form-lbl">Direccion de entrega</label><input id="m-address" class="form-inp" type="text" placeholder="Calle, barrio, numero..."/></div>
+      <div style="margin-bottom:16px;">
+        <label class="form-lbl">Complementos (opcional)</label>
+        <div class="addon-checks-form">
+          <label class="addon-check-item" id="m-check-termico" onclick="mToggleAddon(event,'termico','Gorro Termico',29500)">
+            <img src="addon_gorro_termico.webp" style="width:36px;height:36px;object-fit:contain;border-radius:5px;flex-shrink:0;"/>
+            <span class="addon-check-lbl">Gorro Termico — potencia 3x</span>
+            <div class="addon-check-box" id="m-box-termico"></div>
+            <span class="addon-check-price">+$29.500</span>
+          </label>
+          <label class="addon-check-item" id="m-check-satin" onclick="mToggleAddon(event,'satin','Gorro de Satin',10000)">
+            <img src="addon_gorro_satin.webp" style="width:36px;height:36px;object-fit:contain;border-radius:5px;flex-shrink:0;"/>
+            <span class="addon-check-lbl">Gorro de Satin — proteccion nocturna</span>
+            <div class="addon-check-box" id="m-box-satin"></div>
+            <span class="addon-check-price">+$10.000</span>
+          </label>
+        </div>
+      </div>
+      <div><label class="form-lbl">Nota adicional (opcional)</label><textarea id="m-notes" class="form-ta" placeholder="Ej: dejar en porteria..." style="min-height:60px;"></textarea></div>
+      <div id="modal-summary" style="background:#f8f8f8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14px;display:none;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;margin-bottom:8px;">Tu pedido</div>
+        <div id="modal-summary-lines"></div>
+        <div style="display:flex;justify-content:space-between;font-size:17px;font-weight:800;color:#111;border-top:2px solid #eee;padding-top:8px;margin-top:6px;">
+          <span>Total contra entrega</span><span id="modal-total" style="color:#C9A84C;"></span>
+        </div>
+        <div style="font-size:12px;color:#4CAF82;font-weight:600;margin-top:4px;">Envio GRATIS incluido</div>
+      </div>
+      <button class="form-submit" id="modal-submit-btn" onclick="submitModal()">Confirmar pedido — Pago al recibir</button>
+      <p class="form-note" style="margin-top:12px;">Te contactamos por WhatsApp para confirmar. Pagas solo cuando recibes.</p>
+      <div class="wa-help" style="margin-top:12px;">Tienes dudas? <a href="https://wa.me/573041443377" target="_blank" style="color:#25D166;font-weight:700;text-decoration:none;">WhatsApp</a></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

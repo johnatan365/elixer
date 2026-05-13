@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elixer CRM — Panel de Pedidos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#C9A84C;--gold-light:#E8C96A;--gold-dark:#8B6914;--black:#080808;--black-soft:#111;--black-card:#1a1a1a;--cream:#F5EDD6;--white:#fff;--gray:#888;--gray-light:#ccc;--pending:#D97706;--confirmed:#2563EB;--shipped:#7C3AED;--delivered:#16A34A;--issue:#DC2626;--uploaded:#0891B2;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:#F3F4F6;color:#111;font-family:'Montserrat',sans-serif;font-weight:400;min-height:100vh;}
+
+    /* LOGIN */
+    #login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#080808,#1a1a1a);}
+    .login-box{background:#fff;border-radius:16px;padding:48px 40px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+    .login-logo{height:52px;margin-bottom:8px;display:block;}
+    .login-sub{font-size:13px;color:#888;margin-bottom:32px;letter-spacing:1px;}
+    .login-label{display:block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#666;margin-bottom:6px;}
+    .login-input{width:100%;background:#F9FAFB;border:2px solid #E5E7EB;color:#111;padding:13px 16px;font-size:14px;font-family:'Montserrat',sans-serif;outline:none;border-radius:8px;margin-bottom:16px;transition:border-color 0.2s;}
+    .login-input:focus{border-color:var(--gold);}
+    .login-btn{width:100%;padding:14px;background:var(--gold);border:none;color:#000;font-size:13px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;transition:all 0.3s;}
+    .login-btn:hover{background:var(--gold-light);}
+    .login-error{font-size:13px;color:var(--issue);margin-top:12px;display:none;background:#FEF2F2;padding:10px 14px;border-radius:6px;}
+
+    /* DASHBOARD */
+    #dashboard{display:none;}
+    .topbar{background:#fff;border-bottom:1px solid #E5E7EB;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px rgba(0,0,0,0.06);}
+    .topbar-left{display:flex;align-items:center;gap:16px;}
+    .topbar-logo{height:40px;}
+    .topbar-divider{width:1px;height:28px;background:#E5E7EB;}
+    .topbar-title{font-size:14px;font-weight:600;color:#374151;}
+    .topbar-right{display:flex;align-items:center;gap:12px;}
+    .topbar-user{font-size:13px;color:#6B7280;}
+    .logout-btn{background:#F3F4F6;border:1px solid #E5E7EB;color:#374151;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:6px;transition:all 0.2s;}
+    .logout-btn:hover{background:#E5E7EB;}
+
+    .main{padding:28px;}
+
+    /* STATS */
+    .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
+    .stat-card{background:#fff;border-radius:10px;padding:18px 16px;cursor:pointer;transition:all 0.2s;border:2px solid transparent;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+    .stat-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.1);}
+    .stat-card.active{border-color:var(--gold);box-shadow:0 4px 16px rgba(201,168,76,0.2);}
+    .stat-count{font-size:32px;font-weight:800;line-height:1;margin-bottom:6px;}
+    .stat-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#6B7280;}
+    .stat-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;}
+
+    /* FILTERS */
+    .toolbar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
+    .search-input{background:#fff;border:2px solid #E5E7EB;color:#111;padding:10px 16px;font-size:14px;font-family:'Montserrat',sans-serif;outline:none;width:300px;border-radius:8px;transition:border-color 0.2s;}
+    .search-input:focus{border-color:var(--gold);}
+    .refresh-btn{background:#fff;border:2px solid #E5E7EB;color:#374151;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;transition:all 0.2s;}
+    .refresh-btn:hover{border-color:var(--gold);color:var(--gold-dark);}
+    .orders-count{font-size:13px;color:#6B7280;margin-left:auto;font-weight:500;}
+
+    /* TABLE */
+    .table-wrap{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.06);overflow-x:auto;}
+    table{width:100%;border-collapse:collapse;}
+    thead tr{background:#F9FAFB;border-bottom:2px solid #E5E7EB;}
+    th{text-align:left;padding:12px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#6B7280;font-weight:700;white-space:nowrap;overflow:hidden;}
+    tbody tr{border-bottom:1px solid #F3F4F6;transition:background 0.15s;cursor:pointer;}
+    tbody tr:hover{background:#FFFBEB;}
+    tbody tr:last-child{border-bottom:none;}
+    td{padding:11px 10px;font-size:12px;color:#374151;vertical-align:middle;}
+    td.name{color:#111;font-weight:600;white-space:nowrap;}
+    td.total{color:var(--gold-dark);font-weight:700;font-size:13px;}
+    td.name{color:#111;font-weight:600;}
+    td.total{color:var(--gold-dark);font-weight:700;font-size:15px;}
+    .td-actions{display:flex;gap:6px;align-items:center;}
+    .btn-delete{background:#FEF2F2;border:1px solid #FECACA;color:#DC2626;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;border-radius:5px;font-family:'Montserrat',sans-serif;transition:all 0.2s;white-space:nowrap;}
+    .btn-delete:hover{background:#DC2626;color:#fff;}
+
+    .status-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:20px;white-space:nowrap;}
+    .status-pendiente{background:#FEF3C7;color:#D97706;}
+    .status-confirmado{background:#DBEAFE;color:#2563EB;}
+    .status-enviado{background:#EDE9FE;color:#7C3AED;}
+    .status-entregado{background:#DCFCE7;color:#16A34A;}
+    .status-novedad{background:#FEE2E2;color:#DC2626;}
+    .status-anulado{background:#F3F4F6;color:#6B7280;}
+    .status-cancelado{background:#FDF2F8;color:#9D174D;}
+    .status-subido{background:#CFFAFE;color:#0891B2;}
+
+    /* DRAWER */
+    .drawer-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;backdrop-filter:blur(2px);}
+    .drawer-overlay.open{display:block;}
+    .drawer{position:fixed;right:0;top:0;bottom:0;width:500px;max-width:95vw;background:#fff;z-index:201;overflow-y:auto;transform:translateX(100%);transition:transform 0.3s ease;box-shadow:-8px 0 32px rgba(0,0,0,0.12);}
+    .drawer.open{transform:translateX(0);}
+    .drawer-header{padding:24px 28px;border-bottom:1px solid #E5E7EB;display:flex;justify-content:space-between;align-items:flex-start;background:#fff;position:sticky;top:0;z-index:10;}
+    .drawer-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:#111;}
+    .drawer-date{font-size:12px;color:#6B7280;margin-top:4px;}
+    .drawer-close{background:#F3F4F6;border:none;color:#374151;width:36px;height:36px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:all 0.2s;}
+    .drawer-close:hover{background:#E5E7EB;}
+    .drawer-body{padding:24px 28px;}
+    .drawer-section{margin-bottom:24px;}
+    .drawer-section-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #FEF3C7;}
+    .drawer-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #F3F4F6;font-size:13px;}
+    .drawer-row:last-child{border-bottom:none;}
+    .drawer-row-label{color:#6B7280;font-weight:500;}
+    .drawer-row-value{color:#111;font-weight:600;text-align:right;max-width:260px;}
+    .products-list{display:flex;flex-direction:column;gap:8px;}
+    .product-line{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;font-size:13px;}
+    .product-line-name{color:#374151;max-width:240px;}
+    .product-line-price{color:var(--gold-dark);font-weight:700;flex-shrink:0;}
+    .drawer-total{display:flex;justify-content:space-between;padding:14px 16px;background:#FFFBEB;border:2px solid var(--gold);border-radius:8px;font-size:18px;font-weight:800;color:#111;margin-top:8px;}
+    .drawer-total span:last-child{color:var(--gold-dark);}
+
+    /* FORM INSIDE DRAWER */
+    .form-lbl{display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6B7280;margin-bottom:6px;}
+    .status-select{width:100%;background:#F9FAFB;border:2px solid #E5E7EB;color:#111;padding:11px 16px;font-size:14px;font-family:'Montserrat',sans-serif;outline:none;cursor:pointer;margin-bottom:14px;border-radius:8px;appearance:none;transition:border-color 0.2s;}
+    .status-select:focus{border-color:var(--gold);}
+    .notes-textarea{width:100%;background:#F9FAFB;border:2px solid #E5E7EB;color:#111;padding:12px 16px;font-size:14px;font-family:'Montserrat',sans-serif;outline:none;resize:vertical;min-height:90px;margin-bottom:14px;border-radius:8px;transition:border-color 0.2s;}
+    .notes-textarea:focus{border-color:var(--gold);}
+    .save-btn{width:100%;padding:13px;background:var(--gold);border:none;color:#000;font-size:13px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;transition:all 0.3s;}
+    .save-btn:hover{background:var(--gold-light);}
+    .save-btn:disabled{opacity:0.5;cursor:not-allowed;}
+    .save-success{font-size:13px;color:var(--delivered);margin-top:8px;display:none;text-align:center;font-weight:600;}
+    .delete-order-btn{width:100%;padding:12px;background:#FEF2F2;border:2px solid #FECACA;color:#DC2626;font-size:13px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;margin-top:10px;transition:all 0.3s;}
+    .delete-order-btn:hover{background:#DC2626;color:#fff;border-color:#DC2626;}
+    .whatsapp-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:#F0FDF4;border:2px solid #BBF7D0;color:#16A34A;font-size:13px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;text-decoration:none;border-radius:8px;transition:all 0.2s;margin-top:10px;}
+    .whatsapp-btn:hover{background:#16A34A;color:#fff;border-color:#16A34A;}
+
+    /* CONFIRM MODAL */
+    .confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;align-items:center;justify-content:center;}
+    .confirm-overlay.open{display:flex;}
+    .confirm-box{background:#fff;border-radius:12px;padding:32px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
+    .confirm-title{font-size:18px;font-weight:700;color:#111;margin-bottom:10px;}
+    .confirm-text{font-size:14px;color:#6B7280;line-height:1.7;margin-bottom:24px;}
+    .confirm-btns{display:flex;gap:10px;}
+    .confirm-cancel{flex:1;padding:12px;background:#F3F4F6;border:none;color:#374151;font-size:14px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;}
+    .confirm-delete{flex:1;padding:12px;background:#DC2626;border:none;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;transition:all 0.2s;}
+    .confirm-delete:hover{background:#B91C1C;}
+
+    .edit-product-line{display:flex;gap:6px;align-items:center;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:8px 10px;}
+
+    /* NEW ORDER MODAL */
+    .new-order-btn{background:var(--gold);border:none;color:#000;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;transition:all 0.2s;display:flex;align-items:center;gap:6px;}
+    .new-order-btn:hover{background:var(--gold-light);}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:400;align-items:center;justify-content:center;backdrop-filter:blur(2px);}
+    .modal-overlay.open{display:flex;}
+    .modal-box{background:#fff;border-radius:16px;padding:0;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.25);}
+    .modal-header{padding:24px 28px;border-bottom:1px solid #E5E7EB;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;z-index:10;border-radius:16px 16px 0 0;}
+    .modal-header-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:#111;}
+    .modal-close{background:#F3F4F6;border:none;color:#374151;width:36px;height:36px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;}
+    .modal-close:hover{background:#E5E7EB;}
+    .modal-body{padding:24px 28px;}
+    .modal-section-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #FEF3C7;margin-top:20px;}
+    .modal-section-title:first-child{margin-top:0;}
+    .modal-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .new-prod-line{display:flex;gap:6px;align-items:center;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:8px 10px;margin-bottom:8px;}
+    .new-prod-line input{background:#fff;border:1px solid #E5E7EB;padding:7px 10px;font-size:12px;font-family:'Montserrat',sans-serif;border-radius:5px;outline:none;}
+    .new-prod-line input:focus{border-color:var(--gold);}
+    .new-prod-name{flex:1;}
+    .new-prod-qty{width:60px;}
+    .new-prod-price{width:110px;}
+    .new-prod-del{background:#FEF2F2;border:1px solid #FECACA;color:#DC2626;width:28px;height:28px;cursor:pointer;border-radius:5px;font-size:14px;flex-shrink:0;}
+    .modal-total-box{background:#FFFBEB;border:2px solid var(--gold);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin:12px 0;}
+    .create-order-btn{width:100%;padding:14px;background:var(--gold);border:none;color:#000;font-size:14px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;margin-top:12px;transition:all 0.2s;}
+    .create-order-btn:hover{background:var(--gold-light);}
+    .create-order-btn:disabled{opacity:0.5;cursor:not-allowed;}
+    .modal-success{font-size:13px;color:#16A34A;font-weight:600;text-align:center;margin-top:10px;display:none;}
+    .edit-product-line input{background:#fff;border:1px solid #E5E7EB;padding:7px 10px;font-size:12px;font-family:'Montserrat',sans-serif;border-radius:5px;outline:none;}
+    .edit-product-line input:focus{border-color:var(--gold);}
+    .edit-prod-name{flex:1;}
+    .edit-prod-price{width:100px;}
+    .edit-prod-del{background:#FEF2F2;border:1px solid #FECACA;color:#DC2626;width:28px;height:28px;cursor:pointer;border-radius:5px;font-size:14px;flex-shrink:0;}
+    .empty-state{text-align:center;padding:60px 20px;color:#6B7280;}
+    .empty-state-icon{font-size:40px;margin-bottom:12px;}
+    .empty-state-title{font-size:20px;font-weight:700;color:#374151;margin-bottom:6px;}
+    .loading{text-align:center;padding:48px;color:#6B7280;font-size:14px;}
+
+    @media(max-width:768px){.stats-grid{grid-template-columns:repeat(3,1fr);}.main{padding:16px;}.topbar{padding:0 16px;}.search-input{width:100%;}}
+    @media(max-width:480px){.stats-grid{grid-template-columns:repeat(2,1fr);}th,td{padding:10px 10px;}}
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <img src="logo%20Elixer.png" alt="Elixer" class="login-logo"/>
+    <div class="login-sub">Panel de administración</div>
+    <label class="login-label">Correo electrónico</label>
+    <input type="email" id="l-email" class="login-input" placeholder="tu@email.com"/>
+    <label class="login-label">Contraseña</label>
+    <input type="password" id="l-password" class="login-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"/>
+    <button class="login-btn" onclick="login()">Ingresar al panel</button>
+    <div class="login-error" id="login-error">Correo o contraseña incorrectos.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="logo%20Elixer.png" alt="Elixer" class="topbar-logo"/>
+      <div class="topbar-divider"></div>
+      <span class="topbar-title">Panel de pedidos</span>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-user" id="topbar-email"></span>
+      <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card active" id="stat-all" onclick="filterStatus('all')">
+        <div class="stat-count" style="color:#111;" id="cnt-all">0</div>
+        <div class="stat-label">Todos</div>
+      </div>
+      <div class="stat-card" id="stat-pendiente" onclick="filterStatus('pendiente')">
+        <div class="stat-count" style="color:var(--pending);" id="cnt-pendiente">0</div>
+        <div class="stat-label"><span class="stat-dot" style="background:var(--pending);"></span>Pendientes</div>
+      </div>
+      <div class="stat-card" id="stat-confirmado" onclick="filterStatus('confirmado')">
+        <div class="stat-count" style="color:var(--confirmed);" id="cnt-confirmado">0</div>
+        <div class="stat-label"><span class="stat-dot" style="background:var(--confirmed);"></span>Confirmados</div>
+      </div>
+      <div class="stat-card" id="stat-enviado" onclick="filterStatus('enviado')">
+        <div class="stat-count" style="color:var(--shipped);" id="cnt-enviado">0</div>
+        <div class="stat-label"><span class="stat-dot" style="background:var(--shipped);"></span>Enviados</div>
+      </div>
+      <div class="stat-card" id="stat-novedad" onclick="filterStatus('novedad')">
+        <div class="stat-count" style="color:var(--issue);" id="cnt-novedad">0</div>
+        <div class="stat-label"><span class="stat-dot" style="background:var(--issue);"></span>Novedad</div>
+      </div>
+      <div class="stat-card" id="stat-entregado" onclick="filterStatus('entregado')">
+        <div class="stat-count" style="color:var(--delivered);" id="cnt-entregado">0</div>
+        <div class="stat-label"><span class="stat-dot" style="background:var(--delivered);"></span>Entregados</div>
+      </div>
+      <div class="stat-card" id="stat-anulado" onclick="filterStatus('anulado')">
+        <div class="stat-count" style="color:#6B7280;" id="cnt-anulado">0</div>
+        <div class="stat-label"><span class="stat-dot" style="background:#6B7280;"></span>Anulados</div>
+      </div>
+      <div class="stat-card" id="stat-cancelado" onclick="filterStatus('cancelado')">
+        <div class="stat-count" style="color:#9D174D;" id="cnt-cancelado">0</div>
+        <div class="stat-label"><span class="stat-dot" style="background:#9D174D;"></span>Cancelados</div>
+      </div>
+      <div class="stat-card" id="stat-subido" onclick="filterStatus('subido')">
+        <div class="stat-count" style="color:var(--uploaded);" id="cnt-subido">0</div>
+        <div class="stat-label"><span class="stat-dot" style="background:var(--uploaded);"></span>Subidos</div>
+      </div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <input type="text" class="search-input" id="search-input" placeholder="Buscar por nombre, teléfono o ciudad..." oninput="renderTable()"/>
+      <button class="refresh-btn" onclick="loadOrders()">↺ Actualizar</button>
+      <button class="new-order-btn" onclick="openNewOrderModal()">＋ Nuevo pedido</button>
+      <span class="orders-count" id="orders-count"></span>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <div id="table-loading" class="loading">Cargando pedidos...</div>
+      <table id="orders-table" style="display:none;">
+        <colgroup>
+          <col style="width:40px"/>
+          <col style="width:120px"/>
+          <col style="width:85px"/>
+          <col style="width:120px"/>
+          <col style="width:100px"/>
+          <col style="width:90px"/>
+          <col style="width:180px"/>
+          <col style="width:95px"/>
+          <col style="width:120px"/>
+          <col style="width:85px"/>
+        </colgroup>
+        <thead>
+          <tr>
+            <th>#</th><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Teléfono</th><th>Ciudad</th><th>Productos</th><th>Total</th><th>Estado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="orders-tbody"></tbody>
+      </table>
+      <div id="empty-state" class="empty-state" style="display:none;">
+        <div class="empty-state-icon">📦</div>
+        <div class="empty-state-title">Sin pedidos</div>
+        <p>Los nuevos pedidos aparecerán aquí en tiempo real.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DRAWER -->
+<div class="drawer-overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div>
+      <div class="drawer-title" id="d-name"></div>
+      <div class="drawer-date" id="d-date"></div>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-section">
+      <div class="drawer-section-title" style="display:flex;justify-content:space-between;align-items:center;">
+        Datos del cliente
+        <button onclick="toggleEditMode()" id="edit-toggle-btn" style="background:#F3F4F6;border:1px solid #E5E7EB;color:#374151;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:5px;letter-spacing:1px;text-transform:uppercase;">✏️ Editar</button>
+      </div>
+      <!-- VIEW MODE -->
+      <div id="customer-view">
+        <div class="drawer-row"><span class="drawer-row-label">Nombre</span><span class="drawer-row-value" id="d-name-view"></span></div>
+        <div class="drawer-row"><span class="drawer-row-label">Teléfono</span><span class="drawer-row-value" id="d-phone"></span></div>
+        <div class="drawer-row"><span class="drawer-row-label">Ciudad</span><span class="drawer-row-value" id="d-city"></span></div>
+        <div class="drawer-row"><span class="drawer-row-label">Dirección</span><span class="drawer-row-value" id="d-address"></span></div>
+      </div>
+      <!-- EDIT MODE -->
+      <div id="customer-edit" style="display:none;">
+        <label class="form-lbl">Nombre completo</label>
+        <input id="edit-name" class="login-input" type="text" style="margin-bottom:12px;"/>
+        <label class="form-lbl">Teléfono / WhatsApp</label>
+        <input id="edit-phone" class="login-input" type="tel" style="margin-bottom:12px;"/>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <label class="form-lbl">Ciudad</label>
+            <input id="edit-city" class="login-input" type="text" style="margin-bottom:12px;"/>
+          </div>
+          <div>
+            <label class="form-lbl">Dirección</label>
+            <input id="edit-address" class="login-input" type="text" style="margin-bottom:12px;"/>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button onclick="saveCustomerData()" style="flex:1;padding:11px;background:var(--gold);border:none;color:#000;font-size:13px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;">Guardar cambios</button>
+          <button onclick="toggleEditMode()" style="padding:11px 16px;background:#F3F4F6;border:1px solid #E5E7EB;color:#374151;font-size:13px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;">Cancelar</button>
+        </div>
+        <div id="edit-success" style="display:none;font-size:13px;color:#16A34A;font-weight:600;text-align:center;margin-top:8px;">✓ Datos actualizados</div>
+      </div>
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-title" style="display:flex;justify-content:space-between;align-items:center;">
+        Productos pedidos
+        <button onclick="toggleEditProducts()" id="edit-products-btn" style="background:#F3F4F6;border:1px solid #E5E7EB;color:#374151;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:5px;letter-spacing:1px;text-transform:uppercase;">✏️ Editar</button>
+      </div>
+      <!-- VIEW MODE -->
+      <div id="products-view">
+        <div class="products-list" id="d-products"></div>
+        <div class="drawer-total"><span>Total contra entrega</span><span id="d-total"></span></div>
+      </div>
+      <!-- EDIT MODE -->
+      <div id="products-edit" style="display:none;">
+        <div id="edit-products-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;"></div>
+        <button onclick="addProductLine()" style="background:#F9FAFB;border:2px dashed #E5E7EB;color:#6B7280;padding:10px;width:100%;font-size:13px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;margin-bottom:12px;">+ Agregar producto</button>
+        <div style="background:#FFFBEB;border:2px solid var(--gold);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <span style="font-size:14px;font-weight:700;color:#111;">Total</span>
+          <span id="edit-total-display" style="font-size:22px;font-weight:800;color:var(--gold-dark);">$0</span>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button onclick="saveProductsData()" style="flex:1;padding:11px;background:var(--gold);border:none;color:#000;font-size:13px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;">Guardar cambios</button>
+          <button onclick="toggleEditProducts()" style="padding:11px 16px;background:#F3F4F6;border:1px solid #E5E7EB;color:#374151;font-size:13px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;">Cancelar</button>
+        </div>
+        <div id="edit-products-success" style="display:none;font-size:13px;color:#16A34A;font-weight:600;text-align:center;margin-top:8px;">✓ Pedido actualizado</div>
+      </div>
+    </div>
+    <div class="drawer-section" id="d-notes-section" style="display:none;">
+      <div class="drawer-section-title">Nota del cliente</div>
+      <p style="font-size:13px;color:#555;font-style:italic;line-height:1.7;" id="d-customer-notes"></p>
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-title">Gestión del pedido</div>
+      <label class="form-lbl">Estado</label>
+      <select class="status-select" id="d-status">
+        <option value="pendiente">Pendiente</option>
+        <option value="confirmado">Confirmado</option>
+        <option value="enviado">Enviado</option>
+        <option value="subido">Subido</option>
+        <option value="novedad">Novedad</option>
+        <option value="entregado">Entregado</option>
+        <option value="anulado">Anulado</option>
+        <option value="cancelado">Cancelado</option>
+      </select>
+      <label class="form-lbl">Notas internas</label>
+      <textarea class="notes-textarea" id="d-notes" placeholder="Tracking, observaciones, comentarios..."></textarea>
+      <button class="save-btn" id="save-btn" onclick="saveOrder()">Guardar cambios</button>
+      <div class="save-success" id="save-success">✓ Cambios guardados</div>
+      <a class="whatsapp-btn" id="d-whatsapp" href="#" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Contactar por WhatsApp
+      </a>
+      <button class="delete-order-btn" onclick="confirmDelete()">🗑️ Eliminar este pedido</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEW ORDER MODAL -->
+<div class="modal-overlay" id="new-order-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-header-title">Nuevo pedido manual</div>
+      <button class="modal-close" onclick="closeNewOrderModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section-title">Datos del cliente</div>
+      <label class="form-lbl">Nombre completo *</label>
+      <input id="no-name" class="login-input" type="text" placeholder="Ej: María García" style="margin-bottom:12px;"/>
+      <div class="modal-grid2">
+        <div>
+          <label class="form-lbl">Teléfono / WhatsApp *</label>
+          <input id="no-phone" class="login-input" type="tel" placeholder="3001234567" style="margin-bottom:12px;"/>
+        </div>
+        <div>
+          <label class="form-lbl">Ciudad *</label>
+          <input id="no-city" class="login-input" type="text" placeholder="Bogotá" style="margin-bottom:12px;"/>
+        </div>
+      </div>
+      <label class="form-lbl">Dirección de entrega *</label>
+      <input id="no-address" class="login-input" type="text" placeholder="Calle 123 # 45-67, Apto 8" style="margin-bottom:12px;"/>
+      <label class="form-lbl">Nota del cliente (opcional)</label>
+      <textarea id="no-customer-note" class="notes-textarea" placeholder="Instrucciones especiales, referencias..." style="min-height:60px;margin-bottom:4px;"></textarea>
+
+      <div class="modal-section-title">Productos</div>
+      <div id="no-products-list"></div>
+      <button onclick="addNewOrderProduct()" style="background:#F9FAFB;border:2px dashed #E5E7EB;color:#6B7280;padding:10px;width:100%;font-size:13px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;margin-bottom:12px;">+ Agregar producto</button>
+      <div class="modal-total-box">
+        <span style="font-size:14px;font-weight:700;color:#111;">Total contra entrega</span>
+        <span id="no-total-display" style="font-size:22px;font-weight:800;color:var(--gold-dark);">$0</span>
+      </div>
+
+      <div class="modal-section-title">Estado inicial</div>
+      <select id="no-status" class="status-select">
+        <option value="pendiente">⏳ Pendiente</option>
+        <option value="confirmado">✓ Confirmado</option>
+        <option value="enviado">🚚 Enviado</option>
+        <option value="subido">📤 Subido</option>
+      </select>
+      <label class="form-lbl">Notas internas (opcional)</label>
+      <textarea id="no-notes" class="notes-textarea" placeholder="Tracking, observaciones..." style="min-height:60px;"></textarea>
+
+      <button class="create-order-btn" id="create-order-btn" onclick="createNewOrder()">Crear pedido</button>
+      <div class="modal-success" id="no-success">✓ Pedido creado exitosamente</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-title">¿Eliminar este pedido?</div>
+    <p class="confirm-text">Esta acción no se puede deshacer. El pedido de <strong id="confirm-name"></strong> será eliminado permanentemente del sistema.</p>
+    <div class="confirm-btns">
+      <button class="confirm-cancel" onclick="closeConfirm()">Cancelar</button>
+      <button class="confirm-delete" onclick="deleteOrder()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const {createClient} = supabase;
+const sb = createClient(
+  'https://jtjnzdbgelezdcdpipmv.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0am56ZGJnZWxlemRjZHBpcG12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4MjAyODAsImV4cCI6MjA5MjM5NjI4MH0.nOqPWAjnX9nCYveL4zOjFKugdcSL0zOeWsDdr8X9rME'
+);
+
+let allOrders=[], currentFilter='all', currentOrder=null;
+
+async function login(){
+  const email=document.getElementById('l-email').value.trim();
+  const pass=document.getElementById('l-password').value;
+  const errEl=document.getElementById('login-error');
+  errEl.style.display='none';
+  const {error}=await sb.auth.signInWithPassword({email,password:pass});
+  if(error){errEl.style.display='block';return;}
+  showDashboard(email);
+}
+
+async function logout(){
+  await sb.auth.signOut();
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+}
+
+function showDashboard(email){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+  document.getElementById('topbar-email').textContent=email;
+  loadOrders();
+  subscribeRealtime();
+}
+
+(async()=>{
+  const {data:{session}}=await sb.auth.getSession();
+  if(session) showDashboard(session.user.email);
+})();
+
+async function loadOrders(){
+  document.getElementById('table-loading').style.display='block';
+  document.getElementById('orders-table').style.display='none';
+  document.getElementById('empty-state').style.display='none';
+  const {data,error}=await sb.from('orders').select('*').order('created_at',{ascending:false});
+  if(error){console.error(error);return;}
+  allOrders=data||[];
+  updateStats();
+  renderTable();
+  document.getElementById('table-loading').style.display='none';
+}
+
+function subscribeRealtime(){
+  sb.channel('orders-changes')
+    .on('postgres_changes',{event:'*',schema:'public',table:'orders'},()=>loadOrders())
+    .subscribe();
+}
+
+function updateStats(){
+  const counts={all:allOrders.length,pendiente:0,confirmado:0,enviado:0,entregado:0,novedad:0,anulado:0,cancelado:0,subido:0};
+  allOrders.forEach(o=>{if(counts[o.status]!==undefined)counts[o.status]++;});
+  document.getElementById('cnt-all').textContent=counts.all;
+  document.getElementById('cnt-anulado').textContent=counts.anulado;
+  document.getElementById('cnt-cancelado').textContent=counts.cancelado;
+  document.getElementById('cnt-subido').textContent=counts.subido;
+  document.getElementById('cnt-pendiente').textContent=counts.pendiente;
+  document.getElementById('cnt-confirmado').textContent=counts.confirmado;
+  document.getElementById('cnt-enviado').textContent=counts.enviado;
+  document.getElementById('cnt-entregado').textContent=counts.entregado;
+  document.getElementById('cnt-novedad').textContent=counts.novedad;
+}
+
+function filterStatus(status){
+  currentFilter=status;
+  document.querySelectorAll('.stat-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('stat-'+status).classList.add('active');
+  renderTable();
+}
+
+function renderTable(){
+  const search=document.getElementById('search-input').value.toLowerCase();
+  let filtered=allOrders.filter(o=>{
+    const matchStatus=currentFilter==='all'||o.status===currentFilter;
+    const matchSearch=!search||o.customer_name?.toLowerCase().includes(search)||o.customer_phone?.includes(search)||o.customer_city?.toLowerCase().includes(search);
+    return matchStatus&&matchSearch;
+  });
+  document.getElementById('orders-count').textContent=filtered.length+' pedido'+(filtered.length!==1?'s':'');
+  if(!filtered.length){
+    document.getElementById('orders-table').style.display='none';
+    document.getElementById('empty-state').style.display='block';
+    return;
+  }
+  document.getElementById('orders-table').style.display='table';
+  document.getElementById('empty-state').style.display='none';
+  const tbody=document.getElementById('orders-tbody');
+  tbody.innerHTML=filtered.map(o=>{
+    const _dt=new Date(o.created_at);
+    const fecha=_dt.toLocaleDateString('es-CO',{day:'2-digit',month:'short',year:'numeric'});
+    const hora=_dt.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit',hour12:true});
+    const prods=Array.isArray(o.products)?o.products.map(p=>p.name).join(', '):'';
+    const shortProds=prods.length>36?prods.substring(0,36)+'...':prods;
+    const num=allOrders.length-allOrders.findIndex(x=>x.id===o.id);
+    return '<tr onclick="openDrawer(\''+o.id+'\')">'+
+      '<td style="color:#9CA3AF;font-size:12px;">#'+num+'</td>'+
+      '<td style="font-size:12px;color:#374151;font-weight:500;">'+fecha+'</td>'+
+      '<td style="font-size:12px;color:#6B7280;">'+hora+'</td>'+
+      '<td class="name">'+o.customer_name+'</td>'+
+      '<td>'+o.customer_phone+'</td>'+
+      '<td>'+o.customer_city+'</td>'+
+      '<td style="font-size:12px;max-width:180px;color:#6B7280;">'+shortProds+'</td>'+
+      '<td class="total">$'+(o.total_cop||0).toLocaleString('es-CO')+'</td>'+
+      '<td><span class="status-badge status-'+o.status+'">'+statusLabel(o.status)+'</span></td>'+
+      '<td><div class="td-actions" onclick="event.stopPropagation()">'+
+        '<button class="btn-delete" onclick="confirmDeleteById(\''+o.id+'\',\''+o.customer_name+'\')">Eliminar</button>'+
+      '</div></td>'+
+    '</tr>';
+  }).join('');
+}
+
+function statusLabel(s){
+  return{pendiente:'⏳ Pendiente',confirmado:'✓ Confirmado',enviado:'🚚 Enviado',subido:'📤 Subido',entregado:'✅ Entregado',novedad:'⚠️ Novedad',anulado:'✗ Anulado',cancelado:'✗ Cancelado'}[s]||s;
+}
+
+function openDrawer(id){
+  currentOrder=allOrders.find(o=>o.id===id);
+  if(!currentOrder)return;
+  const o=currentOrder;
+  const date=new Date(o.created_at).toLocaleString('es-CO',{dateStyle:'long',timeStyle:'short'});
+  document.getElementById('d-name').textContent=o.customer_name;
+  document.getElementById('d-name-view').textContent=o.customer_name;
+  document.getElementById('d-date').textContent=date;
+  document.getElementById('d-phone').textContent=o.customer_phone;
+  document.getElementById('d-city').textContent=o.customer_city;
+  document.getElementById('d-address').textContent=o.customer_address;
+  document.getElementById('d-total').textContent='$'+(o.total_cop||0).toLocaleString('es-CO');
+  document.getElementById('d-status').value=o.status;
+  document.getElementById('d-notes').value=o.notes||'';
+  document.getElementById('save-success').style.display='none';
+  const prods=Array.isArray(o.products)?o.products:[];
+  document.getElementById('d-products').innerHTML=prods.map(p=>
+    '<div class="product-line"><span class="product-line-name">'+(p.qty?p.qty+'× ':'')+p.name+'</span><span class="product-line-price">$'+(p.price||0).toLocaleString('es-CO')+'</span></div>'
+  ).join('');
+  if(o.notes){document.getElementById('d-notes-section').style.display='block';document.getElementById('d-customer-notes').textContent=o.notes;}
+  else{document.getElementById('d-notes-section').style.display='none';}
+  const prodLines=(Array.isArray(o.products)?o.products:[]).map(p=>(p.qty?p.qty+'× ':'')+p.name+' — $'+(p.price||0).toLocaleString('es-CO')).join('\n');
+  const msg=encodeURIComponent(
+'Hola '+o.customer_name+', te escribimos del equipo de *Elixer Colombia*.\n\n'+
+'Queremos confirmar contigo los datos de tu pedido:\n\n'+
+'*Nombre:* '+o.customer_name+'\n'+'*Tel\u00e9fono:* '+o.customer_phone+'\n'+'*Direcci\u00f3n:* '+(o.customer_address||'-')+'\n'+
+'*Ciudad:* '+(o.customer_city||'-')+'\n\n'+
+'*Pedido:*\n'+prodLines+'\n\n'+
+'*Total: $'+(o.total_cop||0).toLocaleString('es-CO')+' COP*\n\n'+
+'Por favor conf\u00edrmanos que los datos est\u00e1n correctos para proceder con el env\u00edo.'
+  );
+  document.getElementById('d-whatsapp').href='https://wa.me/57'+o.customer_phone.replace(/\D/g,'')+'?text='+msg;
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+}
+
+function closeDrawer(){
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  currentOrder=null;
+}
+
+async function saveOrder(){
+  if(!currentOrder)return;
+  const btn=document.getElementById('save-btn');
+  btn.disabled=true;btn.textContent='Guardando...';
+  const{error}=await sb.from('orders').update({
+    status:document.getElementById('d-status').value,
+    notes:document.getElementById('d-notes').value||null
+  }).eq('id',currentOrder.id);
+  btn.disabled=false;btn.textContent='Guardar cambios';
+  if(error){alert('Error al guardar: '+error.message);}
+  else{document.getElementById('save-success').style.display='block';await loadOrders();}
+}
+
+// DELETE
+let deleteTargetId=null;
+
+function confirmDelete(){
+  if(!currentOrder)return;
+  deleteTargetId=currentOrder.id;
+  document.getElementById('confirm-name').textContent=currentOrder.customer_name;
+  document.getElementById('confirm-overlay').classList.add('open');
+}
+
+function confirmDeleteById(id,name){
+  deleteTargetId=id;
+  document.getElementById('confirm-name').textContent=name;
+  document.getElementById('confirm-overlay').classList.add('open');
+}
+
+function closeConfirm(){
+  document.getElementById('confirm-overlay').classList.remove('open');
+  deleteTargetId=null;
+}
+
+async function deleteOrder(){
+  if(!deleteTargetId)return;
+  const btn=document.querySelector('.confirm-delete');
+  btn.disabled=true;btn.textContent='Eliminando...';
+  
+  // Use authenticated session for delete
+  const {data:{session}} = await sb.auth.getSession();
+  if(!session){
+    alert('Sesión expirada. Por favor recarga e inicia sesión de nuevo.');
+    btn.disabled=false;btn.textContent='Eliminar';
+    closeConfirm();
+    return;
+  }
+  
+  const {error} = await sb.from('orders').delete().eq('id', deleteTargetId);
+  btn.disabled=false;btn.textContent='Eliminar';
+  
+  if(error){
+    console.error('Delete error:', error);
+    alert('Error al eliminar: ' + error.message + '. Verifica los permisos en Supabase.');
+  } else {
+    closeConfirm();
+    closeDrawer();
+    await loadOrders();
+  }
+}
+
+function toggleEditProducts(){
+  const view = document.getElementById('products-view');
+  const edit = document.getElementById('products-edit');
+  const btn = document.getElementById('edit-products-btn');
+  const isEditing = edit.style.display !== 'none';
+  if(isEditing){
+    view.style.display='block';
+    edit.style.display='none';
+    btn.textContent='✏️ Editar';
+    document.getElementById('edit-products-success').style.display='none';
+  } else {
+    populateProductEdit();
+    view.style.display='none';
+    edit.style.display='block';
+    btn.textContent='← Cancelar';
+  }
+}
+
+function populateProductEdit(){
+  const list = document.getElementById('edit-products-list');
+  list.innerHTML='';
+  const prods = Array.isArray(currentOrder.products) ? currentOrder.products : [];
+  prods.forEach((p,i) => {
+    addProductLine(p.name, p.price);
+  });
+  updateEditTotal();
+}
+
+function addProductLine(name='', price=0){
+  const list = document.getElementById('edit-products-list');
+  const div = document.createElement('div');
+  div.className='edit-product-line';
+  div.innerHTML=`
+    <input class="edit-prod-name" type="text" placeholder="Nombre del producto" value="${name}" oninput="updateEditTotal()"/>
+    <input class="edit-prod-price" type="number" placeholder="Precio" value="${price}" oninput="updateEditTotal()"/>
+    <button class="edit-prod-del" onclick="this.parentElement.remove();updateEditTotal()">✕</button>
+  `;
+  list.appendChild(div);
+  updateEditTotal();
+}
+
+function updateEditTotal(){
+  const prices = [...document.querySelectorAll('.edit-prod-price')].map(i=>parseInt(i.value)||0);
+  const total = prices.reduce((a,b)=>a+b,0);
+  document.getElementById('edit-total-display').textContent = '$'+total.toLocaleString('es-CO');
+}
+
+async function saveProductsData(){
+  if(!currentOrder) return;
+  const lines = document.querySelectorAll('.edit-product-line');
+  const products = [];
+  let total = 0;
+  lines.forEach(line => {
+    const name = line.querySelector('.edit-prod-name').value.trim();
+    const price = parseInt(line.querySelector('.edit-prod-price').value) || 0;
+    if(name){
+      products.push({name, price, qty:1});
+      total += price;
+    }
+  });
+  if(!products.length){alert('Agrega al menos un producto.');return;}
+  const btn = document.querySelector('#products-edit button');
+  btn.disabled=true; btn.textContent='Guardando...';
+  const {error} = await sb.from('orders').update({products, total_cop:total}).eq('id',currentOrder.id);
+  btn.disabled=false; btn.textContent='Guardar cambios';
+  if(error){alert('Error: '+error.message);return;}
+  currentOrder.products = products;
+  currentOrder.total_cop = total;
+  // Refresh products view
+  const prods = Array.isArray(currentOrder.products)?currentOrder.products:[];
+  document.getElementById('d-products').innerHTML = prods.map(p=>
+    `<div class="product-line"><span class="product-line-name">${p.qty?p.qty+'× ':''} ${p.name}</span><span class="product-line-price">$${(p.price||0).toLocaleString('es-CO')}</span></div>`
+  ).join('');
+  document.getElementById('d-total').textContent = '$'+total.toLocaleString('es-CO');
+  document.getElementById('edit-products-success').style.display='block';
+  setTimeout(()=>{toggleEditProducts();loadOrders();},1200);
+}
+
+function toggleEditMode(){
+  const view = document.getElementById('customer-view');
+  const edit = document.getElementById('customer-edit');
+  const btn = document.getElementById('edit-toggle-btn');
+  const isEditing = edit.style.display !== 'none';
+  if(isEditing){
+    view.style.display='block';
+    edit.style.display='none';
+    btn.textContent='✏️ Editar';
+    document.getElementById('edit-success').style.display='none';
+  } else {
+    // Populate edit fields
+    document.getElementById('edit-name').value = currentOrder.customer_name || '';
+    document.getElementById('edit-phone').value = currentOrder.customer_phone || '';
+    document.getElementById('edit-city').value = currentOrder.customer_city || '';
+    document.getElementById('edit-address').value = currentOrder.customer_address || '';
+    view.style.display='none';
+    edit.style.display='block';
+    btn.textContent='← Cancelar';
+  }
+}
+
+async function saveCustomerData(){
+  if(!currentOrder) return;
+  const name = document.getElementById('edit-name').value.trim();
+  const phone = document.getElementById('edit-phone').value.trim();
+  const city = document.getElementById('edit-city').value.trim();
+  const address = document.getElementById('edit-address').value.trim();
+  if(!name||!phone||!city||!address){alert('Todos los campos son obligatorios.');return;}
+  const btn = document.querySelector('#customer-edit button');
+  btn.disabled=true; btn.textContent='Guardando...';
+  const {error} = await sb.from('orders').update({
+    customer_name: name,
+    customer_phone: phone,
+    customer_city: city,
+    customer_address: address
+  }).eq('id', currentOrder.id);
+  btn.disabled=false; btn.textContent='Guardar cambios';
+  if(error){alert('Error al guardar: '+error.message); return;}
+  // Update local state
+  currentOrder.customer_name = name;
+  currentOrder.customer_phone = phone;
+  currentOrder.customer_city = city;
+  currentOrder.customer_address = address;
+  // Update view fields
+  document.getElementById('d-name').textContent = name;
+  document.getElementById('d-name-view').textContent = name;
+  document.getElementById('d-phone').textContent = phone;
+  document.getElementById('d-city').textContent = city;
+  document.getElementById('d-address').textContent = address;
+  document.getElementById('edit-success').style.display='block';
+  setTimeout(()=>{
+    toggleEditMode();
+    loadOrders();
+  }, 1200);
+}
+
+// ===================== NEW ORDER MODAL =====================
+function openNewOrderModal(){
+  document.getElementById('no-name').value='';
+  document.getElementById('no-phone').value='';
+  document.getElementById('no-city').value='';
+  document.getElementById('no-address').value='';
+  document.getElementById('no-customer-note').value='';
+  document.getElementById('no-notes').value='';
+  document.getElementById('no-status').value='pendiente';
+  document.getElementById('no-products-list').innerHTML='';
+  document.getElementById('no-total-display').textContent='$0';
+  document.getElementById('no-success').style.display='none';
+  document.getElementById('create-order-btn').disabled=false;
+  document.getElementById('create-order-btn').textContent='Crear pedido';
+  addNewOrderProduct();
+  document.getElementById('new-order-overlay').classList.add('open');
+}
+
+function closeNewOrderModal(){
+  document.getElementById('new-order-overlay').classList.remove('open');
+}
+
+function addNewOrderProduct(name='', qty=1, price=0){
+  const list = document.getElementById('no-products-list');
+  const div = document.createElement('div');
+  div.className='new-prod-line';
+  div.innerHTML=`
+    <input class="new-prod-name" type="text" placeholder="Nombre del producto" value="${name}" oninput="updateNewOrderTotal()"/>
+    <input class="new-prod-qty" type="number" min="1" placeholder="Cant." value="${qty}" oninput="updateNewOrderTotal()"/>
+    <input class="new-prod-price" type="number" min="0" placeholder="Precio unit." value="${price||''}" oninput="updateNewOrderTotal()"/>
+    <button class="new-prod-del" onclick="this.parentElement.remove();updateNewOrderTotal()">✕</button>
+  `;
+  list.appendChild(div);
+  updateNewOrderTotal();
+}
+
+function updateNewOrderTotal(){
+  const lines = document.querySelectorAll('.new-prod-line');
+  let total = 0;
+  lines.forEach(line => {
+    const qty = parseInt(line.querySelector('.new-prod-qty').value) || 1;
+    const price = parseInt(line.querySelector('.new-prod-price').value) || 0;
+    total += qty * price;
+  });
+  document.getElementById('no-total-display').textContent = '$'+total.toLocaleString('es-CO');
+}
+
+async function createNewOrder(){
+  const name = document.getElementById('no-name').value.trim();
+  const phone = document.getElementById('no-phone').value.trim();
+  const city = document.getElementById('no-city').value.trim();
+  const address = document.getElementById('no-address').value.trim();
+  if(!name||!phone||!city||!address){alert('Por favor completa todos los campos obligatorios del cliente.');return;}
+
+  const lines = document.querySelectorAll('.new-prod-line');
+  const products = [];
+  let total = 0;
+  lines.forEach(line => {
+    const pname = line.querySelector('.new-prod-name').value.trim();
+    const qty = parseInt(line.querySelector('.new-prod-qty').value)||1;
+    const price = parseInt(line.querySelector('.new-prod-price').value)||0;
+    if(pname){ products.push({name:pname, qty, price}); total += qty*price; }
+  });
+  if(!products.length){alert('Agrega al menos un producto al pedido.');return;}
+
+  const btn = document.getElementById('create-order-btn');
+  btn.disabled=true; btn.textContent='Creando...';
+
+  const payload = {
+    customer_name: name,
+    customer_phone: phone,
+    customer_city: city,
+    customer_address: address,
+    products,
+    total_cop: total,
+    status: document.getElementById('no-status').value,
+    notes: document.getElementById('no-notes').value.trim() || null,
+    source: 'admin'
+  };
+
+  const customerNote = document.getElementById('no-customer-note').value.trim();
+  if(customerNote) payload.customer_note = customerNote;
+
+  const {error} = await sb.from('orders').insert([payload]);
+  btn.disabled=false; btn.textContent='Crear pedido';
+
+  if(error){
+    alert('Error al crear el pedido: '+error.message);
+    return;
+  }
+  document.getElementById('no-success').style.display='block';
+  await loadOrders();
+  setTimeout(()=>closeNewOrderModal(), 1500);
+}
+
+// Close modal clicking outside
+document.getElementById('new-order-overlay').addEventListener('click', function(e){
+  if(e.target===this) closeNewOrderModal();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kit Mágico Elixer — 3 Productos, 1 Transformación Completa</title>
+<meta name="description" content="El Kit Mágico Elixer reúne los 3 tratamientos más poderosos para transformar tu cabello. Proteína Capilar + Bomba de Frutas + Shampoo. Envío gratis, paga al recibir."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+<!-- Meta Pixel — Elixer -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1284056950349379');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1284056950349379&ev=PageView&noscript=1"/></noscript>
+
+<style>
+:root{
+  --gold:#C9A84C;--gold-light:#E8C96A;--gold-dark:#8B6914;
+  --orange:#F5A623;--black:#080808;--black-soft:#111;--black-card:#1a1a1a;
+  --cream:#F5EDD6;--white:#fff;--gray:#888;--gray-light:#ccc;
+  --green:#25D166;--success:#4CAF82;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#fff;color:#222;font-family:'Montserrat',sans-serif;font-weight:400;line-height:1.7;overflow-x:hidden;}
+
+/* BANNER */
+.top-banner{background:var(--black);padding:10px;text-align:center;font-size:13px;font-weight:600;color:var(--gold);letter-spacing:1px;}
+.top-banner span{color:#fff;}
+
+/* NAV */
+nav{background:#fff;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.08);}
+.nav-logo img{height:40px;width:auto;}
+.nav-cta-btn{background:var(--gold);color:#000;padding:12px 28px;font-size:13px;font-weight:700;text-decoration:none;border-radius:6px;transition:all 0.3s;}
+.nav-cta-btn:hover{background:var(--gold-light);transform:translateY(-1px);}
+
+/* HERO */
+#hero{background:var(--black);min-height:92vh;display:flex;align-items:center;padding:60px 60px;gap:60px;position:relative;overflow:hidden;}
+.hero-bg-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,0.1),transparent 70%);border-radius:50%;right:-100px;top:50%;transform:translateY(-50%);pointer-events:none;}
+.hero-left{flex:1;max-width:580px;position:relative;z-index:2;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;border-radius:4px;margin-bottom:28px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,72px);color:#fff;line-height:1.05;margin-bottom:20px;}
+.hero-title strong{color:var(--gold);font-style:italic;}
+.hero-subtitle{font-size:16px;color:var(--gray-light);line-height:1.85;margin-bottom:32px;max-width:500px;}
+
+/* PRECIO HERO */
+.hero-price-block{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:24px 28px;margin-bottom:32px;display:inline-block;min-width:280px;}
+.hero-price-old{font-size:15px;color:var(--gray);text-decoration:line-through;margin-bottom:4px;}
+.hero-price-old span{color:var(--gray);}
+.hero-price-new{font-size:48px;font-weight:800;color:var(--gold);line-height:1;}
+.hero-price-saving{background:var(--gold);color:#000;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;display:inline-block;margin-top:8px;letter-spacing:1px;}
+.hero-price-note{font-size:12px;color:var(--gray);margin-top:8px;}
+
+.hero-checks{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.hero-check{display:flex;align-items:center;gap:12px;font-size:14px;color:#fff;}
+.check-ico{width:24px;height:24px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#000;flex-shrink:0;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-hero-main{background:var(--gold);color:#000;border:none;padding:18px 44px;font-size:15px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.3s;font-family:'Montserrat',sans-serif;border-radius:8px;box-shadow:0 8px 32px rgba(201,168,76,0.4);}
+.btn-hero-main:hover{background:var(--gold-light);transform:translateY(-3px);box-shadow:0 12px 40px rgba(201,168,76,0.5);}
+.btn-hero-sec{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.2);padding:18px 36px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.3s;font-family:'Montserrat',sans-serif;border-radius:8px;}
+.btn-hero-sec:hover{border-color:var(--gold);color:var(--gold);}
+.hero-trust{display:flex;gap:24px;margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;}
+.trust-pill{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray-light);}
+.trust-pill-ico{font-size:16px;}
+
+/* HERO PRODUCTS */
+.hero-right{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;position:relative;z-index:2;}
+.hero-products-wrap{display:flex;align-items:flex-end;justify-content:center;gap:16px;width:100%;}
+.hero-product{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.hero-product img{object-fit:contain;filter:drop-shadow(0 16px 40px rgba(201,168,76,0.2));transition:transform 0.3s;}
+.hero-product:hover img{transform:translateY(-8px);}
+.hero-product-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);text-align:center;}
+.hero-product.main img{max-height:280px;}
+.hero-product.side img{max-height:220px;}
+.hero-kit-badge{background:var(--gold);color:#000;font-size:13px;font-weight:800;padding:12px 28px;border-radius:8px;text-align:center;letter-spacing:1px;text-transform:uppercase;margin-top:8px;}
+
+/* WHAT IS */
+#que-es{background:#f8f6f0;padding:80px 60px;}
+.que-es-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto;}
+.section-pretitle{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block;}
+.section-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,52px);color:#111;line-height:1.15;margin-bottom:16px;}
+.section-p{font-size:15px;color:#555;line-height:1.85;margin-bottom:24px;}
+.products-stack{display:flex;flex-direction:column;gap:16px;}
+.product-row{background:#fff;border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 2px 16px rgba(0,0,0,0.06);transition:transform 0.2s;}
+.product-row:hover{transform:translateX(4px);}
+.product-row-img{width:80px;height:80px;object-fit:contain;flex-shrink:0;}
+.product-row-name{font-size:15px;font-weight:700;color:#111;margin-bottom:4px;}
+.product-row-desc{font-size:13px;color:#666;line-height:1.6;}
+.product-row-price{font-size:14px;color:#999;text-decoration:line-through;margin-left:auto;flex-shrink:0;text-align:right;}
+.product-row-price span{display:block;font-size:12px;color:#bbb;}
+
+/* BENEFITS */
+#beneficios{background:#fff;padding:80px 60px;}
+.benefits-header{text-align:center;margin-bottom:56px;}
+.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto;}
+.benefit-card{background:#f8f6f0;border-radius:12px;padding:32px 24px;text-align:center;transition:all 0.3s;}
+.benefit-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,0.08);}
+.benefit-ico{font-size:40px;margin-bottom:16px;display:block;}
+.benefit-title{font-size:16px;font-weight:700;color:#111;margin-bottom:10px;}
+.benefit-desc{font-size:13px;color:#666;line-height:1.7;}
+
+/* COMPARISON */
+#comparacion{background:var(--black);padding:80px 60px;}
+.comp-header{text-align:center;margin-bottom:56px;}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;max-width:900px;margin:0 auto;}
+.comp-col{padding:40px;}
+.comp-col.bad{background:#1a1a1a;border-radius:12px 0 0 12px;}
+.comp-col.good{background:rgba(201,168,76,0.1);border:2px solid var(--gold);border-radius:0 12px 12px 0;}
+.comp-col-title{font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:10px;}
+.comp-col.bad .comp-col-title{color:#e05252;}
+.comp-col.good .comp-col-title{color:var(--gold);}
+.comp-items{display:flex;flex-direction:column;gap:14px;}
+.comp-item{display:flex;align-items:flex-start;gap:12px;font-size:14px;}
+.comp-col.bad .comp-item{color:var(--gray-light);}
+.comp-col.good .comp-item{color:#fff;}
+.comp-ico{flex-shrink:0;font-size:16px;margin-top:1px;}
+
+/* HOW TO */
+#como-usar{background:#f8f6f0;padding:80px 60px;}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;max-width:1100px;margin:40px auto 0;}
+.steps{display:flex;flex-direction:column;gap:0;}
+.step{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid #e8e4dc;}
+.step:last-child{border-bottom:none;}
+.step-num{width:44px;height:44px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#000;flex-shrink:0;}
+.step-title{font-size:15px;font-weight:700;color:#111;margin-bottom:4px;}
+.step-desc{font-size:13px;color:#666;line-height:1.7;}
+.step-product{display:inline-block;font-size:11px;font-weight:700;color:var(--gold);background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);padding:3px 10px;border-radius:20px;margin-top:6px;}
+.how-tip{background:var(--black);border-radius:12px;padding:32px;}
+.how-tip-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:16px;letter-spacing:1px;text-transform:uppercase;}
+.how-tip-items{display:flex;flex-direction:column;gap:12px;}
+.how-tip-item{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--gray-light);line-height:1.7;}
+.how-tip-ico{color:var(--gold);flex-shrink:0;font-size:16px;}
+
+/* ADDONS */
+#complementos{background:#fff;padding:80px 60px;}
+.addons-intro{text-align:center;margin-bottom:56px;}
+.addons-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
+.addon-card{border:2px solid #f0ece0;border-radius:16px;overflow:hidden;transition:all 0.3s;cursor:pointer;}
+.addon-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,0.1);}
+.addon-card.selected{border-color:var(--gold);background:rgba(201,168,76,0.04);}
+.addon-img-wrap{background:#f8f6f0;padding:28px;text-align:center;height:180px;display:flex;align-items:center;justify-content:center;}
+.addon-img-wrap img{max-height:140px;max-width:100%;object-fit:contain;}
+.addon-body{padding:20px 24px;}
+.addon-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block;}
+.addon-name{font-size:16px;font-weight:700;color:#111;margin-bottom:8px;}
+.addon-desc{font-size:13px;color:#666;line-height:1.7;margin-bottom:14px;}
+.addon-why{background:#f8f6f0;border-radius:6px;padding:10px 12px;font-size:12px;color:#555;line-height:1.6;margin-bottom:14px;}
+.addon-why strong{color:#111;}
+.addon-price{font-size:20px;font-weight:800;color:var(--gold);}
+.addon-check-btn{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;font-weight:600;color:var(--gold);cursor:pointer;}
+.addon-checkbox{width:20px;height:20px;border:2px solid var(--gold);border-radius:4px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;}
+.addon-card.selected .addon-checkbox{background:var(--gold);}
+.addon-card.selected .addon-checkbox::after{content:'✓';font-size:12px;font-weight:700;color:#000;}
+
+/* TESTIMONIOS */
+#testimonios{background:#f8f6f0;padding:80px 60px;}
+.testimonios-header{text-align:center;margin-bottom:56px;}
+.testimonios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;}
+.testi-card{background:#fff;border-radius:12px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,0.06);}
+.testi-stars{font-size:20px;color:var(--gold);margin-bottom:12px;letter-spacing:2px;}
+.testi-text{font-size:14px;color:#444;line-height:1.8;margin-bottom:20px;font-style:italic;}
+.testi-result{background:rgba(201,168,76,0.08);border-left:3px solid var(--gold);padding:10px 14px;font-size:13px;font-weight:700;color:#111;margin-bottom:20px;border-radius:0 6px 6px 0;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;background:var(--gold);color:#000;flex-shrink:0;}
+.testi-name{font-size:14px;font-weight:700;color:#111;}
+.testi-loc{font-size:12px;color:#888;}
+.testi-kit{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+/* GUARANTEE */
+#garantia{background:var(--black);padding:60px;}
+.garantia-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;max-width:1100px;margin:0 auto;}
+.garantia-item{background:var(--black-card);padding:32px 24px;text-align:center;border:1px solid rgba(201,168,76,0.08);}
+.garantia-ico{font-size:36px;margin-bottom:16px;display:block;}
+.garantia-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;}
+.garantia-desc{font-size:13px;color:var(--gray);line-height:1.7;}
+
+/* ORDER SECTION */
+#pedido{background:#f8f6f0;padding:80px 60px;}
+.order-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.order-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);color:#111;margin-bottom:16px;}
+.order-left p{font-size:15px;color:#555;line-height:1.85;margin-bottom:32px;}
+.order-summary-preview{background:#fff;border-radius:12px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,0.06);margin-bottom:24px;}
+.osp-title{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.osp-line{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0ece0;font-size:14px;}
+.osp-line:last-child{border-bottom:none;}
+.osp-line-name{color:#333;}
+.osp-line-price-old{color:#bbb;text-decoration:line-through;font-size:13px;}
+.osp-total{display:flex;justify-content:space-between;align-items:center;padding:16px;background:rgba(201,168,76,0.08);border-radius:8px;margin-top:12px;}
+.osp-total-label{font-size:14px;font-weight:700;color:#111;}
+.osp-total-price{font-size:28px;font-weight:800;color:var(--gold);}
+.osp-saving{text-align:center;margin-top:8px;font-size:13px;color:var(--success);font-weight:600;}
+.order-guarantees{display:flex;flex-direction:column;gap:12px;}
+.order-g{display:flex;gap:12px;align-items:flex-start;background:#fff;padding:14px 18px;border-radius:8px;box-shadow:0 1px 8px rgba(0,0,0,0.05);}
+.order-g-ico{font-size:20px;flex-shrink:0;}
+.order-g-title{font-size:14px;font-weight:700;color:#111;margin-bottom:2px;}
+.order-g-desc{font-size:12px;color:#666;line-height:1.6;}
+
+/* FORM */
+.order-form-wrap{background:#fff;border-radius:16px;padding:40px;box-shadow:0 4px 32px rgba(0,0,0,0.1);position:relative;}
+.order-form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-dark));border-radius:16px 16px 0 0;}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:#111;margin-bottom:8px;}
+.form-subtitle{font-size:14px;color:#888;margin-bottom:28px;}
+.form-lbl{display:block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#666;margin-bottom:6px;}
+.form-inp,.form-sel,.form-ta{width:100%;background:#f8f8f8;border:2px solid #eee;color:#222;padding:14px 16px;font-size:14px;font-family:'Montserrat',sans-serif;outline:none;border-radius:8px;margin-bottom:16px;transition:border-color 0.2s;appearance:none;}
+.form-inp:focus,.form-sel:focus,.form-ta:focus{border-color:var(--gold);background:#fff;}
+.form-ta{resize:vertical;min-height:70px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-sel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;cursor:pointer;}
+.addon-checks-form{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.addon-check-item{display:flex;align-items:center;gap:10px;cursor:pointer;background:#f8f8f8;border:2px solid #eee;border-radius:8px;padding:12px 16px;transition:all 0.2s;}
+.addon-check-item:hover{border-color:var(--gold);}
+.addon-check-item input{display:none;}
+.addon-check-box{width:22px;height:22px;border:2px solid #ddd;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+.addon-check-item input:checked ~ .addon-check-content .addon-check-box{background:var(--gold);border-color:var(--gold);}
+.addon-check-item.checked{border-color:var(--gold);background:rgba(201,168,76,0.04);}
+.addon-check-item.checked .addon-check-box{background:var(--gold);border-color:var(--gold);}
+.addon-check-item.checked .addon-check-box::after{content:'✓';font-size:12px;font-weight:700;color:#000;}
+.addon-check-lbl{font-size:13px;color:#333;flex:1;}
+.addon-check-price{font-size:13px;font-weight:700;color:var(--gold);margin-left:auto;}
+.order-summary-live{background:#f8f6f0;border:2px solid rgba(201,168,76,0.2);border-radius:8px;padding:16px;margin-bottom:16px;display:none;}
+.order-summary-live.show{display:block;}
+.osl-head{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.osl-line{display:flex;justify-content:space-between;font-size:13px;color:#444;margin-bottom:5px;}
+.osl-total{display:flex;justify-content:space-between;font-size:18px;font-weight:800;color:#111;border-top:2px solid #e8e4dc;padding-top:10px;margin-top:6px;}
+.osl-total span:last-child{color:var(--gold);}
+.osl-free{font-size:12px;color:var(--success);font-weight:600;margin-top:6px;}
+.form-submit{width:100%;padding:20px;font-size:16px;font-weight:800;cursor:pointer;border:none;border-radius:8px;font-family:'Montserrat',sans-serif;background:var(--gold);color:#000;transition:all 0.3s;box-shadow:0 8px 32px rgba(201,168,76,0.35);}
+.form-submit:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,168,76,0.45);}
+.form-submit:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.form-note{font-size:12px;color:#888;text-align:center;margin-top:12px;line-height:1.7;}
+.form-err{display:none;background:#fef2f2;border:2px solid #fecaca;color:#e05252;padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:14px;}
+.form-err.show{display:block;}
+.wa-help{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;font-size:13px;color:#888;}
+.wa-help a{color:var(--green);font-weight:700;text-decoration:none;}
+
+/* FAQ */
+#faq{background:#fff;padding:80px 60px;}
+.faq-wrap{max-width:800px;margin:40px auto 0;}
+.faq-item{border-bottom:2px solid #f0ece0;}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:#111;cursor:pointer;display:flex;justify-content:space-between;gap:12px;font-family:'Montserrat',sans-serif;transition:color 0.2s;}
+.faq-q:hover{color:var(--gold);}
+.faq-ico{font-size:22px;color:var(--gold);flex-shrink:0;transition:transform 0.2s;}
+.faq-q.open .faq-ico{transform:rotate(45deg);}
+.faq-a{font-size:14px;color:#555;line-height:1.85;padding-bottom:20px;display:none;}
+.faq-a.open{display:block;}
+
+/* FOOTER */
+footer{background:var(--black);padding:48px 60px 40px;}
+.footer-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:20px;}
+.footer-logo img{height:44px;}
+.footer-links-row{display:flex;gap:24px;flex-wrap:wrap;}
+.footer-links-row a{font-size:13px;color:#666;text-decoration:none;transition:color 0.2s;}
+.footer-links-row a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid #222;padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:#555;}
+.footer-wa{display:flex;align-items:center;gap:8px;color:var(--green);font-size:13px;text-decoration:none;}
+
+/* FLOATING CTA */
+.floating-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--gold);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;z-index:200;box-shadow:0 -4px 24px rgba(0,0,0,0.12);transform:translateY(100%);transition:transform 0.4s ease;}
+.floating-bar.show{transform:translateY(0);}
+.floating-bar-left{display:flex;flex-direction:column;}
+.floating-bar-name{font-size:14px;font-weight:700;color:#111;}
+.floating-bar-price{font-size:20px;font-weight:800;color:var(--gold);}
+.floating-bar-btn{background:var(--gold);color:#000;border:none;padding:14px 32px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;transition:all 0.3s;text-decoration:none;white-space:nowrap;}
+.floating-bar-btn:hover{background:var(--gold-light);}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  #hero{flex-direction:column;padding:48px 28px;min-height:auto;}
+  .hero-right{width:100%;}
+  .hero-products-wrap{gap:12px;}
+  .hero-product.main img{max-height:220px;}
+  .hero-product.side img{max-height:170px;}
+  .que-es-grid,.how-grid,.order-wrap,.comp-grid{grid-template-columns:1fr;gap:36px;}
+  .benefits-grid,.addons-grid,.testimonios-grid,.garantia-grid{grid-template-columns:1fr 1fr;}
+  #que-es,#beneficios,#comparacion,#como-usar,#complementos,#testimonios,#garantia,#pedido,#faq{padding:60px 28px;}
+  footer{padding:40px 28px;}
+  nav{padding:14px 24px;}
+}
+@media(max-width:640px){
+  nav{padding:12px 16px;}
+  #hero{padding:36px 16px;}
+  .hero-products-wrap{gap:8px;}
+  .hero-product.main img{max-height:180px;}
+  .hero-product.side img{max-height:140px;}
+  .benefits-grid,.addons-grid,.garantia-grid{grid-template-columns:1fr;}
+  .testimonios-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .order-form-wrap{padding:28px 20px;}
+  #que-es,#beneficios,#comparacion,#como-usar,#complementos,#testimonios,#garantia,#pedido,#faq{padding:48px 16px;}
+  footer{padding:36px 16px 80px;}
+  .floating-bar{padding:12px 16px;}
+  .floating-bar-btn{padding:12px 20px;font-size:13px;}
+}
+
+/* ===== MODAL FORMULARIO ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-box{background:#fff;border-radius:16px;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;position:relative;transform:translateY(32px);transition:transform 0.3s;box-shadow:0 24px 80px rgba(0,0,0,0.35);}
+.modal-overlay.open .modal-box{transform:translateY(0);}
+.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-dark));border-radius:16px 16px 0 0;}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:24px 28px 0;}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:#111;line-height:1.2;}
+.modal-subtitle{font-size:13px;color:#888;margin-top:4px;}
+.modal-close{width:36px;height:36px;border-radius:50%;border:2px solid #eee;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:#666;transition:all 0.2s;flex-shrink:0;}
+.modal-close:hover{border-color:#ccc;color:#111;}
+.modal-body{padding:20px 28px 28px;}
+</style>
+</head>
+<body>
+
+<div class="top-banner"><span>Envío GRATIS</span> a todo Colombia — Paga cuando lo recibas 🚚</div>
+
+<nav>
+  <a href="/"><img src="logo%20Elixer.png" alt="Elixer" style="height:36px;width:auto;"/></a>
+  <a href="#" onclick="abrirModal();return false;" class="nav-cta-btn">Pedir ahora</a>
+</nav>
+
+<!-- HERO -->
+<!-- HERO AD IMAGE - ENCABEZADO COMPLETO -->
+<section style="width:100%;background:#080808;padding:0;margin:0;overflow:hidden;line-height:0;">
+  <a href="#" onclick="abrirModal();return false;" style="display:block;cursor:pointer;">
+    <img
+      src="hero_kit_ad.webp"
+      alt="Kit Mágico Elixer — Cabello más liso, brillante y saludable"
+      style="width:100%;height:auto;display:block;max-width:600px;margin:0 auto;"
+      loading="eager"
+    />
+  </a>
+</section>
+
+<section id="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">✦ Kit Mágico — 3 Productos</div>
+    <h1 class="hero-title">La transformación capilar<br>completa que tu cabello<br><strong>estaba esperando</strong></h1>
+    <p class="hero-subtitle">Limpia, hidrata y reconstruye tu cabello en profundidad con los 3 tratamientos naturales más potentes de Elixer — en un solo pedido, con envío gratis y pago al recibir.</p>
+    <div class="hero-price-block">
+      <div class="hero-price-old">Precio por separado: <span>$203.500</span></div>
+      <div class="hero-price-new">$157.000</div>
+      <div class="hero-price-saving">Ahorras $46.500 — 23% menos</div>
+      <div class="hero-price-note">Envío gratis · Pago contra entrega · Todo Colombia</div>
+    </div>
+    <div class="hero-checks">
+      <div class="hero-check"><div class="check-ico">✓</div>3 productos premium en un solo pedido</div>
+      <div class="hero-check"><div class="check-ico">✓</div>Resultados visibles desde la primera aplicación</div>
+      <div class="hero-check"><div class="check-ico">✓</div>100% natural — sin formol, sin parabenos</div>
+      <div class="hero-check"><div class="check-ico">✓</div>Registro INVIMA oficial en todos los productos</div>
+    </div>
+    <div class="hero-btns">
+      <a href="#" onclick="abrirModal();return false;" class="btn-hero-main">Pedir el Kit Mágico</a>
+      <a href="#que-es" class="btn-hero-sec">Ver qué incluye</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-pill"><span class="trust-pill-ico">🚚</span>Envío gratis</div>
+      <div class="trust-pill"><span class="trust-pill-ico">💳</span>Paga al recibir</div>
+      <div class="trust-pill"><span class="trust-pill-ico">🌿</span>100% natural</div>
+      <div class="trust-pill"><span class="trust-pill-ico">✅</span>INVIMA oficial</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-products-wrap">
+      <div class="hero-product side">
+        <img src="Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="Bomba de Frutas"/>
+        <div class="hero-product-label">Bomba de Frutas</div>
+      </div>
+      <div class="hero-product main">
+        <img src="Envase%20Aminoacido%20500%20gr%20sin%20fondo.webp" alt="Proteína Capilar"/>
+        <div class="hero-product-label">Proteína Capilar</div>
+      </div>
+      <div class="hero-product side">
+        <img src="Shampoo%20Fondo%20Transparente%20500%20gr.webp" alt="Shampoo"/>
+        <div class="hero-product-label">Shampoo</div>
+      </div>
+    </div>
+    <div class="hero-kit-badge">Kit Mágico — $157.000</div>
+  </div>
+</section>
+
+<!-- QUE INCLUYE -->
+<section id="que-es">
+  <div class="que-es-grid">
+    <div>
+      <span class="section-pretitle">Qué incluye</span>
+      <h2 class="section-h2">3 tratamientos que trabajan juntos para transformar tu cabello</h2>
+      <p class="section-p">Cada producto del Kit Mágico fue seleccionado para actuar en una etapa diferente del cuidado capilar — limpieza, hidratación y reconstrucción — generando resultados imposibles de lograr con uno solo.</p>
+      <div style="background:rgba(201,168,76,0.08);border:2px solid rgba(201,168,76,0.2);border-radius:12px;padding:20px 24px;margin-top:24px;">
+        <div style="font-size:13px;color:#555;margin-bottom:8px;">Precio si los compras por separado:</div>
+        <div style="font-size:15px;color:#999;text-decoration:line-through;margin-bottom:4px;">$203.500</div>
+        <div style="font-size:28px;font-weight:800;color:var(--gold);">$157.000</div>
+        <div style="font-size:13px;color:var(--success);font-weight:600;margin-top:4px;">Ahorras $46.500 comprando el kit</div>
+      </div>
+    </div>
+    <div class="products-stack">
+      <div class="product-row">
+        <img src="Shampoo%20Fondo%20Transparente%20500%20gr.webp" alt="Shampoo" class="product-row-img"/>
+        <div>
+          <div class="product-row-name">1. Shampoo Bomba de Frutas 500g</div>
+          <div class="product-row-desc">Prepara y limpia la fibra capilar para que los tratamientos penetren mejor. Con 10 extractos de frutas, Biotina y Zinc. Libre de sal y parabenos.</div>
+        </div>
+        <div class="product-row-price">$51.500<span>Individual</span></div>
+      </div>
+      <div class="product-row">
+        <img src="Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="Bomba de Frutas" class="product-row-img"/>
+        <div>
+          <div class="product-row-name">2. Bomba de Frutas 500g</div>
+          <div class="product-row-desc">Hidrata y repolariza la fibra capilar con el poder de 10 frutas activas. Restaura el cabello en un 60% desde la primera aplicación.</div>
+        </div>
+        <div class="product-row-price">$73.500<span>Individual</span></div>
+      </div>
+      <div class="product-row">
+        <img src="Envase%20Aminoacido%20500%20gr%20sin%20fondo.webp" alt="Proteína Capilar" class="product-row-img"/>
+        <div>
+          <div class="product-row-name">3. Proteína Capilar 500g</div>
+          <div class="product-row-desc">Reconstruye la fibra capilar desde adentro con aminoácidos de alta concentración. Alisa hasta el 95% sin formol. Efecto dura hasta 3 meses.</div>
+        </div>
+        <div class="product-row-price">$79.000<span>Individual</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section id="beneficios">
+  <div class="benefits-header">
+    <span class="section-pretitle">Beneficios</span>
+    <h2 class="section-h2" style="color:#111;">Lo que sientes cuando usas el Kit Mágico completo</h2>
+  </div>
+  <div class="benefits-grid">
+    <div class="benefit-card"><span class="benefit-ico">💧</span><div class="benefit-title">Hidratación que dura días</div><div class="benefit-desc">La Bomba de Frutas hidrata en profundidad y el Shampoo sin sal mantiene esa hidratación por más tiempo.</div></div>
+    <div class="benefit-card"><span class="benefit-ico">✨</span><div class="benefit-title">Brillo espectacular</div><div class="benefit-desc">La combinación de los 3 productos sella la cutícula y genera un brillo natural que se nota desde el primer uso.</div></div>
+    <div class="benefit-card"><span class="benefit-ico">💪</span><div class="benefit-title">Cabello más fuerte</div><div class="benefit-desc">Los aminoácidos reconstruyen los enlaces proteicos rotos. Menos rotura, menos puntas abiertas, más resistencia.</div></div>
+    <div class="benefit-card"><span class="benefit-ico">🌀</span><div class="benefit-title">Adiós al frizz</div><div class="benefit-desc">El frizz desaparece notablemente desde la primera aplicación del kit completo.</div></div>
+    <div class="benefit-card"><span class="benefit-ico">🌱</span><div class="benefit-title">Estimula el crecimiento</div><div class="benefit-desc">Desde la 3ra aplicación notarás menos caída y un cabello más largo y grueso cada mes.</div></div>
+    <div class="benefit-card"><span class="benefit-ico">🛡️</span><div class="benefit-title">Protege y repara</div><div class="benefit-desc">Ideal para cabello maltratado por tintes, decoloraciones, alisados o calor excesivo.</div></div>
+  </div>
+</section>
+
+<!-- COMPARACION -->
+<section id="comparacion">
+  <div class="comp-header">
+    <span class="section-pretitle" style="color:var(--gold);">La diferencia</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);color:#fff;margin-bottom:12px;">Elixer vs. lo que estás usando ahora</h2>
+  </div>
+  <div class="comp-grid">
+    <div class="comp-col bad">
+      <div class="comp-col-title">❌ Sin Elixer</div>
+      <div class="comp-items">
+        <div class="comp-item"><span class="comp-ico">✗</span>Keratinas con formol que dañan a largo plazo</div>
+        <div class="comp-item"><span class="comp-ico">✗</span>Salón cada mes: $80.000 - $300.000 por sesión</div>
+        <div class="comp-item"><span class="comp-ico">✗</span>Productos con rellenos y promesas vacías</div>
+        <div class="comp-item"><span class="comp-ico">✗</span>Frizz que vuelve en días</div>
+        <div class="comp-item"><span class="comp-ico">✗</span>Cabello que sigue sin mejorar</div>
+        <div class="comp-item"><span class="comp-ico">✗</span>Parabenos y químicos agresivos</div>
+      </div>
+    </div>
+    <div class="comp-col good">
+      <div class="comp-col-title">✓ Con el Kit Mágico Elixer</div>
+      <div class="comp-items">
+        <div class="comp-item"><span class="comp-ico" style="color:var(--gold);">✓</span>100% natural — sin formol ni parabenos</div>
+        <div class="comp-item"><span class="comp-ico" style="color:var(--gold);">✓</span>$157.000 para 2-3 meses de tratamiento en casa</div>
+        <div class="comp-item"><span class="comp-ico" style="color:var(--gold);">✓</span>Ingredientes activos con registro INVIMA oficial</div>
+        <div class="comp-item"><span class="comp-ico" style="color:var(--gold);">✓</span>Efecto que dura hasta 3 meses</div>
+        <div class="comp-item"><span class="comp-ico" style="color:var(--gold);">✓</span>Resultados visibles desde la primera aplicación</div>
+        <div class="comp-item"><span class="comp-ico" style="color:var(--gold);">✓</span>Apto para embarazadas y niños desde 5 años</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO USAR -->
+<section id="como-usar">
+  <div style="text-align:center;margin-bottom:0;">
+    <span class="section-pretitle">Modo de uso</span>
+    <h2 class="section-h2" style="color:#111;">Cómo usar el Kit Mágico paso a paso</h2>
+  </div>
+  <div class="how-grid">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div><div class="step-title">Lava con el Shampoo</div><div class="step-desc">Aplica el Shampoo Bomba de Frutas desde la raíz, masajea 2-3 minutos y enjuaga. Prepara la fibra para recibir los tratamientos.</div><span class="step-product">Shampoo Bomba de Frutas</span></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div><div class="step-title">Aplica la Bomba de Frutas</div><div class="step-desc">Con el cabello húmedo, aplica la Bomba de Frutas de medios a puntas. Masajea suavemente y deja actuar mínimo 30 minutos.</div><span class="step-product">Bomba de Frutas</span></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div><div class="step-title">Enjuaga y seca</div><div class="step-desc">Retira la Bomba de Frutas con agua y seca el cabello al 100% con secador antes de aplicar la proteína.</div></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div><div class="step-title">Aplica la Proteína Capilar</div><div class="step-desc">Con guantes, aplica la Proteína de raíz a puntas. Deja actuar 20 minutos — usa el Gorro Térmico para potenciar 3 veces más.</div><span class="step-product">Proteína Capilar</span></div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div><div class="step-title">Enjuaga y finaliza</div><div class="step-desc">Enjuaga con agua fría, seca y plancha a 180°C para un acabado de salón. Tu cabello transformado desde el primer uso.</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="how-tip">
+        <div class="how-tip-title">Consejos para maximizar resultados</div>
+        <div class="how-tip-items">
+          <div class="how-tip-item"><span class="how-tip-ico">🔥</span>Usa el <strong style="color:#fff;">Gorro Térmico</strong> durante la Proteína — el calor potencia la absorción 3 veces más.</div>
+          <div class="how-tip-item"><span class="how-tip-ico">🌙</span>Usa el <strong style="color:#fff;">Gorro de Satín</strong> para dormir — mantiene el tratamiento activo toda la noche.</div>
+          <div class="how-tip-item"><span class="how-tip-ico">📅</span>Aplica la Proteína cada <strong style="color:#fff;">3 meses</strong> y la Bomba de Frutas <strong style="color:#fff;">2-3 veces por semana.</strong></div>
+          <div class="how-tip-item"><span class="how-tip-ico">🎨</span>Si tienes tinte, espera 15 días antes de aplicar la Proteína para no barrer el color.</div>
+          <div class="how-tip-item"><span class="how-tip-ico">✅</span>Apto para embarazadas y niños desde 5 años — ingredientes 100% seguros.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLEMENTOS -->
+<section id="complementos">
+  <div class="addons-intro">
+    <span class="section-pretitle">Complementos opcionales</span>
+    <h2 class="section-h2" style="color:#111;">Multiplica los resultados del Kit Mágico</h2>
+    <p style="font-size:15px;color:#555;max-width:560px;margin:12px auto 0;line-height:1.8;">Agrégalos directamente en el formulario de pedido. Están diseñados para potenciar cada etapa del tratamiento.</p>
+  </div>
+  <div class="addons-grid">
+    <div class="addon-card" id="addon-termico" onclick="toggleAddon('termico','Gorro Térmico',29500)">
+      <div class="addon-img-wrap"><img src="addon_gorro_termico.webp" alt="Gorro Térmico"/></div>
+      <div class="addon-body">
+        <span class="addon-tag">Potenciador de absorción</span>
+        <div class="addon-name">Gorro Térmico</div>
+        <div class="addon-desc">El calor controlado abre la cutícula y permite que la Proteína penetre hasta 3 veces más profundo.</div>
+        <div class="addon-why"><strong>¿Por qué lo necesitas?</strong> Los tratamientos actúan mucho mejor con calor. Lo que toma semanas sin gorro, lo logras en una sesión.</div>
+        <div class="addon-price">+ $29.500</div>
+        <div class="addon-check-btn"><div class="addon-checkbox" id="check-termico"></div>Agregar al pedido</div>
+      </div>
+    </div>
+    <div class="addon-card" id="addon-satin" onclick="toggleAddon('satin','Gorro de Satín',10000)">
+      <div class="addon-img-wrap"><img src="addon_gorro_satin.webp" alt="Gorro de Satín"/></div>
+      <div class="addon-body">
+        <span class="addon-tag">Protección nocturna</span>
+        <div class="addon-name">Gorro de Satín</div>
+        <div class="addon-desc">Protege el cabello mientras duermes. El satín previene la fricción que destruye el tratamiento.</div>
+        <div class="addon-why"><strong>¿Por qué lo necesitas?</strong> Sin protección nocturna, la almohada borra el 40% del efecto del tratamiento cada noche.</div>
+        <div class="addon-price">+ $10.000</div>
+        <div class="addon-check-btn"><div class="addon-checkbox" id="check-satin"></div>Agregar al pedido</div>
+      </div>
+    </div>
+    <div class="addon-card" id="addon-cepillo" onclick="toggleAddon('cepillo','Cepillo Secador de Aguacate',45000)">
+      <div class="addon-img-wrap"><img src="addon_cepillo.webp" alt="Cepillo Secador de Aguacate"/></div>
+      <div class="addon-body">
+        <span class="addon-tag">Acabado profesional</span>
+        <div class="addon-name">Cepillo Secador de Aguacate</div>
+        <div class="addon-desc">2000W con aceite de aguacate. Seca y modela en un solo paso sellando la cutícula con calor controlado.</div>
+        <div class="addon-why"><strong>¿Por qué lo necesitas?</strong> El paso final del tratamiento es el secado. Con este cepillo sellas todo el trabajo del kit en minutos.</div>
+        <div class="addon-price">+ $45.000</div>
+        <div class="addon-check-btn"><div class="addon-checkbox" id="check-cepillo"></div>Agregar al pedido</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="testimonios-header">
+    <span class="section-pretitle">Testimonios</span>
+    <h2 class="section-h2" style="color:#111;">Lo que dicen quienes ya lo probaron</h2>
+  </div>
+  <div class="testimonios-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Llevaba años buscando algo que realmente funcionara para mi cabello destruido por la decoloración. El Kit Mágico lo cambió todo — brillo, suavidad y sin frizz desde el primer uso."</p>
+      <div class="testi-result">Resultado: Cabello completamente restaurado en 3 semanas</div>
+      <div class="testi-author"><div class="testi-avatar">V</div><div><div class="testi-name">Valentina Moreno</div><div class="testi-loc">Medellín, Antioquia</div><div class="testi-kit">Kit Mágico + Gorro Térmico</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Lo pedí sin creerlo mucho pero quedé impresionada. Llegó en 2 días, lo usé esa misma noche y al día siguiente mi cabello parecía recién salido de peluquería. Increíble."</p>
+      <div class="testi-result">Resultado: Brillo y suavidad inmediatos desde la primera aplicación</div>
+      <div class="testi-author"><div class="testi-avatar">C</div><div><div class="testi-name">Camila Ríos</div><div class="testi-loc">Bogotá, Cundinamarca</div><div class="testi-kit">Kit Mágico completo</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"El kit con el gorro térmico es otra cosa. Apliqué la proteína, usé el gorro 20 minutos y el resultado fue espectacular. Mi cabello dura liso y sin frizz más de una semana."</p>
+      <div class="testi-result">Resultado: Efecto liso duradero por más de una semana</div>
+      <div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Sara Quintero</div><div class="testi-loc">Cali, Valle del Cauca</div><div class="testi-kit">Kit Mágico + Gorro Térmico</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIAS -->
+<section id="garantia">
+  <div class="garantia-grid">
+    <div class="garantia-item"><span class="garantia-ico">🚚</span><div class="garantia-title">Envío GRATIS</div><div class="garantia-desc">A cualquier ciudad de Colombia sin costo adicional.</div></div>
+    <div class="garantia-item"><span class="garantia-ico">💳</span><div class="garantia-title">Paga al recibir</div><div class="garantia-desc">Contra entrega — pagas cuando ves el producto en tus manos.</div></div>
+    <div class="garantia-item"><span class="garantia-ico">📱</span><div class="garantia-title">Confirmación en 2 horas</div><div class="garantia-desc">Te contactamos por WhatsApp para confirmar tu pedido.</div></div>
+    <div class="garantia-item"><span class="garantia-ico">📦</span><div class="garantia-title">1-2 días hábiles</div><div class="garantia-desc">En Medellín, Bogotá, Cali, Barranquilla y Cartagena.</div></div>
+  </div>
+</section>
+
+<!-- PEDIDO -->
+<section id="pedido">
+  <div class="order-wrap">
+    <div class="order-left">
+      <span class="section-pretitle">Haz tu pedido</span>
+      <h2>Pide tu Kit Mágico ahora</h2>
+      <p>Completa el formulario — te confirmamos en menos de 2 horas por WhatsApp. Sin anticipos, sin riesgos.</p>
+      <div class="order-summary-preview">
+        <div class="osp-title">Tu pedido incluye</div>
+        <div class="osp-line"><span class="osp-line-name">Shampoo Bomba de Frutas 500g</span><div><div class="osp-line-price-old">$51.500</div></div></div>
+        <div class="osp-line"><span class="osp-line-name">Bomba de Frutas 500g</span><div><div class="osp-line-price-old">$73.500</div></div></div>
+        <div class="osp-line"><span class="osp-line-name">Proteína Capilar 500g</span><div><div class="osp-line-price-old">$79.000</div></div></div>
+        <div class="osp-line" style="color:var(--success);font-weight:600;"><span>Envío</span><span>GRATIS</span></div>
+        <div class="osp-total"><span class="osp-total-label">Total Kit Mágico</span><span class="osp-total-price">$157.000</span></div>
+        <div class="osp-saving">Ahorras $46.500 vs comprar por separado</div>
+      </div>
+      <div class="order-guarantees">
+        <div class="order-g"><span class="order-g-ico">🚚</span><div><div class="order-g-title">Envío GRATIS a todo Colombia</div><div class="order-g-desc">Sin costo adicional hasta donde estés.</div></div></div>
+        <div class="order-g"><span class="order-g-ico">💳</span><div><div class="order-g-title">Paga al recibir</div><div class="order-g-desc">Pagas cuando el producto llega a tu puerta.</div></div></div>
+        <div class="order-g"><span class="order-g-ico">📱</span><div><div class="order-g-title">Confirmación por WhatsApp</div><div class="order-g-desc">En menos de 2 horas te contactamos.</div></div></div>
+      </div>
+    </div>
+    <div class="order-form-wrap">
+      <h3 class="form-title">Datos de tu pedido</h3>
+      <p class="form-subtitle">Kit Mágico Elixer — $157.000 con envío gratis</p>
+      <div id="form-err" class="form-err"></div>
+      <div><label class="form-lbl">Nombre completo</label><input id="f-name" class="form-inp" type="text" placeholder="Tu nombre y apellido"/></div>
+      <div class="form-row">
+        <div><label class="form-lbl">Teléfono / WhatsApp</label><input id="f-phone" class="form-inp" type="tel" placeholder="3XX XXX XXXX"/></div>
+        <div><label class="form-lbl">Ciudad</label><input id="f-city" class="form-inp" type="text" placeholder="Tu ciudad"/></div>
+      </div>
+      <div><label class="form-lbl">Dirección de entrega</label><input id="f-address" class="form-inp" type="text" placeholder="Calle, barrio, número..."/></div>
+      <div style="margin-bottom:16px;">
+        <label class="form-lbl">Agregar complementos (opcional)</label>
+        <div class="addon-checks-form">
+          <label class="addon-check-item" id="form-check-termico" onclick="toggleFormAddon(event,'termico','Gorro Térmico',29500)">
+            <img src="addon_gorro_termico.webp" style="width:40px;height:40px;object-fit:contain;border-radius:6px;flex-shrink:0;"/>
+            <span class="addon-check-lbl">Gorro Térmico — potencia el tratamiento 3x</span>
+            <div class="addon-check-box" id="form-box-termico"></div>
+            <span class="addon-check-price">+$29.500</span>
+          </label>
+          <label class="addon-check-item" id="form-check-satin" onclick="toggleFormAddon(event,'satin','Gorro de Satín',10000)">
+            <img src="addon_gorro_satin.webp" style="width:40px;height:40px;object-fit:contain;border-radius:6px;flex-shrink:0;"/>
+            <span class="addon-check-lbl">Gorro de Satín — protección nocturna</span>
+            <div class="addon-check-box" id="form-box-satin"></div>
+            <span class="addon-check-price">+$10.000</span>
+          </label>
+          <label class="addon-check-item" id="form-check-cepillo" onclick="toggleFormAddon(event,'cepillo','Cepillo Secador de Aguacate',45000)">
+            <img src="addon_cepillo.webp" style="width:40px;height:40px;object-fit:contain;border-radius:6px;flex-shrink:0;"/>
+            <span class="addon-check-lbl">Cepillo Secador de Aguacate 2000W</span>
+            <div class="addon-check-box" id="form-box-cepillo"></div>
+            <span class="addon-check-price">+$45.000</span>
+          </label>
+        </div>
+      </div>
+      <div><label class="form-lbl">Nota adicional (opcional)</label><textarea id="f-notes" class="form-ta" placeholder="Alguna indicación especial..."></textarea></div>
+      <div class="order-summary-live" id="order-summary-live">
+        <div class="osl-head">Resumen de tu pedido</div>
+        <div id="osl-lines"></div>
+        <div class="osl-total"><span>Total contra entrega</span><span id="osl-total-price"></span></div>
+        <div class="osl-free">✓ Envío GRATIS incluido</div>
+      </div>
+      <button class="form-submit" id="submit-btn" onclick="submitOrder()">Confirmar pedido — Pago al recibir</button>
+      <p class="form-note">Te contactamos por WhatsApp para confirmar. Pagas solo cuando recibes en casa.</p>
+      <div class="wa-help">¿Tienes dudas? <a href="https://wa.me/573041443377" target="_blank">Escríbenos por WhatsApp</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div style="text-align:center;margin-bottom:0;">
+    <span class="section-pretitle">Preguntas frecuentes</span>
+    <h2 class="section-h2" style="color:#111;">Todo lo que necesitas saber</h2>
+  </div>
+  <div class="faq-wrap">
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Desde cuándo veo los resultados?<span class="faq-ico">+</span></button><div class="faq-a">Desde la primera aplicación: sedosidad, reducción del frizz y brillo visible al instante. Con el kit completo los resultados son más intensos y duraderos que con un solo producto.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Para cuánto tiempo alcanza el Kit Mágico?<span class="faq-ico">+</span></button><div class="faq-a">El Shampoo y la Bomba de Frutas con uso frecuente (2-3 veces por semana) duran entre 2 y 3 meses. La Proteína Capilar se aplica cada 3 meses, rindiendo entre 2 y 3 aplicaciones por pote.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Lo pueden usar embarazadas?<span class="faq-ico">+</span></button><div class="faq-a">Sí. Todos los productos del Kit Mágico son 100% libres de formol y parabenos. Son aptos para embarazadas y niños desde 5 años gracias a sus componentes naturales.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Funciona en cabello tinturado o con keratina?<span class="faq-ico">+</span></button><div class="faq-a">Perfectamente. En cabello tinturado espera 15 días antes de aplicar la Proteína para no barrer el color. Además, el kit hace que tus keratinas o alisados anteriores duren más tiempo.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Cuándo llega mi pedido?<span class="faq-ico">+</span></button><div class="faq-a">En Medellín, Bogotá, Cali, Barranquilla y Cartagena: 1 a 2 días hábiles. En el resto del país: 2 a 5 días hábiles por Envía, Interrapidísimo o Servientrega.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">¿Realmente tengo que pagar al recibirlo?<span class="faq-ico">+</span></button><div class="faq-a">Sí, 100%. No pedimos ningún anticipo. Pagas directamente al mensajero cuando el paquete llega a tu puerta. Si no te convence al verlo, no lo recibes.</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <img src="logo%20Elixer.png" alt="Elixer" style="height:44px;"/>
+    <div class="footer-links-row">
+      <a href="/">Inicio</a>
+      <a href="/aminoacidos.html">Proteína Capilar</a>
+      <a href="/frutas.html">Bomba de Frutas</a>
+      <a href="https://wa.me/573041443377" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/elixer_colombia" target="_blank">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Elixer — Tratamientos Capilares. Todos los derechos reservados.</span>
+    <a href="https://wa.me/573041443377" target="_blank" class="footer-wa">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      +57 304 144 3377
+    </a>
+  </div>
+</footer>
+
+<!-- FLOATING BAR -->
+<div class="floating-bar" id="floating-bar">
+  <div class="floating-bar-left">
+    <div class="floating-bar-name">Kit Mágico Elixer — 3 productos</div>
+    <div class="floating-bar-price">$157.000 <span style="font-size:13px;color:#999;text-decoration:line-through;font-weight:400;">$203.500</span></div>
+  </div>
+  <a href="#" onclick="abrirModal();return false;" class="floating-bar-btn">Pedir ahora</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const {createClient} = supabase;
+const sb = createClient('https://jtjnzdbgelezdcdpipmv.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0am56ZGJnZWxlemRjZHBpcG12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4MjAyODAsImV4cCI6MjA5MjM5NjI4MH0.nOqPWAjnX9nCYveL4zOjFKugdcSL0zOeWsDdr8X9rME');
+
+// Addons state
+const addons = {termico:{name:'Gorro Térmico',price:29500,selected:false},satin:{name:'Gorro de Satín',price:10000,selected:false},cepillo:{name:'Cepillo Secador de Aguacate',price:45000,selected:false}};
+
+function toggleAddon(id,name,price){
+  addons[id].selected = !addons[id].selected;
+  const card = document.getElementById('addon-'+id);
+  const box = document.getElementById('check-'+id);
+  const formCheck = document.getElementById('form-check-'+id);
+  const formBox = document.getElementById('form-box-'+id);
+  if(addons[id].selected){
+    card.classList.add('selected');
+    box.innerHTML='✓';box.style.background='var(--gold)';box.style.border='none';box.style.color='#000';box.style.fontWeight='800';
+    if(formCheck){formCheck.classList.add('checked');formBox.innerHTML='✓';}
+  } else {
+    card.classList.remove('selected');
+    box.innerHTML='';box.style.background='';box.style.border='';
+    if(formCheck){formCheck.classList.remove('checked');formBox.innerHTML='';}
+  }
+  updateLiveSummary();
+}
+
+function toggleFormAddon(e,id,name,price){
+  e.stopPropagation();
+  toggleAddon(id,name,price);
+}
+
+function updateLiveSummary(){
+  const box = document.getElementById('order-summary-live');
+  const linesEl = document.getElementById('osl-lines');
+  let total = 157000;
+  let lines = '<div class="osl-line"><span>Kit Mágico (3 productos)</span><span>$157.000</span></div>';
+  Object.values(addons).forEach(a=>{
+    if(a.selected){
+      total+=a.price;
+      lines+=`<div class="osl-line"><span>+ ${a.name}</span><span>$${a.price.toLocaleString('es-CO')}</span></div>`;
+    }
+  });
+  const hasAddons = Object.values(addons).some(a=>a.selected);
+  if(hasAddons){
+    linesEl.innerHTML=lines;
+    document.getElementById('osl-total-price').textContent='$'+total.toLocaleString('es-CO');
+    box.classList.add('show');
+  } else {
+    box.classList.remove('show');
+  }
+}
+
+// Floating bar
+const orderSection = document.getElementById('pedido');
+const floatingBar = document.getElementById('floating-bar');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ floatingBar.classList.toggle('show', !e.isIntersecting); });
+},{threshold:0.1});
+if(orderSection) observer.observe(orderSection);
+
+// FAQ
+function toggleFaq(btn){
+  const ico = btn.querySelector('.faq-ico');
+  const ans = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(b=>{b.classList.remove('open');b.nextElementSibling.classList.remove('open');b.querySelector('.faq-ico').textContent='+';});
+  if(!isOpen){btn.classList.add('open');ans.classList.add('open');ico.textContent='×';}
+}
+
+// Submit
+async function submitOrder(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const city=document.getElementById('f-city').value.trim();
+  const address=document.getElementById('f-address').value.trim();
+  const notes=document.getElementById('f-notes').value.trim();
+  const errEl=document.getElementById('form-err');
+  errEl.classList.remove('show');
+  if(!name||!phone||!city||!address){errEl.textContent='Por favor completa todos los campos obligatorios.';errEl.classList.add('show');window.scrollTo({top:errEl.offsetTop-100,behavior:'smooth'});return;}
+  const products=[
+    {name:'Kit Mágico — Proteína Capilar 500g + Bomba de Frutas 500g + Shampoo 500g',price:157000,qty:1}
+  ];
+  let total=157000;
+  Object.values(addons).forEach(a=>{
+    if(a.selected){products.push({name:a.name,price:a.price,qty:1});total+=a.price;}
+  });
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.textContent='Enviando pedido...';
+  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente'});
+  if(error){errEl.textContent='Error al enviar. Intenta de nuevo o escríbenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido — Pago al recibir';return;}
+  // Track Purchase
+  if(typeof fbq!=='undefined'){fbq('track','Purchase',{currency:'COP',value:total});}
+  window.location.href='/gracias.html';
+}
+
+// ===== MODAL =====
+function abrirModal(){
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('m-name').focus(),300);
+  updateModalSummary();
+}
+function cerrarModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function cerrarModalOverlay(e){
+  if(e.target===document.getElementById('modal-overlay'))cerrarModal();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarModal();});
+
+function updateModalSummary(){
+  
+  const mAddons=window.addons||{termico:{name:'Gorro Termico',price:29500,selected:false},satin:{name:'Gorro de Satin',price:10000,selected:false},cepillo:{name:'Cepillo Secador Aguacate',price:45000,selected:false}};
+  let mTotal=157000;
+  let mLines='<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Kit Magico (3 productos)</span><span>$157.000</span></div>';
+  Object.values(mAddons).forEach(a=>{if(a.selected){mTotal+=a.price;mLines+=`<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>+ ${a.name}</span><span>$${a.price.toLocaleString('es-CO')}</span></div>`;}});
+  const hasA=Object.values(mAddons).some(a=>a.selected);
+  const sumEl=document.getElementById('modal-summary');
+  if(hasA){document.getElementById('modal-summary-lines').innerHTML=mLines;document.getElementById('modal-total').textContent='$'+mTotal.toLocaleString('es-CO');sumEl.style.display='block';}
+  else{sumEl.style.display='none';}
+
+}
+
+async function submitModal(){
+  const name=document.getElementById('m-name').value.trim();
+  const phone=document.getElementById('m-phone').value.trim();
+  const city=document.getElementById('m-city').value.trim();
+  const address=document.getElementById('m-address').value.trim();
+  const notes=document.getElementById('m-notes').value.trim();
+  const errEl=document.getElementById('modal-form-err');
+  errEl.classList.remove('show');
+  if(!name||!phone||!city||!address){
+    errEl.textContent='Por favor completa todos los campos obligatorios.';
+    errEl.classList.add('show');
+    return;
+  }
+  const btn=document.getElementById('modal-submit-btn');
+  btn.disabled=true;btn.textContent='Enviando pedido...';
+  
+  const mAddons2=window.addons||{};
+  const products=[{name:'Kit Magico — Proteina Capilar 500g + Bomba de Frutas 500g + Shampoo 500g',price:157000,qty:1}];
+  let total=157000;
+  Object.values(mAddons2).forEach(a=>{if(a.selected){products.push({name:a.name,price:a.price,qty:1});total+=a.price;}});
+  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente'});
+
+  if(error){
+    errEl.textContent='Error al enviar. Intenta de nuevo o escribenos por WhatsApp.';
+    errEl.classList.add('show');
+    btn.disabled=false;btn.textContent='Confirmar pedido — Pago al recibir';
+    return;
+  }
+  window.location.href='/gracias.html';
+}
+
+
+function mToggleAddon(e,id,name,price){
+  e.stopPropagation();
+  if(!window.addons) window.addons={termico:{name:'Gorro Termico',price:29500,selected:false},satin:{name:'Gorro de Satin',price:10000,selected:false},cepillo:{name:'Cepillo Secador Aguacate',price:45000,selected:false}};
+  window.addons[id].selected=!window.addons[id].selected;
+  const item=document.getElementById('m-check-'+id);
+  const box=document.getElementById('m-box-'+id);
+  if(window.addons[id].selected){item.classList.add('checked');box.innerHTML='✓';}
+  else{item.classList.remove('checked');box.innerHTML='';}
+  updateModalSummary();
+}
+
+</script>
+
+<!-- MODAL FORMULARIO -->
+<div class="modal-overlay" id="modal-overlay" onclick="cerrarModalOverlay(event)">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Datos de tu pedido</div>
+        <div class="modal-subtitle">Kit Magico Elixer — <strong style="color:var(--gold);">$157.000</strong> · Envio gratis · Pago al recibir</div>
+      </div>
+      <button class="modal-close" onclick="cerrarModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div id="modal-form-err" class="form-err"></div>
+      <div><label class="form-lbl">Nombre completo</label><input id="m-name" class="form-inp" type="text" placeholder="Tu nombre y apellido"/></div>
+      <div class="form-row">
+        <div><label class="form-lbl">Telefono / WhatsApp</label><input id="m-phone" class="form-inp" type="tel" placeholder="3XX XXX XXXX"/></div>
+        <div><label class="form-lbl">Ciudad</label><input id="m-city" class="form-inp" type="text" placeholder="Tu ciudad"/></div>
+      </div>
+      <div><label class="form-lbl">Direccion de entrega</label><input id="m-address" class="form-inp" type="text" placeholder="Calle, barrio, numero..."/></div>
+      
+      <div style="margin-bottom:16px;">
+        <label class="form-lbl">Complementos (opcional)</label>
+        <div class="addon-checks-form">
+          <label class="addon-check-item" id="m-check-termico" onclick="mToggleAddon(event,'termico','Gorro Termico',29500)">
+            <img src="addon_gorro_termico.webp" style="width:36px;height:36px;object-fit:contain;border-radius:5px;flex-shrink:0;"/>
+            <span class="addon-check-lbl">Gorro Termico — potencia 3x</span>
+            <div class="addon-check-box" id="m-box-termico"></div>
+            <span class="addon-check-price">+$29.500</span>
+          </label>
+          <label class="addon-check-item" id="m-check-satin" onclick="mToggleAddon(event,'satin','Gorro de Satin',10000)">
+            <img src="addon_gorro_satin.webp" style="width:36px;height:36px;object-fit:contain;border-radius:5px;flex-shrink:0;"/>
+            <span class="addon-check-lbl">Gorro de Satin — proteccion nocturna</span>
+            <div class="addon-check-box" id="m-box-satin"></div>
+            <span class="addon-check-price">+$10.000</span>
+          </label>
+          <label class="addon-check-item" id="m-check-cepillo" onclick="mToggleAddon(event,'cepillo','Cepillo Secador Aguacate',45000)">
+            <img src="addon_cepillo.webp" style="width:36px;height:36px;object-fit:contain;border-radius:5px;flex-shrink:0;"/>
+            <span class="addon-check-lbl">Cepillo Secador Aguacate</span>
+            <div class="addon-check-box" id="m-box-cepillo"></div>
+            <span class="addon-check-price">+$45.000</span>
+          </label>
+        </div>
+      </div>
+      <div><label class="form-lbl">Nota adicional (opcional)</label><textarea id="m-notes" class="form-ta" placeholder="Ej: dejar en porteria, regalo..." style="min-height:60px;"></textarea></div>
+      <div id="modal-summary" style="background:#f8f8f8;border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:14px;display:none;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Tu pedido</div>
+        <div id="modal-summary-lines"></div>
+        <div style="display:flex;justify-content:space-between;font-size:17px;font-weight:800;color:#111;border-top:2px solid #eee;padding-top:8px;margin-top:6px;">
+          <span>Total contra entrega</span><span id="modal-total" style="color:var(--gold);"></span>
+        </div>
+        <div style="font-size:12px;color:#4CAF82;font-weight:600;margin-top:4px;">Envio GRATIS incluido</div>
+      </div>
+      <button class="form-submit" id="modal-submit-btn" onclick="submitModal()">Confirmar pedido — Pago al recibir</button>
+      <p class="form-note" style="margin-top:12px;">Te contactamos por WhatsApp para confirmar. Pagas solo cuando recibes.</p>
+      <div class="wa-help" style="margin-top:12px;">Tienes dudas? <a href="https://wa.me/573041443377" target="_blank">WhatsApp</a></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
