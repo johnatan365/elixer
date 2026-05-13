@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <img src="/promos/landing-aminoacidos-shampoo/1-hero.webp" alt="Recuperación y Fortalecimiento Capilar con Aminoácidos Elixer" loading="eager"/>
 </div>
 <div class="cta-block">
-  <button class="btn-cta-main btn-gold-cta" onclick="openModal()">🛒 Quiero el mío — Pedir ahora</button>
+  <button class="btn-cta-main btn-gold-cta" onclick="trackCheckout();openModal()">🛒 Quiero el mío — Pedir ahora</button>
 </div>
 <div class="divider"></div>
 
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <img src="/promos/landing-aminoacidos-shampoo/2-antes-despues.webp" alt="Antes y Después Elixer Aminoácidos" loading="lazy"/>
 </div>
 <div class="cta-block">
-  <button class="btn-cta-main btn-gold-cta" onclick="openModal()">✨ Quiero estos resultados</button>
+  <button class="btn-cta-main btn-gold-cta" onclick="trackCheckout();openModal()">✨ Quiero estos resultados</button>
 </div>
 <div class="divider"></div>
 
@@ -376,7 +376,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <img src="/promos/landing-aminoacidos-shampoo/3-oferta.webp" alt="Oferta Especial Elixer — Kit Ritual y Super Promo" loading="lazy"/>
 </div>
 <div class="cta-block">
-  <button class="btn-cta-main btn-gold-cta" onclick="openModal()">🎁 Elegir mi paquete</button>
+  <button class="btn-cta-main btn-gold-cta" onclick="trackCheckout();openModal()">🎁 Elegir mi paquete</button>
 </div>
 <div class="divider"></div>
 
@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <img src="/promos/landing-aminoacidos-shampoo/4-beneficios.webp" alt="Beneficios Elixer — Sin tratamientos agresivos" loading="lazy"/>
 </div>
 <div class="cta-block">
-  <button class="btn-cta-main btn-gold-cta" onclick="openModal()">🌿 Pedir ahora — Envío gratis</button>
+  <button class="btn-cta-main btn-gold-cta" onclick="trackCheckout();openModal()">🌿 Pedir ahora — Envío gratis</button>
 </div>
 <div class="divider"></div>
 
@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <img src="/promos/landing-aminoacidos-shampoo/5-tabla-comparativa.webp" alt="Elixer vs Tratamientos Tradicionales — Comparativa" loading="lazy"/>
 </div>
 <div class="cta-block">
-  <button class="btn-cta-main btn-gold-cta" onclick="openModal()">💡 Quiero el tratamiento inteligente</button>
+  <button class="btn-cta-main btn-gold-cta" onclick="trackCheckout();openModal()">💡 Quiero el tratamiento inteligente</button>
 </div>
 <div class="divider"></div>
 
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <img src="/promos/landing-aminoacidos-shampoo/6-prueba-autoridad.webp" alt="Tratamiento Capilar Premium Elixer — 94% de mujeres" loading="lazy"/>
 </div>
 <div class="cta-block">
-  <button class="btn-cta-main btn-gold-cta" onclick="openModal()">⭐ Unirme a las +10.000 clientas</button>
+  <button class="btn-cta-main btn-gold-cta" onclick="trackCheckout();openModal()">⭐ Unirme a las +10.000 clientas</button>
 </div>
 <div class="divider"></div>
 
@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <img src="/promos/landing-aminoacidos-shampoo/7-testimonios.webp" alt="Testimonios Reales Elixer Aminoácidos" loading="lazy"/>
 </div>
 <div class="cta-block">
-  <button class="btn-cta-main btn-gold-cta" onclick="openModal()">🛒 Pedir el mío ahora</button>
+  <button class="btn-cta-main btn-gold-cta" onclick="trackCheckout();openModal()">🛒 Pedir el mío ahora</button>
 </div>
 <div class="divider"></div>
 
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <img src="/promos/landing-aminoacidos-shampoo/8-modo-uso.webp" alt="Modo de Uso Elixer — Rutina capilar paso a paso" loading="lazy"/>
 </div>
 <div class="cta-block">
-  <button class="btn-cta-main btn-gold-cta" onclick="openModal()">🚀 Empezar mi rutina Elixer</button>
+  <button class="btn-cta-main btn-gold-cta" onclick="trackCheckout();openModal()">🚀 Empezar mi rutina Elixer</button>
 </div>
 <div class="divider"></div>
 
@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <img src="/promos/landing-aminoacidos-shampoo/9-logistica.webp" alt="Envío gratis a toda Colombia — Pago contraentrega Elixer" loading="lazy"/>
 </div>
 <div class="cta-block">
-  <button class="btn-cta-main btn-gold-cta" onclick="openModal()">📦 Pedir con envío gratis</button>
+  <button class="btn-cta-main btn-gold-cta" onclick="trackCheckout();openModal()">📦 Pedir con envío gratis</button>
 </div>
 <div class="divider"></div>
 
@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   <img src="/promos/landing-aminoacidos-shampoo/10-preguntas.webp" alt="Preguntas Frecuentes Elixer Aminoácidos" loading="lazy"/>
 </div>
 <div class="cta-block">
-  <button class="btn-cta-main btn-gold-cta" onclick="openModal()">🛒 Pedir ahora — Pago contraentrega</button>
+  <button class="btn-cta-main btn-gold-cta" onclick="trackCheckout();openModal()">🛒 Pedir ahora — Pago contraentrega</button>
 </div>
 
 <!-- ══ WHATSAPP FINAL ══ -->
@@ -478,6 +478,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     <div class="modal-body" id="modal-body"></div>
   </div>
 </div>
+
+
+<script>
+function trackCheckout(){
+  if(typeof fbq !== 'undefined'){
+    fbq('track','InitiateCheckout');
+  }
+}
+</script>
 
 </body>
 </html>
