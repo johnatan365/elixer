@@ -405,6 +405,12 @@
           <input id="no-city" class="login-input" type="text" placeholder="Bogotá" style="margin-bottom:12px;"/>
         </div>
       </div>
+      <div class="modal-grid2">
+        <div>
+          <label class="form-lbl">Departamento *</label>
+          <input id="no-depto" class="login-input" type="text" placeholder="Cundinamarca" style="margin-bottom:12px;"/>
+        </div>
+      </div>
       <label class="form-lbl">Dirección de entrega *</label>
       <input id="no-address" class="login-input" type="text" placeholder="Calle 123 # 45-67, Apto 8" style="margin-bottom:12px;"/>
       <label class="form-lbl">Nota del cliente (opcional)</label>
@@ -783,7 +789,7 @@ async function saveCustomerData(){
   const {error} = await sb.from('orders').update({
     customer_name: name,
     customer_phone: phone,
-    customer_city: city,
+    customer_city: city + ', ' + depto,
     customer_address: address
   }).eq('id', currentOrder.id);
   btn.disabled=false; btn.textContent='Guardar cambios';
@@ -811,6 +817,7 @@ function openNewOrderModal(){
   document.getElementById('no-name').value='';
   document.getElementById('no-phone').value='';
   document.getElementById('no-city').value='';
+  document.getElementById('no-depto').value='';
   document.getElementById('no-address').value='';
   document.getElementById('no-customer-note').value='';
   document.getElementById('no-notes').value='';
@@ -857,8 +864,9 @@ async function createNewOrder(){
   const name = document.getElementById('no-name').value.trim();
   const phone = document.getElementById('no-phone').value.trim();
   const city = document.getElementById('no-city').value.trim();
+  const depto = document.getElementById('no-depto').value.trim();
   const address = document.getElementById('no-address').value.trim();
-  if(!name||!phone||!city||!address){alert('Por favor completa todos los campos obligatorios del cliente.');return;}
+  if(!name||!phone||!city||!depto||!address){alert('Por favor completa todos los campos obligatorios del cliente.');return;}
 
   const lines = document.querySelectorAll('.new-prod-line');
   const products = [];
@@ -877,7 +885,7 @@ async function createNewOrder(){
   const payload = {
     customer_name: name,
     customer_phone: phone,
-    customer_city: city,
+    customer_city: city + ', ' + depto,
     customer_address: address,
     products,
     total_cop: total,
