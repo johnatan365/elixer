@@ -789,7 +789,7 @@ async function saveCustomerData(){
   const {error} = await sb.from('orders').update({
     customer_name: name,
     customer_phone: phone,
-    customer_city: city + ', ' + depto,
+    customer_city: city,
     customer_address: address
   }).eq('id', currentOrder.id);
   btn.disabled=false; btn.textContent='Guardar cambios';
