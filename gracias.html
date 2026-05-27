@@ -24,11 +24,9 @@
     fbq('init', '1284056950349379');
     fbq('track', 'PageView');
     if (!sessionStorage.getItem('elixer_purchase_fired')) {
-      var urlParams = new URLSearchParams(window.location.search);
-      var orderTotal = parseFloat(urlParams.get('total')) || 0;
       fbq('track', 'Purchase', {
         currency: 'COP',
-        value: orderTotal
+        value: 0
       });
       sessionStorage.setItem('elixer_purchase_fired', '1');
     }
