@@ -78,6 +78,7 @@
     .status-novedad{background:#FEE2E2;color:#DC2626;}
     .status-anulado{background:#F3F4F6;color:#6B7280;}
     .status-cancelado{background:#FDF2F8;color:#9D174D;}
+    .status-devolucion{background:#FFF7ED;color:#C2410C;}
     .status-subido{background:#CFFAFE;color:#0891B2;}
 
     /* DRAWER */
@@ -370,6 +371,7 @@
         <option value="entregado">Entregado</option>
         <option value="anulado">Anulado</option>
         <option value="cancelado">Cancelado</option>
+        <option value="devolucion">Devolución</option>
       </select>
       <label class="form-lbl">Notas internas</label>
       <textarea class="notes-textarea" id="d-notes" placeholder="Tracking, observaciones, comentarios..."></textarea>
@@ -430,6 +432,7 @@
         <option value="confirmado">✓ Confirmado</option>
         <option value="enviado">🚚 Enviado</option>
         <option value="subido">📤 Subido</option>
+        <option value="devolucion">↩️ Devolución</option>
       </select>
       <label class="form-lbl">Notas internas (opcional)</label>
       <textarea id="no-notes" class="notes-textarea" placeholder="Tracking, observaciones..." style="min-height:60px;"></textarea>
@@ -510,7 +513,7 @@ function subscribeRealtime(){
 }
 
 function updateStats(){
-  const counts={all:allOrders.length,pendiente:0,confirmado:0,enviado:0,entregado:0,novedad:0,anulado:0,cancelado:0,subido:0};
+  const counts={all:allOrders.length,pendiente:0,confirmado:0,enviado:0,entregado:0,novedad:0,anulado:0,cancelado:0,subido:0,devolucion:0};
   allOrders.forEach(o=>{if(counts[o.status]!==undefined)counts[o.status]++;});
   document.getElementById('cnt-all').textContent=counts.all;
   document.getElementById('cnt-anulado').textContent=counts.anulado;
