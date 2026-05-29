@@ -441,6 +441,22 @@ async function submitOrder(){
     return;
   }
 
+  // Coincidencias avanzadas — hashear teléfono y enviarlo a Meta
+  async function sha256(str){
+    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  try{
+    // Limpiar teléfono: solo dígitos, agregar prefijo Colombia si no lo tiene
+    let cleanPhone=phone.replace(/\D/g,'');
+    if(!cleanPhone.startsWith('57'))cleanPhone='57'+cleanPhone;
+    const hashedPhone=await sha256(cleanPhone);
+    const hashedName=await sha256(name.toLowerCase().trim());
+    if(typeof fbq!=='undefined'){
+      fbq('init','1284056950349379',{ph:hashedPhone,fn:hashedName});
+      fbq('track','Purchase',{currency:'COP',value:total});
+    }
+  }catch(e){console.error('fbq advanced match error:',e);}
   window.location.href='/gracias.html';
 }
 
