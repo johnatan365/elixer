@@ -705,6 +705,22 @@ async function submitOrder(){
   btn.disabled=true;btn.textContent='Enviando...';
   const{error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente'});
   if(error){errEl.textContent='Error al enviar. Escríbenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido';return;}
+  // Coincidencias avanzadas — hashear teléfono y nombre para Meta
+  async function sha256(str){
+    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  try{
+    let cleanPhone=phone.replace(/\D/g,'');
+    if(!cleanPhone.startsWith('57'))cleanPhone='57'+cleanPhone;
+    const hashedPhone=await sha256(cleanPhone);
+    const hashedName=await sha256(name.toLowerCase().trim());
+    const hashedCountry=await sha256('co');
+    if(typeof fbq!=='undefined'){
+      fbq('init','1284056950349379',{ph:hashedPhone,fn:hashedName,country:hashedCountry});
+      fbq('track','Purchase',{currency:'COP',value:total});
+    }
+  }catch(e){console.error('fbq advanced match error:',e);}
   window.location.href='/gracias.html';
 }
 
@@ -756,6 +772,22 @@ async function submitModal(){
   Object.values(mAddons).forEach(a=>{if(a.selected){products.push({name:a.name,price:a.price,qty:1});total+=a.price;}} );
   const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente'});
   if(error){errEl.textContent='Error al enviar. Intentalo de nuevo o escribenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido — Pago al recibir';return;}
+  // Coincidencias avanzadas — hashear teléfono y nombre para Meta
+  async function sha256(str){
+    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  try{
+    let cleanPhone=phone.replace(/\D/g,'');
+    if(!cleanPhone.startsWith('57'))cleanPhone='57'+cleanPhone;
+    const hashedPhone=await sha256(cleanPhone);
+    const hashedName=await sha256(name.toLowerCase().trim());
+    const hashedCountry=await sha256('co');
+    if(typeof fbq!=='undefined'){
+      fbq('init','1284056950349379',{ph:hashedPhone,fn:hashedName,country:hashedCountry});
+      fbq('track','Purchase',{currency:'COP',value:total});
+    }
+  }catch(e){console.error('fbq advanced match error:',e);}
   window.location.href='/gracias.html';
 }
 
