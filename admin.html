@@ -246,6 +246,10 @@
         <div class="stat-count" style="color:var(--uploaded);" id="cnt-subido">0</div>
         <div class="stat-label"><span class="stat-dot" style="background:var(--uploaded);"></span>Subidos</div>
       </div>
+      <div class="stat-card" id="stat-devolucion" onclick="filterStatus('devolucion')">
+        <div class="stat-count" style="color:#C2410C;" id="cnt-devolucion">0</div>
+        <div class="stat-label"><span class="stat-dot" style="background:#C2410C;"></span>Devoluciones</div>
+      </div>
     </div>
 
     <!-- TOOLBAR -->
@@ -535,6 +539,7 @@ function updateStats(){
   document.getElementById('cnt-anulado').textContent=counts.anulado;
   document.getElementById('cnt-cancelado').textContent=counts.cancelado;
   document.getElementById('cnt-subido').textContent=counts.subido;
+  document.getElementById('cnt-devolucion').textContent=counts.devolucion;
   document.getElementById('cnt-pendiente').textContent=counts.pendiente;
   document.getElementById('cnt-confirmado').textContent=counts.confirmado;
   document.getElementById('cnt-enviado').textContent=counts.enviado;
