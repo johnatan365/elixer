@@ -459,7 +459,8 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 function copyField(id, btn){
   const el = document.getElementById(id);
   const text = el.tagName === 'TEXTAREA' ? el.value : el.textContent;
@@ -470,7 +471,6 @@ function copyField(id, btn){
     setTimeout(()=>{ btn.textContent = '📋'; btn.classList.remove('copied'); }, 1500);
   });
 }
-
 </script>
 <script>
 const {createClient} = supabase;
