@@ -1085,7 +1085,7 @@ function saveColWidths(){
   const table = document.getElementById('orders-table');
   if(!table) return;
   const ths = table.querySelectorAll('thead th');
-  const widths = Array.from(ths).map(th => th.style.width || th.offsetWidth + 'px');
+  const widths = Array.from(ths).map(th => th.getBoundingClientRect().width + 'px');
   localStorage.setItem(COL_WIDTHS_KEY, JSON.stringify(widths));
 }
 
@@ -1097,11 +1097,7 @@ function loadColWidths(){
     if(!saved) return;
     const widths = JSON.parse(saved);
     const ths = table.querySelectorAll('thead th');
-    const cols = table.querySelectorAll('col');
-    widths.forEach((w, i) => {
-      if(ths[i] && w){ ths[i].style.width = w; ths[i].style.minWidth = w; }
-      if(cols[i] && w) cols[i].style.width = w;
-    });
+    widths.forEach((w, i) => { if(ths[i] && w) ths[i].style.width = w; });
   }catch(e){}
 }
 
@@ -1109,75 +1105,46 @@ function initColResize(){
   const table = document.getElementById('orders-table');
   if(!table || table.dataset.resizeInit) return;
   table.dataset.resizeInit = '1';
-
-  // La tabla DEBE tener table-layout:fixed para que los th controlen el ancho
   table.style.tableLayout = 'fixed';
 
   const ths = table.querySelectorAll('thead th');
 
-  // Primero fijar el ancho actual de cada th explícitamente
+  // Fijar ancho real actual de cada th
   ths.forEach(th => {
-    if(!th.style.width) th.style.width = th.offsetWidth + 'px';
+    th.style.width = th.getBoundingClientRect().width + 'px';
+    th.style.overflow = 'hidden';
+    th.style.whiteSpace = 'nowrap';
   });
 
   ths.forEach((th, colIndex) => {
     th.style.position = 'relative';
-    th.style.overflow = 'hidden';
 
     const handle = document.createElement('div');
-    handle.style.cssText = [
-      'position:absolute',
-      'right:-1px',
-      'top:0',
-      'bottom:0',
-      'width:8px',
-      'cursor:col-resize',
-      'z-index:20',
-      'border-right:2px solid transparent',
-      'transition:border-color .15s'
-    ].join(';');
+    handle.style.cssText = 'position:absolute;right:0;top:0;bottom:0;width:5px;cursor:col-resize;z-index:20;background:transparent;';
 
-    handle.addEventListener('mouseenter', () => {
-      handle.style.borderRightColor = 'var(--gold)';
-    });
-    handle.addEventListener('mouseleave', () => {
-      if(!handle._dragging) handle.style.borderRightColor = 'transparent';
-    });
-
-    th.appendChild(handle);
+    handle.addEventListener('mouseenter', () => { handle.style.background = 'rgba(201,168,76,0.5)'; });
+    handle.addEventListener('mouseleave', () => { if(!handle._active) handle.style.background = 'transparent'; });
 
     handle.addEventListener('mousedown', e => {
       e.preventDefault();
       e.stopPropagation();
-      handle._dragging = true;
-      handle.style.borderRightColor = 'var(--gold)';
+      handle._active = true;
+      handle.style.background = 'rgba(201,168,76,0.8)';
 
-      const startX = e.clientX;
-      const startW = th.offsetWidth;
+      const startX = e.pageX;
+      const startW = th.getBoundingClientRect().width;
 
-      // Línea visual
-      const line = document.createElement('div');
-      line.id = 'col-resize-line';
-      line.style.cssText = `position:fixed;top:0;bottom:0;width:2px;background:var(--gold);opacity:.7;z-index:9999;pointer-events:none;left:${e.clientX}px;`;
-      document.body.appendChild(line);
-
-      // Cursor global durante el drag
       document.body.style.cursor = 'col-resize';
       document.body.style.userSelect = 'none';
 
       const onMove = ev => {
-        const newW = Math.max(40, startW + (ev.clientX - startX));
+        const newW = Math.max(40, startW + (ev.pageX - startX));
         th.style.width = newW + 'px';
-        th.style.minWidth = newW + 'px';
-        const col = table.querySelectorAll('col')[colIndex];
-        if(col) col.style.width = newW + 'px';
-        document.getElementById('col-resize-line').style.left = ev.clientX + 'px';
       };
 
       const onUp = () => {
-        handle._dragging = false;
-        handle.style.borderRightColor = 'transparent';
-        document.getElementById('col-resize-line')?.remove();
+        handle._active = false;
+        handle.style.background = 'transparent';
         document.body.style.cursor = '';
         document.body.style.userSelect = '';
         saveColWidths();
@@ -1188,6 +1155,8 @@ function initColResize(){
       document.addEventListener('mousemove', onMove);
       document.addEventListener('mouseup', onUp);
     });
+
+    th.appendChild(handle);
   });
 }
 
