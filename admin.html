@@ -66,7 +66,7 @@
     tbody tr{border-bottom:1px solid #F3F4F6;transition:background 0.15s;cursor:pointer;}
     tbody tr:hover{background:#FFFBEB;}
     tbody tr:last-child{border-bottom:none;}
-    td{padding:11px 10px;font-size:12px;color:#374151;vertical-align:middle;white-space:nowrap;}
+    td{padding:11px 10px;font-size:12px;color:#374151;vertical-align:middle;white-space:nowrap;overflow:hidden;max-width:0;}
     td.name{color:#111;font-weight:600;}
     td.total{color:var(--gold-dark);font-weight:700;font-size:15px;}
 
@@ -1109,12 +1109,21 @@ function initColResize(){
 
   const ths = table.querySelectorAll('thead th');
 
-  // Fijar ancho real actual de cada th
-  ths.forEach(th => {
-    th.style.width = th.getBoundingClientRect().width + 'px';
+  // Fijar ancho real actual de cada th y td
+  ths.forEach((th, i) => {
+    const w = th.getBoundingClientRect().width;
+    th.style.width = w + 'px';
+    th.style.maxWidth = w + 'px';
     th.style.overflow = 'hidden';
     th.style.whiteSpace = 'nowrap';
-    th.style.minWidth = '0px';
+    th.style.minWidth = '0';
+  });
+
+  // Aplicar overflow:hidden y white-space:nowrap a todos los td también
+  table.querySelectorAll('td').forEach(td => {
+    td.style.overflow = 'hidden';
+    td.style.whiteSpace = 'nowrap';
+    td.style.maxWidth = '0';
   });
 
   ths.forEach((th, colIndex) => {
@@ -1141,6 +1150,7 @@ function initColResize(){
       const onMove = ev => {
         const newW = Math.max(4, startW + (ev.pageX - startX));
         th.style.width = newW + 'px';
+        th.style.maxWidth = newW + 'px';
       };
 
       const onUp = () => {
