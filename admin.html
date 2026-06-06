@@ -1114,6 +1114,7 @@ function initColResize(){
     th.style.width = th.getBoundingClientRect().width + 'px';
     th.style.overflow = 'hidden';
     th.style.whiteSpace = 'nowrap';
+    th.style.minWidth = '0px';
   });
 
   ths.forEach((th, colIndex) => {
@@ -1138,7 +1139,7 @@ function initColResize(){
       document.body.style.userSelect = 'none';
 
       const onMove = ev => {
-        const newW = Math.max(40, startW + (ev.pageX - startX));
+        const newW = Math.max(4, startW + (ev.pageX - startX));
         th.style.width = newW + 'px';
       };
 
