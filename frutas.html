@@ -696,7 +696,7 @@ async function submitOrder(){
   const products=[{name:pName,price:parseInt(pPrice),qty:1},...addons];
   const btn=document.getElementById('submit-btn');
   btn.disabled=true;btn.textContent='Enviando...';
-  const{error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente'});
+  const{error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente',source:'landing_frutas'});
   if(error){errEl.textContent='Error al enviar. Escríbenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido';return;}
   // Coincidencias avanzadas — hashear teléfono y nombre para Meta
   async function sha256(str){
@@ -763,7 +763,7 @@ async function submitModal(){
   const products=[{name:'Bomba de Frutas Elixer',price:73500,qty:1}];
   let total=73500;
   Object.values(mAddons).forEach(a=>{if(a.selected){products.push({name:a.name,price:a.price,qty:1});total+=a.price;}} );
-  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente'});
+  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente',source:'landing_frutas'});
   if(error){errEl.textContent='Error al enviar. Intentalo de nuevo o escribenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido — Pago al recibir';return;}
   // Coincidencias avanzadas — hashear teléfono y nombre para Meta
   async function sha256(str){

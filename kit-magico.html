@@ -800,7 +800,7 @@ async function submitOrder(){
   });
   const btn=document.getElementById('submit-btn');
   btn.disabled=true;btn.textContent='Enviando pedido...';
-  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente'});
+  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente',source:'landing_kit_magico'});
   if(error){errEl.textContent='Error al enviar. Intenta de nuevo o escríbenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido — Pago al recibir';return;}
   // Track Purchase
   if(typeof fbq!=='undefined'){fbq('track','Purchase',{currency:'COP',value:total});}
@@ -872,7 +872,7 @@ async function submitModal(){
   const products=[{name:'Kit Magico — Proteina Capilar 500g + Bomba de Frutas 500g + Shampoo 500g',price:157000,qty:1}];
   let total=157000;
   Object.values(mAddons2).forEach(a=>{if(a.selected){products.push({name:a.name,price:a.price,qty:1});total+=a.price;}});
-  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente'});
+  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente',source:'landing_kit_magico'});
 
   if(error){
     errEl.textContent='Error al enviar. Intenta de nuevo o escribenos por WhatsApp.';

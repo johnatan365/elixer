@@ -168,6 +168,13 @@
     .edit-prod-name{flex:1;}
     .edit-prod-price{width:100px;}
     .edit-prod-del{background:#FEF2F2;border:1px solid #FECACA;color:#DC2626;width:28px;height:28px;cursor:pointer;border-radius:5px;font-size:14px;flex-shrink:0;}
+    /* SOURCE BADGES */
+    .source-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;font-size:10px;font-weight:700;letter-spacing:.5px;border-radius:20px;white-space:nowrap;}
+    .source-whatsapp{background:#DCFCE7;color:#15803D;}
+    .source-instagram{background:#FDF4FF;color:#9333EA;}
+    .source-facebook{background:#EFF6FF;color:#1D4ED8;}
+    .source-web{background:#F3F4F6;color:#6B7280;}
+
     .empty-state{text-align:center;padding:60px 20px;color:#6B7280;}
     .empty-state-icon{font-size:40px;margin-bottom:12px;}
     .empty-state-title{font-size:20px;font-weight:700;color:#374151;margin-bottom:6px;}
@@ -273,12 +280,13 @@
           <col style="width:90px"/>
           <col style="width:180px"/>
           <col style="width:95px"/>
+          <col style="width:90px"/>
           <col style="width:120px"/>
           <col style="width:85px"/>
         </colgroup>
         <thead>
           <tr>
-            <th>#</th><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Teléfono</th><th>Ciudad</th><th>Productos</th><th>Total</th><th>Estado</th><th>Acciones</th>
+            <th>#</th><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Teléfono</th><th>Ciudad</th><th>Productos</th><th>Total</th><th>Fuente</th><th>Estado</th><th>Acciones</th>
           </tr>
         </thead>
         <tbody id="orders-tbody"></tbody>
@@ -314,6 +322,7 @@
         <div class="drawer-row"><span class="drawer-row-label">Teléfono</span><span class="drawer-row-value" id="d-phone"></span><button class="copy-btn" onclick="copyField('d-phone',this)" title="Copiar">📋</button></div>
         <div class="drawer-row"><span class="drawer-row-label">Ciudad</span><span class="drawer-row-value" id="d-city"></span><button class="copy-btn" onclick="copyField('d-city',this)" title="Copiar">📋</button></div>
         <div class="drawer-row"><span class="drawer-row-label">Dirección</span><span class="drawer-row-value" id="d-address"></span><button class="copy-btn" onclick="copyField('d-address',this)" title="Copiar">📋</button></div>
+        <div class="drawer-row"><span class="drawer-row-label">Fuente</span><span class="drawer-row-value" id="d-source-view"></span></div>
       </div>
       <!-- EDIT MODE -->
       <div id="customer-edit" style="display:none;">
@@ -442,6 +451,14 @@
         <option value="subido">📤 Subido</option>
         <option value="devolucion">↩️ Devolución</option>
       </select>
+
+      <div class="modal-section-title">Origen del pedido</div>
+      <label class="form-lbl">¿Por dónde llegó este pedido?</label>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;" id="source-selector">
+        <button type="button" class="source-pick-btn" data-source="whatsapp" onclick="selectSource('whatsapp')" style="background:#F0FDF4;border:2px solid #BBF7D0;color:#15803D;padding:10px 6px;font-size:12px;font-weight:700;cursor:pointer;border-radius:8px;font-family:'Montserrat',sans-serif;transition:all .2s;">💬 WhatsApp</button>
+        <button type="button" class="source-pick-btn" data-source="instagram" onclick="selectSource('instagram')" style="background:#FDF4FF;border:2px solid #E9D5FF;color:#9333EA;padding:10px 6px;font-size:12px;font-weight:700;cursor:pointer;border-radius:8px;font-family:'Montserrat',sans-serif;transition:all .2s;">📸 Instagram</button>
+        <button type="button" class="source-pick-btn" data-source="facebook" onclick="selectSource('facebook')" style="background:#EFF6FF;border:2px solid #BFDBFE;color:#1D4ED8;padding:10px 6px;font-size:12px;font-weight:700;cursor:pointer;border-radius:8px;font-family:'Montserrat',sans-serif;transition:all .2s;">📘 Facebook</button>
+      </div>
       <label class="form-lbl">Notas internas (opcional)</label>
       <textarea id="no-notes" class="notes-textarea" placeholder="Tracking, observaciones..." style="min-height:60px;"></textarea>
 
@@ -586,12 +603,33 @@ function renderTable(){
       '<td>'+o.customer_city+'</td>'+
       '<td style="font-size:12px;max-width:180px;color:#6B7280;">'+shortProds+'</td>'+
       '<td class="total">$'+(o.total_cop||0).toLocaleString('es-CO')+'</td>'+
+      '<td>'+sourceBadge(o.source)+'</td>'+
       '<td><span class="status-badge status-'+o.status+'">'+statusLabel(o.status)+'</span></td>'+
       '<td><div class="td-actions" onclick="event.stopPropagation()">'+
         '<button class="btn-delete" onclick="confirmDeleteById(\''+o.id+'\',\''+o.customer_name+'\')">Eliminar</button>'+
       '</div></td>'+
     '</tr>';
   }).join('');
+}
+
+function sourceBadge(s){
+  const map={
+    whatsapp:['source-whatsapp','💬 WhatsApp'],
+    instagram:['source-instagram','📸 Instagram'],
+    facebook:['source-facebook','📘 Facebook'],
+    web:['source-web','🌐 Web'],
+    landing_aminoacidos:['source-web','💊 Aminoácidos'],
+    landing_frutas:['source-web','🍓 Frutas'],
+    landing_kit_magico:['source-web','✨ Kit Mágico'],
+    landing_home:['source-web','🌐 Home'],
+    promo_amino_shampoo:['source-instagram','🧴 Amino+Shampoo'],
+    promo_shampoo_cremoso:['source-instagram','🧴 Shampoo Cremoso'],
+    promo_bomba_frutas:['source-instagram','🍓 Bomba Frutas'],
+    promo_dia_madre:['source-instagram','💐 Día Madre'],
+  };
+  if(!s) return '<span style="color:#D1D5DB;font-size:11px;">—</span>';
+  const [cls,label]=map[s]||['source-web',s];
+  return '<span class="source-badge '+cls+'">'+label+'</span>';
 }
 
 function statusLabel(s){
@@ -609,6 +647,7 @@ function openDrawer(id){
   document.getElementById('d-phone').textContent=o.customer_phone;
   document.getElementById('d-city').textContent=o.customer_city;
   document.getElementById('d-address').textContent=o.customer_address;
+  document.getElementById('d-source-view').innerHTML=sourceBadge(o.source);
   document.getElementById('d-total').textContent='$'+(o.total_cop||0).toLocaleString('es-CO');
   document.getElementById('d-status').value=o.status;
   document.getElementById('d-notes').value=o.notes||'';
@@ -846,6 +885,9 @@ function openNewOrderModal(){
   document.getElementById('no-customer-note').value='';
   document.getElementById('no-notes').value='';
   document.getElementById('no-status').value='pendiente';
+  // Reset source selection
+  selectedSource = null;
+  document.querySelectorAll('.source-pick-btn').forEach(b=>b.style.opacity='0.5');
   document.getElementById('no-products-list').innerHTML='';
   document.getElementById('no-total-display').textContent='$0';
   document.getElementById('no-success').style.display='none';
@@ -915,7 +957,7 @@ async function createNewOrder(){
     total_cop: total,
     status: document.getElementById('no-status').value,
     notes: document.getElementById('no-notes').value.trim() || null,
-
+    source: selectedSource || null,
   };
 
   const customerNote = document.getElementById('no-customer-note').value.trim();
@@ -937,6 +979,16 @@ async function createNewOrder(){
 document.getElementById('new-order-overlay').addEventListener('click', function(e){
   if(e.target===this) closeNewOrderModal();
 });
+
+// SOURCE SELECTOR
+let selectedSource = null;
+function selectSource(src){
+  selectedSource = src;
+  document.querySelectorAll('.source-pick-btn').forEach(b=>{
+    b.style.opacity = b.dataset.source === src ? '1' : '0.4';
+    b.style.transform = b.dataset.source === src ? 'scale(1.05)' : 'scale(1)';
+  });
+}
 </script>
 </body>
 </html>

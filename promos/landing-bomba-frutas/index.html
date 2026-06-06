@@ -360,7 +360,8 @@ async function submitOrder(){
   const {error}=await sb.from('orders').insert([{
     customer_name:name,customer_phone:phone,
     customer_city:city+', '+depto,customer_address:address,
-    products:products,total_cop:total,status:'pendiente',notes:note||null
+    products:products,total_cop:total,status:'pendiente',notes:note||null,
+    source:'promo_bomba_frutas'
   }]);
   submitting=false;
   if(error){
