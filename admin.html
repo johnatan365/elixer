@@ -286,7 +286,7 @@
         </colgroup>
         <thead>
           <tr>
-            <th>#</th><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Teléfono</th><th>Ciudad</th><th>Productos</th><th>Total</th><th>Fuente</th><th>Estado</th><th>Acciones</th>
+            <th>#</th><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Teléfono</th><th>Ciudad</th><th>Productos</th><th>Total</th><th>Estado</th><th>Fuente</th><th>Acciones</th>
           </tr>
         </thead>
         <tbody id="orders-tbody"></tbody>
@@ -603,8 +603,8 @@ function renderTable(){
       '<td>'+o.customer_city+'</td>'+
       '<td style="font-size:12px;max-width:180px;color:#6B7280;">'+shortProds+'</td>'+
       '<td class="total">$'+(o.total_cop||0).toLocaleString('es-CO')+'</td>'+
-      '<td>'+sourceBadge(o.source)+'</td>'+
       '<td><span class="status-badge status-'+o.status+'">'+statusLabel(o.status)+'</span></td>'+
+      '<td>'+sourceBadge(o.source)+'</td>'+
       '<td><div class="td-actions" onclick="event.stopPropagation()">'+
         '<button class="btn-delete" onclick="confirmDeleteById(\''+o.id+'\',\''+o.customer_name+'\')">Eliminar</button>'+
       '</div></td>'+
