@@ -60,7 +60,7 @@
     .table-wrap::-webkit-scrollbar-track{background:#F3F4F6;border-radius:4px;}
     .table-wrap::-webkit-scrollbar-thumb{background:#C9A84C;border-radius:4px;}
     .table-wrap::-webkit-scrollbar-thumb:hover{background:#8B6914;}
-    table{width:max-content;min-width:1200px;border-collapse:collapse;table-layout:fixed;}
+    table{width:max-content;min-width:1200px;border-collapse:collapse;}
     thead tr{background:#F9FAFB;border-bottom:2px solid #E5E7EB;}
     th{text-align:left;padding:12px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#6B7280;font-weight:700;white-space:nowrap;}
     tbody tr{border-bottom:1px solid #F3F4F6;transition:background 0.15s;cursor:pointer;}
@@ -1084,8 +1084,8 @@ const COL_WIDTHS_KEY = 'elixer_col_widths';
 function saveColWidths(){
   const table = document.getElementById('orders-table');
   if(!table) return;
-  const cols = table.querySelectorAll('col');
-  const widths = Array.from(cols).map(c => c.style.width || '');
+  const ths = table.querySelectorAll('thead th');
+  const widths = Array.from(ths).map(th => th.style.width || th.offsetWidth + 'px');
   localStorage.setItem(COL_WIDTHS_KEY, JSON.stringify(widths));
 }
 
@@ -1096,8 +1096,12 @@ function loadColWidths(){
     const saved = localStorage.getItem(COL_WIDTHS_KEY);
     if(!saved) return;
     const widths = JSON.parse(saved);
+    const ths = table.querySelectorAll('thead th');
     const cols = table.querySelectorAll('col');
-    widths.forEach((w, i) => { if(cols[i] && w) cols[i].style.width = w; });
+    widths.forEach((w, i) => {
+      if(ths[i] && w){ ths[i].style.width = w; ths[i].style.minWidth = w; }
+      if(cols[i] && w) cols[i].style.width = w;
+    });
   }catch(e){}
 }
 
@@ -1106,47 +1110,76 @@ function initColResize(){
   if(!table || table.dataset.resizeInit) return;
   table.dataset.resizeInit = '1';
 
+  // La tabla DEBE tener table-layout:fixed para que los th controlen el ancho
+  table.style.tableLayout = 'fixed';
+
   const ths = table.querySelectorAll('thead th');
+
+  // Primero fijar el ancho actual de cada th explícitamente
+  ths.forEach(th => {
+    if(!th.style.width) th.style.width = th.offsetWidth + 'px';
+  });
+
   ths.forEach((th, colIndex) => {
-    // Crear el handle en el borde derecho
-    const handle = document.createElement('div');
-    handle.style.cssText = 'position:absolute;right:0;top:0;bottom:0;width:6px;cursor:col-resize;z-index:10;background:transparent;';
-    handle.addEventListener('mouseenter', () => handle.style.background = 'rgba(201,168,76,0.5)');
-    handle.addEventListener('mouseleave', () => { if(!handle._dragging) handle.style.background = 'transparent'; });
-
     th.style.position = 'relative';
-    th.style.userSelect = 'none';
-    th.appendChild(handle);
+    th.style.overflow = 'hidden';
 
-    let startX, startW, col;
+    const handle = document.createElement('div');
+    handle.style.cssText = [
+      'position:absolute',
+      'right:-1px',
+      'top:0',
+      'bottom:0',
+      'width:8px',
+      'cursor:col-resize',
+      'z-index:20',
+      'border-right:2px solid transparent',
+      'transition:border-color .15s'
+    ].join(';');
+
+    handle.addEventListener('mouseenter', () => {
+      handle.style.borderRightColor = 'var(--gold)';
+    });
+    handle.addEventListener('mouseleave', () => {
+      if(!handle._dragging) handle.style.borderRightColor = 'transparent';
+    });
+
+    th.appendChild(handle);
 
     handle.addEventListener('mousedown', e => {
       e.preventDefault();
       e.stopPropagation();
       handle._dragging = true;
-      startX = e.clientX;
-      col = table.querySelectorAll('col')[colIndex];
-      startW = col ? parseInt(col.style.width) || th.offsetWidth : th.offsetWidth;
+      handle.style.borderRightColor = 'var(--gold)';
 
-      // Línea visual de arrastre
+      const startX = e.clientX;
+      const startW = th.offsetWidth;
+
+      // Línea visual
       const line = document.createElement('div');
-      line.id = 'resize-line';
-      line.style.cssText = `position:fixed;top:0;bottom:0;width:2px;background:var(--gold);z-index:9999;pointer-events:none;left:${e.clientX}px;`;
+      line.id = 'col-resize-line';
+      line.style.cssText = `position:fixed;top:0;bottom:0;width:2px;background:var(--gold);opacity:.7;z-index:9999;pointer-events:none;left:${e.clientX}px;`;
       document.body.appendChild(line);
 
+      // Cursor global durante el drag
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+
       const onMove = ev => {
-        const diff = ev.clientX - startX;
-        const newW = Math.max(40, startW + diff);
+        const newW = Math.max(40, startW + (ev.clientX - startX));
+        th.style.width = newW + 'px';
+        th.style.minWidth = newW + 'px';
+        const col = table.querySelectorAll('col')[colIndex];
         if(col) col.style.width = newW + 'px';
-        const l = document.getElementById('resize-line');
-        if(l) l.style.left = ev.clientX + 'px';
+        document.getElementById('col-resize-line').style.left = ev.clientX + 'px';
       };
 
       const onUp = () => {
         handle._dragging = false;
-        handle.style.background = 'transparent';
-        const l = document.getElementById('resize-line');
-        if(l) l.remove();
+        handle.style.borderRightColor = 'transparent';
+        document.getElementById('col-resize-line')?.remove();
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
         saveColWidths();
         document.removeEventListener('mousemove', onMove);
         document.removeEventListener('mouseup', onUp);
