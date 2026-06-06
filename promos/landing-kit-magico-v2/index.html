@@ -220,7 +220,9 @@ const sb=createClient('https://jtjnzdbgelezdcdpipmv.supabase.co','eyJhbGciOiJIUz
 // ── STATE ──
 const packs=[
   {id:'kit_magico',name:'Kit Mágico Elixer',desc:'Proteína Capilar 500g + Bomba de Frutas 500g + Shampoo 500g',price:157000,oldPrice:203500,badge:'Más vendido'},
-  {id:'kit_magico_x2',name:'Kit Mágico × 2',desc:'2 Kits completos — ideal para compartir o tratamiento extendido',price:290000,oldPrice:407000,badge:'Mejor valor'},
+  {id:'bomba_frutas',name:'Bomba de Frutas',desc:'Repolarizador Capilar 500g — 10 frutas activas',price:73500,oldPrice:null,badge:''},
+  {id:'aminoacido',name:'Proteína Capilar',desc:'Bomba de Aminoácidos 500g — Reconstruye la fibra capilar',price:79000,oldPrice:null,badge:''},
+  {id:'shampoo',name:'Shampoo Bomba de Frutas',desc:'Fortalecimiento 500g — Sin sal, sulfatos ni parabenos',price:65000,oldPrice:null,badge:''},
 ];
 const addonsData=[
   {id:'termico',name:'Gorro Térmico',why:'Potencia el tratamiento 3× con calor controlado',price:29500,img:'/promos/landing-aminoacidos-shampoo/addon_gorro_termico.webp'},
@@ -271,13 +273,21 @@ function renderStep1(){
       ${p.badge?`<div class="pack-badge">${p.badge}</div>`:''}
       <div class="pack-check">${selectedPack===p.id?'✓':''}</div>
       <div class="pack-img-wrap">
-        <img src="/Envase Aminoacido 500 gr sin fondo.webp" alt="${p.name}" loading="lazy"/>
-        <img src="/Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="${p.name}" loading="lazy"/>
-        <img src="/Shampoo Fondo Transparente 500 gr.webp" alt="${p.name}" loading="lazy"/>
+        ${p.id==='kit_magico'?`
+          <img src="/Envase Aminoacido 500 gr sin fondo.webp" alt="${p.name}" loading="lazy"/>
+          <img src="/Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="${p.name}" loading="lazy"/>
+          <img src="/Shampoo Fondo Transparente 500 gr.webp" alt="${p.name}" loading="lazy"/>
+        `:p.id==='bomba_frutas'?`
+          <img src="/Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="${p.name}" loading="lazy"/>
+        `:p.id==='aminoacido'?`
+          <img src="/Envase Aminoacido 500 gr sin fondo.webp" alt="${p.name}" loading="lazy"/>
+        `:`
+          <img src="/Shampoo Fondo Transparente 500 gr.webp" alt="${p.name}" loading="lazy"/>
+        `}
       </div>
       <div class="pack-name">${p.name}</div>
       <div class="pack-desc">${p.desc}</div>
-      <div class="pack-old-price">Antes: $${p.oldPrice.toLocaleString('es-CO')}</div>
+      ${p.oldPrice?`<div class="pack-old-price">Antes: $${p.oldPrice.toLocaleString('es-CO')}</div>`:''}
       <div class="pack-price">$${p.price.toLocaleString('es-CO')}</div>
       <div class="pack-envio">✓ Envío gratis · Pago contraentrega · Todo Colombia</div>
     </div>`).join('')}
