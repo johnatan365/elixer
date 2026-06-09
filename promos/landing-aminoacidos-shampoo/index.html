@@ -411,7 +411,6 @@ async function submitOrder(){
     const hashedName=await sha256(name.toLowerCase().trim());
     const hashedCountry=await sha256('co');
     if(typeof fbq!=='undefined'){
-      fbq('init','1284056950349379',{ph:hashedPhone,fn:hashedName,country:hashedCountry});
       fbq('track','Purchase',{currency:'COP',value:total});
     }
   }catch(e){console.error('fbq advanced match error:',e);}

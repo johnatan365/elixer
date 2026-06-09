@@ -454,7 +454,6 @@ async function submitOrder(){
     const hashedPhone=await sha256(cleanPhone);
     const hashedName=await sha256(name.toLowerCase().trim());
     if(typeof fbq!=='undefined'){
-      fbq('init','1284056950349379',{ph:hashedPhone,fn:hashedName});
       fbq('track','Purchase',{currency:'COP',value:total});
     }
   }catch(e){console.error('fbq advanced match error:',e);}

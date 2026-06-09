@@ -54,32 +54,18 @@
     .orders-count{font-size:13px;color:#6B7280;margin-left:auto;font-weight:500;}
 
     /* TABLE */
-    .table-outer{position:relative;}
-    .table-wrap{background:#fff;border-radius:12px;box-shadow:0 1px 8px rgba(0,0,0,0.06);overflow-x:scroll;-webkit-overflow-scrolling:touch;width:100%;display:block;}
-    .table-wrap::-webkit-scrollbar{height:8px;}
-    .table-wrap::-webkit-scrollbar-track{background:#F3F4F6;border-radius:4px;}
-    .table-wrap::-webkit-scrollbar-thumb{background:#C9A84C;border-radius:4px;}
-    .table-wrap::-webkit-scrollbar-thumb:hover{background:#8B6914;}
-    table{width:max-content;min-width:1200px;border-collapse:collapse;}
+    .table-wrap{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.06);overflow-x:auto;}
+    table{width:100%;border-collapse:collapse;}
     thead tr{background:#F9FAFB;border-bottom:2px solid #E5E7EB;}
-    th{text-align:left;padding:12px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#6B7280;font-weight:700;white-space:nowrap;}
+    th{text-align:left;padding:12px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#6B7280;font-weight:700;white-space:nowrap;overflow:hidden;}
     tbody tr{border-bottom:1px solid #F3F4F6;transition:background 0.15s;cursor:pointer;}
     tbody tr:hover{background:#FFFBEB;}
     tbody tr:last-child{border-bottom:none;}
-    td{padding:11px 10px;font-size:12px;color:#374151;vertical-align:middle;white-space:nowrap;overflow:hidden;max-width:0;}
+    td{padding:11px 10px;font-size:12px;color:#374151;vertical-align:middle;}
+    td.name{color:#111;font-weight:600;white-space:nowrap;}
+    td.total{color:var(--gold-dark);font-weight:700;font-size:13px;}
     td.name{color:#111;font-weight:600;}
     td.total{color:var(--gold-dark);font-weight:700;font-size:15px;}
-
-    /* COLUMN TOGGLE */
-    .col-toggle-btn{display:flex;align-items:center;gap:6px;background:#fff;border:1.5px solid #E5E7EB;color:#374151;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
-    .col-toggle-btn:hover{border-color:var(--gold);color:var(--gold-dark);}
-    .col-toggle-panel{display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1.5px solid #E5E7EB;border-radius:10px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:50;min-width:200px;}
-    .col-toggle-panel.open{display:block;}
-    .col-toggle-panel-title{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9CA3AF;margin-bottom:10px;}
-    .col-toggle-item{display:flex;align-items:center;gap:10px;padding:7px 4px;cursor:pointer;border-radius:6px;transition:background .15s;}
-    .col-toggle-item:hover{background:#F9FAFB;}
-    .col-toggle-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--gold);cursor:pointer;}
-    .col-toggle-item label{font-size:13px;color:#374151;cursor:pointer;font-weight:500;}
     .td-actions{display:flex;gap:6px;align-items:center;}
     .btn-delete{background:#FEF2F2;border:1px solid #FECACA;color:#DC2626;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;border-radius:5px;font-family:'Montserrat',sans-serif;transition:all 0.2s;white-space:nowrap;}
     .btn-delete:hover{background:#DC2626;color:#fff;}
@@ -279,27 +265,9 @@
       <button class="refresh-btn" onclick="loadOrders()">↺ Actualizar</button>
       <button class="new-order-btn" onclick="openNewOrderModal()">＋ Nuevo pedido</button>
       <span class="orders-count" id="orders-count"></span>
-      <div style="position:relative;">
-        <button class="col-toggle-btn" onclick="toggleColPanel(event)" id="col-toggle-btn">⊞ Columnas</button>
-        <div class="col-toggle-panel" id="col-toggle-panel">
-          <div class="col-toggle-panel-title">Mostrar columnas</div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-num" checked onchange="applyColVisibility()"/><label for="col-num">#</label></div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-fecha" checked onchange="applyColVisibility()"/><label for="col-fecha">Fecha</label></div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-hora" checked onchange="applyColVisibility()"/><label for="col-hora">Hora</label></div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-cliente" checked onchange="applyColVisibility()"/><label for="col-cliente">Cliente</label></div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-telefono" checked onchange="applyColVisibility()"/><label for="col-telefono">Teléfono</label></div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-ciudad" checked onchange="applyColVisibility()"/><label for="col-ciudad">Ciudad</label></div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-productos" checked onchange="applyColVisibility()"/><label for="col-productos">Productos</label></div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-total" checked onchange="applyColVisibility()"/><label for="col-total">Total</label></div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-estado" checked onchange="applyColVisibility()"/><label for="col-estado">Estado</label></div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-fuente" checked onchange="applyColVisibility()"/><label for="col-fuente">Fuente</label></div>
-          <div class="col-toggle-item"><input type="checkbox" id="col-acciones" checked onchange="applyColVisibility()"/><label for="col-acciones">Acciones</label></div>
-        </div>
-      </div>
     </div>
 
     <!-- TABLE -->
-    <div class="table-outer">
     <div class="table-wrap">
       <div id="table-loading" class="loading">Cargando pedidos...</div>
       <table id="orders-table" style="display:none;">
@@ -329,7 +297,6 @@
         <p>Los nuevos pedidos aparecerán aquí en tiempo real.</p>
       </div>
     </div>
-    </div><!-- /table-outer -->
   </div>
 </div>
 
@@ -618,10 +585,6 @@ function renderTable(){
     return;
   }
   document.getElementById('orders-table').style.display='table';
-  loadColPrefs();
-  applyColVisibility();
-  loadColWidths();
-  initColResize();
   document.getElementById('empty-state').style.display='none';
   const tbody=document.getElementById('orders-tbody');
   tbody.innerHTML=filtered.map(o=>{
@@ -1010,165 +973,6 @@ async function createNewOrder(){
   document.getElementById('no-success').style.display='block';
   await loadOrders();
   setTimeout(()=>closeNewOrderModal(), 1500);
-}
-
-// ── COLUMN VISIBILITY ──
-const COL_IDS = ['col-num','col-fecha','col-hora','col-cliente','col-telefono','col-ciudad','col-productos','col-total','col-estado','col-fuente','col-acciones'];
-const LS_KEY = 'elixer_col_prefs';
-
-function toggleColPanel(e){
-  e.stopPropagation();
-  document.getElementById('col-toggle-panel').classList.toggle('open');
-}
-
-function saveColPrefs(){
-  const prefs = {};
-  COL_IDS.forEach(id => {
-    const el = document.getElementById(id);
-    if(el) prefs[id] = el.checked;
-  });
-  localStorage.setItem(LS_KEY, JSON.stringify(prefs));
-}
-
-function loadColPrefs(){
-  try{
-    const saved = localStorage.getItem(LS_KEY);
-    if(!saved) return;
-    const prefs = JSON.parse(saved);
-    COL_IDS.forEach(id => {
-      const el = document.getElementById(id);
-      if(el && prefs[id] !== undefined) el.checked = prefs[id];
-    });
-  }catch(e){}
-}
-
-function applyColVisibility(){
-  // Usar CSS nth-child para afectar th, td y col sin depender de filas existentes
-  let styleEl = document.getElementById('col-visibility-style');
-  if(!styleEl){
-    styleEl = document.createElement('style');
-    styleEl.id = 'col-visibility-style';
-    document.head.appendChild(styleEl);
-  }
-  let css = '';
-  COL_IDS.forEach((id, i) => {
-    const checked = document.getElementById(id)?.checked ?? true;
-    if(!checked){
-      const n = i + 1;
-      css += `#orders-table col:nth-child(${n}),`;
-      css += `#orders-table thead th:nth-child(${n}),`;
-      css += `#orders-table tbody td:nth-child(${n}){display:none;}`;
-    }
-  });
-  styleEl.textContent = css;
-  saveColPrefs();
-}
-
-// Cargar preferencias al iniciar (solo checkboxes, la tabla se aplica tras render)
-document.addEventListener('DOMContentLoaded', () => {
-  loadColPrefs();
-});
-
-// Cerrar panel al click fuera
-document.addEventListener('click', function(e){
-  const panel = document.getElementById('col-toggle-panel');
-  const btn = document.getElementById('col-toggle-btn');
-  if(panel && !panel.contains(e.target) && e.target !== btn){
-    panel.classList.remove('open');
-  }
-});
-
-// ── COLUMN RESIZE (Excel-style) ──
-const COL_WIDTHS_KEY = 'elixer_col_widths';
-
-function saveColWidths(){
-  const table = document.getElementById('orders-table');
-  if(!table) return;
-  const ths = table.querySelectorAll('thead th');
-  const widths = Array.from(ths).map(th => th.getBoundingClientRect().width + 'px');
-  localStorage.setItem(COL_WIDTHS_KEY, JSON.stringify(widths));
-}
-
-function loadColWidths(){
-  const table = document.getElementById('orders-table');
-  if(!table) return;
-  try{
-    const saved = localStorage.getItem(COL_WIDTHS_KEY);
-    if(!saved) return;
-    const widths = JSON.parse(saved);
-    const ths = table.querySelectorAll('thead th');
-    widths.forEach((w, i) => { if(ths[i] && w) ths[i].style.width = w; });
-  }catch(e){}
-}
-
-function initColResize(){
-  const table = document.getElementById('orders-table');
-  if(!table || table.dataset.resizeInit) return;
-  table.dataset.resizeInit = '1';
-  table.style.tableLayout = 'fixed';
-
-  const ths = table.querySelectorAll('thead th');
-
-  // Fijar ancho real actual de cada th y td
-  ths.forEach((th, i) => {
-    const w = th.getBoundingClientRect().width;
-    th.style.width = w + 'px';
-    th.style.maxWidth = w + 'px';
-    th.style.overflow = 'hidden';
-    th.style.whiteSpace = 'nowrap';
-    th.style.minWidth = '0';
-  });
-
-  // Aplicar overflow:hidden y white-space:nowrap a todos los td también
-  table.querySelectorAll('td').forEach(td => {
-    td.style.overflow = 'hidden';
-    td.style.whiteSpace = 'nowrap';
-    td.style.maxWidth = '0';
-  });
-
-  ths.forEach((th, colIndex) => {
-    th.style.position = 'relative';
-
-    const handle = document.createElement('div');
-    handle.style.cssText = 'position:absolute;right:0;top:0;bottom:0;width:5px;cursor:col-resize;z-index:20;background:transparent;';
-
-    handle.addEventListener('mouseenter', () => { handle.style.background = 'rgba(201,168,76,0.5)'; });
-    handle.addEventListener('mouseleave', () => { if(!handle._active) handle.style.background = 'transparent'; });
-
-    handle.addEventListener('mousedown', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      handle._active = true;
-      handle.style.background = 'rgba(201,168,76,0.8)';
-
-      const startX = e.pageX;
-      const startW = th.getBoundingClientRect().width;
-
-      document.body.style.cursor = 'col-resize';
-      document.body.style.userSelect = 'none';
-
-      const onMove = ev => {
-        const newW = Math.max(4, startW + (ev.pageX - startX));
-        th.style.width = newW + 'px';
-        th.style.maxWidth = newW + 'px';
-      };
-
-      const onUp = () => {
-        handle._active = false;
-        handle.style.background = 'transparent';
-        document.body.style.cursor = '';
-        document.body.style.userSelect = '';
-        saveColWidths();
-        document.removeEventListener('mousemove', onMove);
-        document.removeEventListener('mouseup', onUp);
-      };
-
-      document.addEventListener('mousemove', onMove);
-      document.addEventListener('mouseup', onUp);
-    });
-
-    th.appendChild(handle);
-  });
 }
 
 // Close modal clicking outside

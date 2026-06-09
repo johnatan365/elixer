@@ -432,7 +432,7 @@ async function submitOrder(){
     return;
   }
 
-  // Advanced matching Meta Pixel
+  // Meta Pixel — Purchase (una sola vez, sin reinicializar)
   async function sha256(str){
     const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
     return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -444,10 +444,15 @@ async function submitOrder(){
     const hashedName=await sha256(name.toLowerCase().trim());
     const hashedCountry=await sha256('co');
     if(typeof fbq!=='undefined'){
-      fbq('init','1284056950349379',{ph:hashedPhone,fn:hashedName,country:hashedCountry});
-      fbq('track','Purchase',{currency:'COP',value:total});
+      fbq('track','Purchase',{
+        currency:'COP',
+        value:total,
+        em: hashedName,
+        ph: hashedPhone,
+        country: hashedCountry
+      });
     }
-  }catch(e){console.error('fbq advanced match error:',e);}
+  }catch(e){console.error('fbq error:',e);}
   window.location.href='/gracias.html';
 }
 
