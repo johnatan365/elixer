@@ -365,9 +365,9 @@
         <div class="products-list" id="d-products"></div>
         <div class="drawer-total"><span>Total contra entrega</span><span id="d-total"></span></div>
       </div>
-      <div class="drawer-section" id="d-notes-section" style="display:none;">
-        <div class="drawer-section-title">Nota del cliente</div>
-        <p style="font-size:13px;color:#555;font-style:italic;line-height:1.7;" id="d-customer-notes"></p>
+      <div class="drawer-section" id="d-notes-section" style="display:none;background:#FFFBEB;border-left:3px solid var(--gold);border-radius:6px;padding:12px 14px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:6px;">💬 Nota del cliente</div>
+        <p style="font-size:13px;color:#555;font-style:italic;line-height:1.7;margin:0;" id="d-customer-notes"></p>
       </div>
     </div>
 
@@ -423,8 +423,8 @@
         <option value="cancelado">Cancelado</option>
         <option value="devolucion">Devolución</option>
       </select>
-      <label class="form-lbl" style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">Notas internas<button class="copy-btn" onclick="copyField('d-notes',this)" title="Copiar">📋</button></label>
-      <textarea class="notes-textarea" id="d-notes" placeholder="Tracking, observaciones, comentarios..." oninput="scheduleAutoSave()"></textarea>
+      <label class="form-lbl" style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;"><span>🔒 Notas internas <span style="font-weight:400;color:#9CA3AF;">(solo tú las ves)</span></span><button class="copy-btn" onclick="copyField('d-notes',this)" title="Copiar">📋</button></label>
+      <textarea class="notes-textarea" id="d-notes" placeholder="Tracking, número de guía, observaciones..." oninput="scheduleAutoSave()"></textarea>
       <div id="save-success" style="display:none;font-size:12px;color:#16A34A;font-weight:600;text-align:center;padding:6px;background:#F0FDF4;border-radius:6px;margin-bottom:8px;">✓ Guardado automáticamente</div>
       <button class="delete-order-btn" onclick="confirmDelete()">🗑️ Eliminar este pedido</button>
     </div>
@@ -690,7 +690,7 @@ function openDrawer(id){
   document.getElementById('d-products').innerHTML=prods.map(p=>
     '<div class="product-line"><span class="product-line-name">'+(p.qty?p.qty+'× ':'')+p.name+'</span><span class="product-line-price">$'+(p.price||0).toLocaleString('es-CO')+'</span></div>'
   ).join('');
-  if(o.notes){document.getElementById('d-notes-section').style.display='block';document.getElementById('d-customer-notes').textContent=o.notes;}
+  if(o.customer_note){document.getElementById('d-notes-section').style.display='block';document.getElementById('d-customer-notes').textContent=o.customer_note;}
   else{document.getElementById('d-notes-section').style.display='none';}
   const prodLines=(Array.isArray(o.products)?o.products:[]).map(p=>(p.qty?p.qty+'× ':'')+p.name+' — $'+(p.price||0).toLocaleString('es-CO')).join('\n');
   const msg=encodeURIComponent(
@@ -700,7 +700,7 @@ function openDrawer(id){
 '*Ciudad:* '+(o.customer_city||'-')+'\n\n'+
 '*Pedido:*\n'+prodLines+'\n\n'+
 '*Total: $'+(o.total_cop||0).toLocaleString('es-CO')+' COP*\n\n'+
-(o.notes?'*Nota del cliente:* '+o.notes+'\n\n':'')+
+(o.customer_note?'*Nota del cliente:* '+o.customer_note+'\n\n':'')+
 (o.customer_email?'*Email:* '+o.customer_email+'\n\n':'')+
 'Por favor conf\u00edrmanos que los datos est\u00e1n correctos para proceder con el env\u00edo.'
   );
