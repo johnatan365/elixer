@@ -412,7 +412,7 @@
     <div class="drawer-section">
       <div class="drawer-section-title">Gestión del pedido</div>
       <label class="form-lbl">Estado</label>
-      <select class="status-select" id="d-status">
+      <select class="status-select" id="d-status" onchange="autoSaveOrder()">
         <option value="pendiente">Pendiente</option>
         <option value="confirmado">Confirmado</option>
         <option value="enviado">Enviado</option>
@@ -424,9 +424,8 @@
         <option value="devolucion">Devolución</option>
       </select>
       <label class="form-lbl" style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">Notas internas<button class="copy-btn" onclick="copyField('d-notes',this)" title="Copiar">📋</button></label>
-      <textarea class="notes-textarea" id="d-notes" placeholder="Tracking, observaciones, comentarios..."></textarea>
-      <button class="save-btn" id="save-btn" onclick="saveOrder()">Guardar estado y notas</button>
-      <div class="save-success" id="save-success">✓ Cambios guardados</div>
+      <textarea class="notes-textarea" id="d-notes" placeholder="Tracking, observaciones, comentarios..." oninput="scheduleAutoSave()"></textarea>
+      <div id="save-success" style="display:none;font-size:12px;color:#16A34A;font-weight:600;text-align:center;padding:6px;background:#F0FDF4;border-radius:6px;margin-bottom:8px;">✓ Guardado automáticamente</div>
       <button class="delete-order-btn" onclick="confirmDelete()">🗑️ Eliminar este pedido</button>
     </div>
 
@@ -716,6 +715,35 @@ function closeDrawer(){
   currentOrder=null;
 }
 
+let _autoSaveTimer = null;
+function scheduleAutoSave(){
+  clearTimeout(_autoSaveTimer);
+  _autoSaveTimer = setTimeout(()=>autoSaveOrder(), 1000);
+}
+
+async function autoSaveOrder(){
+  if(!currentOrder) return;
+  const status = document.getElementById('d-status').value;
+  const notes = document.getElementById('d-notes').value || null;
+  const {error} = await sb.from('orders').update({status, notes}).eq('id', currentOrder.id);
+  if(error){ console.error('Autoguardado error:', error.message); return; }
+  currentOrder.status = status;
+  currentOrder.notes = notes;
+  // Actualizar badge en tabla sin recargar todo
+  const row = document.getElementById('row-'+currentOrder.id);
+  if(row){
+    const badge = row.querySelector('.status-badge');
+    if(badge){ badge.className='status-badge status-'+status; badge.textContent=statusLabel(status); }
+  }
+  // Actualizar stat cards
+  updateStats();
+  // Mostrar indicador breve
+  const s = document.getElementById('save-success');
+  s.style.display='block';
+  clearTimeout(s._hideTimer);
+  s._hideTimer = setTimeout(()=>s.style.display='none', 1500);
+}
+
 async function saveOrder(){
   if(!currentOrder)return;
   const btn=document.getElementById('save-btn');
@@ -852,7 +880,6 @@ async function saveProductsData(){
   ).join('');
   document.getElementById('d-total').textContent = '$'+total.toLocaleString('es-CO');
   document.getElementById('edit-products-success').style.display='block';
-  setTimeout(()=>{toggleEditProducts();loadOrders();},1200);
 }
 
 function toggleEditMode(){
@@ -872,7 +899,7 @@ function toggleEditMode(){
     document.getElementById('edit-address').value = currentOrder.customer_address || '';
     viewMode.style.display='none';
     editMode.style.display='block';
-    renderEditProducts();
+    populateProductEdit();
     btn.textContent='✕ Cancelar';
   }
 }
