@@ -366,7 +366,7 @@
         <div class="drawer-total"><span>Total contra entrega</span><span id="d-total"></span></div>
       </div>
       <div class="drawer-section" id="d-notes-section" style="display:none;background:#FFFBEB;border-left:3px solid var(--gold);border-radius:6px;padding:12px 14px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:6px;">💬 Nota del cliente</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;">💬 Nota del cliente<button class="copy-btn" onclick="copyField('d-customer-notes',this)" title="Copiar">📋</button></div>
         <p style="font-size:13px;color:#555;font-style:italic;line-height:1.7;margin:0;" id="d-customer-notes"></p>
       </div>
     </div>
@@ -700,7 +700,7 @@ function openDrawer(id){
 '*Ciudad:* '+(o.customer_city||'-')+'\n\n'+
 '*Pedido:*\n'+prodLines+'\n\n'+
 '*Total: $'+(o.total_cop||0).toLocaleString('es-CO')+' COP*\n\n'+
-(o.customer_note?'*Nota del cliente:* '+o.customer_note+'\n\n':'')+
+((o.customer_note||o.notes)?'*Nota del cliente:* '+(o.customer_note||o.notes)+'\n\n':'')+
 (o.customer_email?'*Email:* '+o.customer_email+'\n\n':'')+
 'Por favor conf\u00edrmanos que los datos est\u00e1n correctos para proceder con el env\u00edo.'
   );
