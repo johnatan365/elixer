@@ -447,8 +447,6 @@
         <div>
           <label class="form-lbl">Teléfono / WhatsApp *</label>
           <input id="no-phone" class="login-input" type="tel" placeholder="3001234567" style="margin-bottom:12px;"/>
-          <label class="form-lbl">Correo electrónico (opcional)</label>
-          <input id="no-email" class="login-input" type="email" placeholder="tucorreo@gmail.com" style="margin-bottom:12px;"/>
         </div>
         <div>
           <label class="form-lbl">Ciudad *</label>
@@ -459,6 +457,8 @@
         <div>
           <label class="form-lbl">Departamento *</label>
           <input id="no-depto" class="login-input" type="text" placeholder="Cundinamarca" style="margin-bottom:12px;"/>
+          <label class="form-lbl">Correo electrónico (opcional)</label>
+          <input id="no-email" class="login-input" type="email" placeholder="tucorreo@gmail.com" style="margin-bottom:12px;"/>
         </div>
       </div>
       <label class="form-lbl">Dirección de entrega *</label>
@@ -696,12 +696,11 @@ function openDrawer(id){
   const msg=encodeURIComponent(
 'Hola '+o.customer_name+', te escribimos del equipo de *Elixer Colombia*.\n\n'+
 'Queremos confirmar contigo los datos de tu pedido:\n\n'+
-'*Nombre:* '+o.customer_name+'\n'+'*Tel\u00e9fono:* '+o.customer_phone+'\n'+'*Direcci\u00f3n:* '+(o.customer_address||'-')+'\n'+
+'*Nombre:* '+o.customer_name+'\n'+'*Tel\u00e9fono:* '+o.customer_phone+'\n'+(o.customer_email?'*Email:* '+o.customer_email+'\n':'')+'*Direcci\u00f3n:* '+(o.customer_address||'-')+'\n'+
 '*Ciudad:* '+(o.customer_city||'-')+'\n\n'+
 '*Pedido:*\n'+prodLines+'\n\n'+
 '*Total: $'+(o.total_cop||0).toLocaleString('es-CO')+' COP*\n\n'+
 ((o.customer_note||o.notes)?'*Nota del cliente:* '+(o.customer_note||o.notes)+'\n\n':'')+
-(o.customer_email?'*Email:* '+o.customer_email+'\n\n':'')+
 'Por favor conf\u00edrmanos que los datos est\u00e1n correctos para proceder con el env\u00edo.'
   );
   document.getElementById('d-whatsapp').href='https://wa.me/57'+o.customer_phone.replace(/\D/g,'')+'?text='+msg;
