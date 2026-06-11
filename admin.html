@@ -175,6 +175,16 @@
     .source-facebook{background:#EFF6FF;color:#1D4ED8;}
     .source-web{background:#F3F4F6;color:#6B7280;}
 
+    /* BULK SELECTION */
+    .row-check{width:16px;height:16px;accent-color:var(--gold);cursor:pointer;}
+    .bulk-bar{display:none;position:sticky;top:0;z-index:30;background:var(--gold);padding:10px 20px;align-items:center;gap:12px;border-radius:8px;margin-bottom:8px;}
+    .bulk-bar.show{display:flex;}
+    .bulk-bar-txt{color:#000;font-size:13px;font-weight:700;flex:1;}
+    .bulk-status-select{padding:7px 10px;border:none;border-radius:6px;font-size:13px;font-weight:600;font-family:'Montserrat',sans-serif;cursor:pointer;background:#fff;color:#111;}
+    .bulk-apply-btn{background:#000;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;white-space:nowrap;}
+    .bulk-cancel-btn{background:rgba(0,0,0,.15);color:#000;border:none;padding:8px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;}
+    tbody tr.selected-row{background:#FFFBEB !important;}
+
     .empty-state{text-align:center;padding:60px 20px;color:#6B7280;}
     .empty-state-icon{font-size:40px;margin-bottom:12px;}
     .empty-state-title{font-size:20px;font-weight:700;color:#374151;margin-bottom:6px;}
@@ -267,6 +277,24 @@
       <span class="orders-count" id="orders-count"></span>
     </div>
 
+    <!-- BULK BAR -->
+    <div class="bulk-bar" id="bulk-bar">
+      <span class="bulk-bar-txt" id="bulk-count-txt">0 seleccionados</span>
+      <select class="bulk-status-select" id="bulk-status-select">
+        <option value="">Cambiar estado a...</option>
+        <option value="pendiente">⏳ Pendiente</option>
+        <option value="confirmado">✓ Confirmado</option>
+        <option value="enviado">🚚 Enviado</option>
+        <option value="subido">📤 Subido</option>
+        <option value="entregado">✅ Entregado</option>
+        <option value="novedad">⚠️ Novedad</option>
+        <option value="devolucion">↩️ Devolución</option>
+        <option value="anulado">✗ Anulado</option>
+        <option value="cancelado">✗ Cancelado</option>
+      </select>
+      <button class="bulk-apply-btn" onclick="applyBulkStatus()">Aplicar</button>
+      <button class="bulk-cancel-btn" onclick="clearSelection()">✕</button>
+    </div>
     <!-- TABLE -->
     <div class="table-wrap">
       <div id="table-loading" class="loading">Cargando pedidos...</div>
@@ -286,7 +314,7 @@
         </colgroup>
         <thead>
           <tr>
-            <th>#</th><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Teléfono</th><th>Email</th><th>Ciudad</th><th>Productos</th><th>Total</th><th>Estado</th><th>Fuente</th><th>Acciones</th>
+            <th style="width:36px;"><input type="checkbox" class="row-check" id="check-all" onchange="toggleAllRows(this)" title="Seleccionar todos"/></th><th>#</th><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Teléfono</th><th>Email</th><th>Ciudad</th><th>Productos</th><th>Total</th><th>Estado</th><th>Fuente</th><th>Acciones</th>
           </tr>
         </thead>
         <tbody id="orders-tbody"></tbody>
@@ -311,10 +339,14 @@
     <button class="drawer-close" onclick="closeDrawer()">×</button>
   </div>
   <div class="drawer-body">
+    <a class="whatsapp-btn" id="d-whatsapp" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 12px 0;padding:14px;background:#25D366;color:#fff;text-decoration:none;font-size:14px;font-weight:700;border-radius:10px;letter-spacing:.3px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Contactar por WhatsApp
+    </a>
     <div class="drawer-section">
       <div class="drawer-section-title" style="display:flex;justify-content:space-between;align-items:center;">
         Datos del cliente
-        <button onclick="toggleEditMode()" id="edit-toggle-btn" style="background:#F3F4F6;border:1px solid #E5E7EB;color:#374151;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:5px;letter-spacing:1px;text-transform:uppercase;">✏️ Editar</button>
+        <button onclick="toggleEditMode()" id="edit-toggle-btn" style="background:#F3F4F6;border:1px solid #E5E7EB;color:#374151;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:5px;letter-spacing:1px;text-transform:uppercase;">✏️ Editar todo</button>
       </div>
       <!-- VIEW MODE -->
       <div id="customer-view">
@@ -342,33 +374,26 @@
           </div>
         </div>
         <div style="display:flex;gap:8px;">
-          <button onclick="saveCustomerData()" style="flex:1;padding:11px;background:var(--gold);border:none;color:#000;font-size:13px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;">Guardar cambios</button>
+          <button onclick="saveAllEdits()" style="flex:1;padding:11px;background:var(--gold);border:none;color:#000;font-size:13px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;">💾 Guardar todo</button>
           <button onclick="toggleEditMode()" style="padding:11px 16px;background:#F3F4F6;border:1px solid #E5E7EB;color:#374151;font-size:13px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;">Cancelar</button>
         </div>
-        <div id="edit-success" style="display:none;font-size:13px;color:#16A34A;font-weight:600;text-align:center;margin-top:8px;">✓ Datos actualizados</div>
+        <div id="edit-success" style="display:none;font-size:13px;color:#16A34A;font-weight:600;text-align:center;margin-top:8px;">✓ Todo guardado</div>
       </div>
     </div>
     <div class="drawer-section">
-      <div class="drawer-section-title" style="display:flex;justify-content:space-between;align-items:center;">
-        Productos pedidos
-        <button onclick="toggleEditProducts()" id="edit-products-btn" style="background:#F3F4F6;border:1px solid #E5E7EB;color:#374151;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:5px;letter-spacing:1px;text-transform:uppercase;">✏️ Editar</button>
-      </div>
+      <div class="drawer-section-title">Productos pedidos</div>
       <!-- VIEW MODE -->
       <div id="products-view">
         <div class="products-list" id="d-products"></div>
         <div class="drawer-total"><span>Total contra entrega</span><span id="d-total"></span></div>
       </div>
       <!-- EDIT MODE -->
-      <div id="products-edit" style="display:none;">
+      <div id="products-edit" style="display:none;margin-top:12px;">
         <div id="edit-products-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;"></div>
         <button onclick="addProductLine()" style="background:#F9FAFB;border:2px dashed #E5E7EB;color:#6B7280;padding:10px;width:100%;font-size:13px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;margin-bottom:12px;">+ Agregar producto</button>
         <div style="background:#FFFBEB;border:2px solid var(--gold);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
           <span style="font-size:14px;font-weight:700;color:#111;">Total</span>
           <span id="edit-total-display" style="font-size:22px;font-weight:800;color:var(--gold-dark);">$0</span>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <button onclick="saveProductsData()" style="flex:1;padding:11px;background:var(--gold);border:none;color:#000;font-size:13px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;">Guardar cambios</button>
-          <button onclick="toggleEditProducts()" style="padding:11px 16px;background:#F3F4F6;border:1px solid #E5E7EB;color:#374151;font-size:13px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;border-radius:8px;">Cancelar</button>
         </div>
         <div id="edit-products-success" style="display:none;font-size:13px;color:#16A34A;font-weight:600;text-align:center;margin-top:8px;">✓ Pedido actualizado</div>
       </div>
@@ -395,10 +420,7 @@
       <textarea class="notes-textarea" id="d-notes" placeholder="Tracking, observaciones, comentarios..."></textarea>
       <button class="save-btn" id="save-btn" onclick="saveOrder()">Guardar cambios</button>
       <div class="save-success" id="save-success">✓ Cambios guardados</div>
-      <a class="whatsapp-btn" id="d-whatsapp" href="#" target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Contactar por WhatsApp
-      </a>
+
       <button class="delete-order-btn" onclick="confirmDelete()">🗑️ Eliminar este pedido</button>
     </div>
   </div>
@@ -597,7 +619,8 @@ function renderTable(){
     const prods=Array.isArray(o.products)?o.products.map(p=>p.name).join(', '):'';
     const shortProds=prods.length>36?prods.substring(0,36)+'...':prods;
     const num=allOrders.length-allOrders.findIndex(x=>x.id===o.id);
-    return '<tr onclick="openDrawer(\''+o.id+'\')">'+
+    return '<tr id="row-'+o.id+'" onclick="handleRowClick(event,\''+o.id+'\')">'+
+      '<td onclick="event.stopPropagation()" style="width:36px;text-align:center;"><input type="checkbox" class="row-check" data-id="'+o.id+'" onchange="onRowCheck(this)"/></td>'+
       '<td style="color:#9CA3AF;font-size:12px;">#'+num+'</td>'+
       '<td style="font-size:12px;color:#374151;font-weight:500;">'+fecha+'</td>'+
       '<td style="font-size:12px;color:#6B7280;">'+hora+'</td>'+
@@ -671,6 +694,8 @@ function openDrawer(id){
 '*Ciudad:* '+(o.customer_city||'-')+'\n\n'+
 '*Pedido:*\n'+prodLines+'\n\n'+
 '*Total: $'+(o.total_cop||0).toLocaleString('es-CO')+' COP*\n\n'+
+(o.notes?'*Nota del cliente:* '+o.notes+'\n\n':'')+
+(o.customer_email?'*Email:* '+o.customer_email+'\n\n':'')+
 'Por favor conf\u00edrmanos que los datos est\u00e1n correctos para proceder con el env\u00edo.'
   );
   document.getElementById('d-whatsapp').href='https://wa.me/57'+o.customer_phone.replace(/\D/g,'')+'?text='+msg;
@@ -826,23 +851,33 @@ async function saveProductsData(){
 function toggleEditMode(){
   const view = document.getElementById('customer-view');
   const edit = document.getElementById('customer-edit');
+  const prodsView = document.getElementById('products-view');
+  const prodsEdit = document.getElementById('products-edit');
   const btn = document.getElementById('edit-toggle-btn');
   const isEditing = edit.style.display !== 'none';
   if(isEditing){
-    view.style.display='block';
-    edit.style.display='none';
-    btn.textContent='✏️ Editar';
+    view.style.display='block'; edit.style.display='none';
+    prodsView.style.display='block'; prodsEdit.style.display='none';
+    btn.textContent='✏️ Editar todo';
     document.getElementById('edit-success').style.display='none';
   } else {
-    // Populate edit fields
     document.getElementById('edit-name').value = currentOrder.customer_name || '';
     document.getElementById('edit-phone').value = currentOrder.customer_phone || '';
     document.getElementById('edit-city').value = currentOrder.customer_city || '';
     document.getElementById('edit-address').value = currentOrder.customer_address || '';
-    view.style.display='none';
-    edit.style.display='block';
-    btn.textContent='← Cancelar';
+    view.style.display='none'; edit.style.display='block';
+    prodsView.style.display='none'; prodsEdit.style.display='block';
+    renderEditProducts();
+    btn.textContent='✕ Cancelar';
   }
+}
+
+async function saveAllEdits(){
+  await saveCustomerData();
+  await saveProductsData();
+  const s = document.getElementById('edit-success');
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none', 2500);
 }
 
 async function saveCustomerData(){
@@ -981,6 +1016,82 @@ async function createNewOrder(){
   document.getElementById('no-success').style.display='block';
   await loadOrders();
   setTimeout(()=>closeNewOrderModal(), 1500);
+}
+
+// ── BULK SELECTION ──
+let selectedIds = new Set();
+
+function handleRowClick(e, id){
+  if(e.target.type === 'checkbox') return;
+  openDrawer(id);
+}
+
+function onRowCheck(chk){
+  const id = chk.dataset.id;
+  const row = document.getElementById('row-'+id);
+  if(chk.checked){
+    selectedIds.add(id);
+    row.classList.add('selected-row');
+  } else {
+    selectedIds.delete(id);
+    row.classList.remove('selected-row');
+  }
+  updateBulkBar();
+}
+
+function toggleAllRows(masterChk){
+  document.querySelectorAll('.row-check[data-id]').forEach(chk => {
+    chk.checked = masterChk.checked;
+    onRowCheck(chk);
+  });
+}
+
+function updateBulkBar(){
+  const bar = document.getElementById('bulk-bar');
+  const txt = document.getElementById('bulk-count-txt');
+  if(selectedIds.size > 0){
+    bar.classList.add('show');
+    txt.textContent = selectedIds.size + ' seleccionado' + (selectedIds.size !== 1 ? 's' : '');
+  } else {
+    bar.classList.remove('show');
+  }
+  // Actualizar master checkbox
+  const allChks = document.querySelectorAll('.row-check[data-id]');
+  const masterChk = document.getElementById('check-all');
+  if(masterChk){
+    masterChk.checked = allChks.length > 0 && selectedIds.size === allChks.length;
+    masterChk.indeterminate = selectedIds.size > 0 && selectedIds.size < allChks.length;
+  }
+}
+
+function clearSelection(){
+  selectedIds.clear();
+  document.querySelectorAll('.row-check').forEach(chk => {
+    chk.checked = false;
+    chk.indeterminate = false;
+  });
+  document.querySelectorAll('tbody tr').forEach(r => r.classList.remove('selected-row'));
+  updateBulkBar();
+}
+
+async function applyBulkStatus(){
+  const newStatus = document.getElementById('bulk-status-select').value;
+  if(!newStatus){ alert('Selecciona un estado.'); return; }
+  if(!selectedIds.size){ return; }
+  const ids = Array.from(selectedIds);
+  const btn = document.querySelector('.bulk-apply-btn');
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  const {error} = await sb.from('orders').update({status: newStatus}).in('id', ids);
+  btn.disabled = false; btn.textContent = 'Aplicar';
+  if(error){ alert('Error: ' + error.message); return; }
+  // Actualizar localmente
+  ids.forEach(id => {
+    const o = allOrders.find(x => x.id === id);
+    if(o) o.status = newStatus;
+  });
+  clearSelection();
+  renderTable();
+  updateStats();
 }
 
 // Close modal clicking outside
