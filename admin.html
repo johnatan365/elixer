@@ -628,6 +628,7 @@ function renderTable(){
     return '<tr id="row-'+o.id+'" onclick="handleRowClick(event,\''+o.id+'\')">'+
       '<td onclick="event.stopPropagation()" style="width:36px;text-align:center;"><input type="checkbox" class="row-check" data-id="'+o.id+'" onchange="onRowCheck(this)"/></td>'+
       '<td style="color:#9CA3AF;font-size:12px;">#'+num+'</td>'+
+      '<td><span class="status-badge status-'+o.status+'">'+statusLabel(o.status)+'</span></td>'+
       '<td style="font-size:12px;color:#374151;font-weight:500;">'+fecha+'</td>'+
       '<td style="font-size:12px;color:#6B7280;">'+hora+'</td>'+
       '<td class="name">'+o.customer_name+'</td>'+
@@ -636,7 +637,6 @@ function renderTable(){
       '<td>'+o.customer_city+'</td>'+
       '<td style="font-size:12px;max-width:180px;color:#6B7280;">'+shortProds+'</td>'+
       '<td class="total">$'+(o.total_cop||0).toLocaleString('es-CO')+'</td>'+
-      '<td><span class="status-badge status-'+o.status+'">'+statusLabel(o.status)+'</span></td>'+
       '<td>'+sourceBadge(o.source)+'</td>'+
       '<td><div class="td-actions" onclick="event.stopPropagation()">'+
         '<button class="btn-delete" onclick="confirmDeleteById(\''+o.id+'\',\''+o.customer_name+'\')">Eliminar</button>'+
