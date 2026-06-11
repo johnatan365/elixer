@@ -23,13 +23,7 @@
 
     fbq('init', '1284056950349379');
     fbq('track', 'PageView');
-    if (!sessionStorage.getItem('elixer_purchase_fired')) {
-      fbq('track', 'Purchase', {
-        currency: 'COP',
-        value: 0
-      });
-      sessionStorage.setItem('elixer_purchase_fired', '1');
-    }
+    // Purchase se dispara desde cada landing antes del redirect — NO duplicar aquí
   </script>
   <!-- noscript Purchase removido para evitar duplicación de eventos -->
   <!-- ════════════════════════════════════════ -->
