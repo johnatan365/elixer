@@ -361,6 +361,8 @@ function renderStep3(){
   <input id="f-name" class="form-inp" type="text" placeholder="Tu nombre y apellido" autocomplete="name"/>
   <label class="form-lbl">Teléfono / WhatsApp *</label>
   <input id="f-phone" class="form-inp" type="tel" placeholder="3XX XXX XXXX" autocomplete="tel"/>
+  <label class="form-lbl">Correo electrónico (opcional)</label>
+  <input id="f-email" class="form-inp" type="email" placeholder="tucorreo@gmail.com" autocomplete="email"/>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
     <div>
       <label class="form-lbl">Ciudad *</label>
@@ -386,6 +388,7 @@ async function submitOrder(){
   if(submitting)return;
   const name=document.getElementById('f-name').value.trim();
   const phone=document.getElementById('f-phone').value.trim();
+  const email=document.getElementById('f-email')?.value.trim()||null;
   const city=document.getElementById('f-city').value.trim();
   const depto=document.getElementById('f-depto').value.trim();
   const address=document.getElementById('f-address').value.trim();
@@ -414,6 +417,7 @@ async function submitOrder(){
   const {error}=await sb.from('orders').insert([{
     customer_name:name,
     customer_phone:phone,
+    customer_email:email||null,
     customer_city:city+', '+depto,
     customer_address:address,
     products:products,

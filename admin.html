@@ -286,7 +286,7 @@
         </colgroup>
         <thead>
           <tr>
-            <th>#</th><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Teléfono</th><th>Ciudad</th><th>Productos</th><th>Total</th><th>Estado</th><th>Fuente</th><th>Acciones</th>
+            <th>#</th><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Teléfono</th><th>Email</th><th>Ciudad</th><th>Productos</th><th>Total</th><th>Estado</th><th>Fuente</th><th>Acciones</th>
           </tr>
         </thead>
         <tbody id="orders-tbody"></tbody>
@@ -320,6 +320,7 @@
       <div id="customer-view">
         <div class="drawer-row"><span class="drawer-row-label">Nombre</span><span class="drawer-row-value" id="d-name-view"></span><button class="copy-btn" onclick="copyField('d-name-view',this)" title="Copiar">📋</button></div>
         <div class="drawer-row"><span class="drawer-row-label">Teléfono</span><span class="drawer-row-value" id="d-phone"></span><button class="copy-btn" onclick="copyField('d-phone',this)" title="Copiar">📋</button></div>
+        <div class="drawer-row"><span class="drawer-row-label">Email</span><span class="drawer-row-value" id="d-email"></span><button class="copy-btn" onclick="copyField('d-email',this)" title="Copiar">📋</button></div>
         <div class="drawer-row"><span class="drawer-row-label">Ciudad</span><span class="drawer-row-value" id="d-city"></span><button class="copy-btn" onclick="copyField('d-city',this)" title="Copiar">📋</button></div>
         <div class="drawer-row"><span class="drawer-row-label">Dirección</span><span class="drawer-row-value" id="d-address"></span><button class="copy-btn" onclick="copyField('d-address',this)" title="Copiar">📋</button></div>
         <div class="drawer-row"><span class="drawer-row-label">Fuente</span><span class="drawer-row-value" id="d-source-view"></span></div>
@@ -418,6 +419,8 @@
         <div>
           <label class="form-lbl">Teléfono / WhatsApp *</label>
           <input id="no-phone" class="login-input" type="tel" placeholder="3001234567" style="margin-bottom:12px;"/>
+          <label class="form-lbl">Correo electrónico (opcional)</label>
+          <input id="no-email" class="login-input" type="email" placeholder="tucorreo@gmail.com" style="margin-bottom:12px;"/>
         </div>
         <div>
           <label class="form-lbl">Ciudad *</label>
@@ -600,6 +603,7 @@ function renderTable(){
       '<td style="font-size:12px;color:#6B7280;">'+hora+'</td>'+
       '<td class="name">'+o.customer_name+'</td>'+
       '<td>'+o.customer_phone+'</td>'+
+      '<td>'+(o.customer_email?o.customer_email+' <button class="copy-btn" onclick="event.stopPropagation();copyFieldText(\''+(o.customer_email||'')+'\',this)" title="Copiar">📋</button>':'<span style="color:#D1D5DB;">—</span>')+'</td>'+
       '<td>'+o.customer_city+'</td>'+
       '<td style="font-size:12px;max-width:180px;color:#6B7280;">'+shortProds+'</td>'+
       '<td class="total">$'+(o.total_cop||0).toLocaleString('es-CO')+'</td>'+
@@ -645,6 +649,7 @@ function openDrawer(id){
   document.getElementById('d-name-view').textContent=o.customer_name;
   document.getElementById('d-date').textContent=date;
   document.getElementById('d-phone').textContent=o.customer_phone;
+  document.getElementById('d-email').textContent=o.customer_email||'—';
   document.getElementById('d-city').textContent=o.customer_city;
   document.getElementById('d-address').textContent=o.customer_address;
   document.getElementById('d-source-view').innerHTML=sourceBadge(o.source);
@@ -879,6 +884,7 @@ async function saveCustomerData(){
 function openNewOrderModal(){
   document.getElementById('no-name').value='';
   document.getElementById('no-phone').value='';
+  document.getElementById('no-email').value='';
   document.getElementById('no-city').value='';
   document.getElementById('no-depto').value='';
   document.getElementById('no-address').value='';
@@ -929,6 +935,7 @@ function updateNewOrderTotal(){
 async function createNewOrder(){
   const name = document.getElementById('no-name').value.trim();
   const phone = document.getElementById('no-phone').value.trim();
+  const email = document.getElementById('no-email')?.value.trim() || null;
   const city = document.getElementById('no-city').value.trim();
   const depto = document.getElementById('no-depto').value.trim();
   const address = document.getElementById('no-address').value.trim();
@@ -951,6 +958,7 @@ async function createNewOrder(){
   const payload = {
     customer_name: name,
     customer_phone: phone,
+    customer_email: email || null,
     customer_city: city + ', ' + depto,
     customer_address: address,
     products,

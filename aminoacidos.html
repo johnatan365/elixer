@@ -561,6 +561,7 @@ footer{background:#111;padding:56px 40px 40px;}
       <div><label class="form-lbl" style="color:var(--gold);">Nombre completo</label><input id="f-name" class="form-inp" type="text" placeholder="Tu nombre y apellido"/></div>
       <div class="form-row">
         <div><label class="form-lbl" style="color:var(--gold);">Teléfono / WhatsApp</label><input id="f-phone" class="form-inp" type="tel" placeholder="3XX XXX XXXX"/></div>
+        <div style="grid-column:1/-1"><label class="form-lbl" style="color:var(--gold);">Correo electrónico (opcional)</label><input id="f-email" class="form-inp" type="email" placeholder="tucorreo@gmail.com" autocomplete="email"/></div>
         <div><label class="form-lbl" style="color:var(--gold);">Ciudad</label><input id="f-city" class="form-inp" type="text" placeholder="Tu ciudad"/></div>
       </div>
       <div><label class="form-lbl" style="color:var(--gold);">Dirección de entrega</label><input id="f-address" class="form-inp" type="text" placeholder="Calle, barrio, número..."/></div>
@@ -685,6 +686,7 @@ function selectKit(name,price){
 async function submitOrder(){
   const name=document.getElementById('f-name').value.trim();
   const phone=document.getElementById('f-phone').value.trim();
+  const email=document.getElementById('f-email')?.value.trim()||null;
   const city=document.getElementById('f-city').value.trim();
   const address=document.getElementById('f-address').value.trim();
   const productSel=document.getElementById('f-product').value;
@@ -703,7 +705,7 @@ async function submitOrder(){
   const products=[{name:pName,price:parseInt(pPrice),qty:1},...addons];
   const btn=document.getElementById('submit-btn');
   btn.disabled=true;btn.textContent='Enviando...';
-  const{error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente',source:'landing_aminoacidos'});
+  const{error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,customer_email:email||null,status:'pendiente',source:'landing_aminoacidos'});
   if(error){errEl.textContent='Error al enviar. Escríbenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido';return;}
   // Coincidencias avanzadas — hashear teléfono y nombre para Meta
   async function sha256(str){
@@ -769,7 +771,7 @@ async function submitModal(){
   const products=[{name:'Proteina Capilar Elixer',price:79000,qty:1}];
   let total=79000;
   Object.values(mAddons).forEach(a=>{if(a.selected){products.push({name:a.name,price:a.price,qty:1});total+=a.price;}} );
-  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,status:'pendiente',source:'landing_aminoacidos'});
+  const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,customer_email:email||null,status:'pendiente',source:'landing_aminoacidos'});
   if(error){errEl.textContent='Error al enviar. Intentalo de nuevo o escribenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido — Pago al recibir';return;}
   // Coincidencias avanzadas — hashear teléfono y nombre para Meta
   async function sha256(str){
