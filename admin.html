@@ -54,9 +54,10 @@
     .orders-count{font-size:13px;color:#6B7280;margin-left:auto;font-weight:500;}
 
     /* TABLE */
-    .table-wrap{background:#fff;border-radius:12px;box-shadow:0 1px 8px rgba(0,0,0,0.06);overflow-x:auto;-webkit-overflow-scrolling:touch;}
-    .table-wrap::-webkit-scrollbar{height:6px;}
-    .table-wrap::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
+    .table-wrap{background:#fff;border-radius:12px;box-shadow:0 1px 8px rgba(0,0,0,0.06);overflow-x:scroll;-webkit-overflow-scrolling:touch;display:block;width:100%;}
+    .table-wrap::-webkit-scrollbar{height:8px;}
+    .table-wrap::-webkit-scrollbar-track{background:#F3F4F6;border-radius:4px;}
+    .table-wrap::-webkit-scrollbar-thumb{background:var(--gold);border-radius:4px;}
     table{width:max-content;min-width:1400px;border-collapse:collapse;}
     table{width:100%;border-collapse:collapse;}
     thead tr{background:#F9FAFB;border-bottom:2px solid #E5E7EB;}
@@ -868,11 +869,9 @@ async function saveProductsData(){
     }
   });
   if(!products.length){alert('Agrega al menos un producto.');return;}
-  const btn = document.querySelector('#products-edit button');
-  btn.disabled=true; btn.textContent='Guardando...';
+  const saveBtn = document.getElementById('save-all-btn');
   const {error} = await sb.from('orders').update({products, total_cop:total}).eq('id',currentOrder.id);
-  btn.disabled=false; btn.textContent='Guardar cambios';
-  if(error){alert('Error: '+error.message);return;}
+  if(error){if(saveBtn){saveBtn.disabled=false;saveBtn.textContent='💾 Guardar todo';}alert('Error: '+error.message);return;}
   currentOrder.products = products;
   currentOrder.total_cop = total;
   // Refresh products view
