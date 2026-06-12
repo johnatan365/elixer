@@ -1088,19 +1088,34 @@ function toggleColPanel(e){
   document.getElementById('col-toggle-panel').classList.toggle('open');
 }
 
-function saveColPrefs(){
+async function saveColPrefs(){
   const prefs = {};
   COL_IDS.forEach(id => { const el = document.getElementById(id); if(el) prefs[id] = el.checked; });
-  localStorage.setItem(LS_COL_KEY, JSON.stringify(prefs));
+  const json = JSON.stringify(prefs);
+  // Guardar en localStorage (fallback inmediato)
+  localStorage.setItem(LS_COL_KEY, json);
+  // Guardar en Supabase para sincronizar entre dispositivos
+  try{
+    await sb.from('user_settings').upsert({key:'col_prefs', value:json},{onConflict:'key'});
+  }catch(e){ console.warn('No se pudo guardar en Supabase:', e); }
 }
 
-function loadColPrefs(){
+async function loadColPrefs(){
+  let prefs = null;
+  // Intentar cargar desde Supabase primero
   try{
-    const saved = localStorage.getItem(LS_COL_KEY);
-    if(!saved) return;
-    const prefs = JSON.parse(saved);
-    COL_IDS.forEach(id => { const el = document.getElementById(id); if(el && prefs[id]!==undefined) el.checked = prefs[id]; });
+    const {data} = await sb.from('user_settings').select('value').eq('key','col_prefs').single();
+    if(data?.value) prefs = JSON.parse(data.value);
   }catch(e){}
+  // Fallback a localStorage
+  if(!prefs){
+    try{
+      const saved = localStorage.getItem(LS_COL_KEY);
+      if(saved) prefs = JSON.parse(saved);
+    }catch(e){}
+  }
+  if(!prefs) return;
+  COL_IDS.forEach(id => { const el = document.getElementById(id); if(el && prefs[id]!==undefined) el.checked = prefs[id]; });
 }
 
 function applyColVisibility(){
