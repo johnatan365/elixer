@@ -190,6 +190,17 @@
     .bulk-cancel-btn{background:rgba(0,0,0,.15);color:#000;border:none;padding:8px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;}
     tbody tr.selected-row{background:#FFFBEB !important;}
 
+    /* COLUMN TOGGLE */
+    .col-toggle-btn{display:flex;align-items:center;gap:6px;background:#fff;border:1.5px solid #E5E7EB;color:#374151;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+    .col-toggle-btn:hover{border-color:var(--gold);color:var(--gold-dark);}
+    .col-toggle-panel{display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1.5px solid #E5E7EB;border-radius:10px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:50;min-width:200px;}
+    .col-toggle-panel.open{display:block;}
+    .col-toggle-panel-title{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9CA3AF;margin-bottom:10px;}
+    .col-toggle-item{display:flex;align-items:center;gap:10px;padding:7px 4px;cursor:pointer;border-radius:6px;transition:background .15s;}
+    .col-toggle-item:hover{background:#F9FAFB;}
+    .col-toggle-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--gold);cursor:pointer;}
+    .col-toggle-item label{font-size:13px;color:#374151;cursor:pointer;font-weight:500;}
+
     .empty-state{text-align:center;padding:60px 20px;color:#6B7280;}
     .empty-state-icon{font-size:40px;margin-bottom:12px;}
     .empty-state-title{font-size:20px;font-weight:700;color:#374151;margin-bottom:6px;}
@@ -280,6 +291,25 @@
       <button class="refresh-btn" onclick="loadOrders()">↺ Actualizar</button>
       <button class="new-order-btn" onclick="openNewOrderModal()">＋ Nuevo pedido</button>
       <span class="orders-count" id="orders-count"></span>
+      <div style="position:relative;">
+        <button class="col-toggle-btn" onclick="toggleColPanel(event)" id="col-toggle-btn">⊞ Columnas</button>
+        <div class="col-toggle-panel" id="col-toggle-panel">
+          <div class="col-toggle-panel-title">Mostrar columnas</div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-check" checked onchange="applyColVisibility()"/><label for="col-check">☑</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-num" checked onchange="applyColVisibility()"/><label for="col-num">#</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-estado" checked onchange="applyColVisibility()"/><label for="col-estado">Estado</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-fecha" checked onchange="applyColVisibility()"/><label for="col-fecha">Fecha</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-hora" checked onchange="applyColVisibility()"/><label for="col-hora">Hora</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-cliente" checked onchange="applyColVisibility()"/><label for="col-cliente">Cliente</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-telefono" checked onchange="applyColVisibility()"/><label for="col-telefono">Teléfono</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-email" checked onchange="applyColVisibility()"/><label for="col-email">Email</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-ciudad" checked onchange="applyColVisibility()"/><label for="col-ciudad">Ciudad</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-productos" checked onchange="applyColVisibility()"/><label for="col-productos">Productos</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-total" checked onchange="applyColVisibility()"/><label for="col-total">Total</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-fuente" checked onchange="applyColVisibility()"/><label for="col-fuente">Fuente</label></div>
+          <div class="col-toggle-item"><input type="checkbox" id="col-acciones" checked onchange="applyColVisibility()"/><label for="col-acciones">Acciones</label></div>
+        </div>
+      </div>
     </div>
 
     <!-- BULK BAR -->
@@ -621,6 +651,8 @@ function renderTable(){
     return;
   }
   document.getElementById('orders-table').style.display='table';
+  loadColPrefs();
+  applyColVisibility();
   document.getElementById('empty-state').style.display='none';
   const tbody=document.getElementById('orders-tbody');
   tbody.innerHTML=filtered.map(o=>{
@@ -818,7 +850,7 @@ function toggleEditProducts(){
     view.style.display='block';
     edit.style.display='none';
     btn.textContent='✏️ Editar';
-    document.getElementById('edit-products-success').style.display='none';
+
   } else {
     populateProductEdit();
     view.style.display='none';
@@ -909,15 +941,17 @@ function toggleEditMode(){
 async function saveAllEdits(){
   const btn = document.getElementById('save-all-btn');
   btn.disabled=true; btn.textContent='Guardando...';
-  await saveCustomerData();
-  await saveProductsData();
-  btn.disabled=false; btn.textContent='💾 Guardar todo';
-  const s = document.getElementById('edit-success');
-  s.style.display='block';
-  setTimeout(()=>{
-    s.style.display='none';
-    toggleEditMode(); // volver a view mode
-  }, 1500);
+  try{
+    await saveCustomerData();
+    await saveProductsData();
+    const s = document.getElementById('edit-success');
+    s.style.display='block';
+    setTimeout(()=>{ s.style.display='none'; toggleEditMode(); }, 1500);
+  }catch(e){
+    alert('Error al guardar: '+e.message);
+  }finally{
+    btn.disabled=false; btn.textContent='💾 Guardar todo';
+  }
 }
 
 async function saveCustomerData(){
@@ -926,33 +960,20 @@ async function saveCustomerData(){
   const phone = document.getElementById('edit-phone').value.trim();
   const city = document.getElementById('edit-city').value.trim();
   const address = document.getElementById('edit-address').value.trim();
-  if(!name||!phone||!city||!address){alert('Todos los campos son obligatorios.');return;}
-  const btn = document.querySelector('#customer-edit button');
-  btn.disabled=true; btn.textContent='Guardando...';
+  if(!name||!phone||!city||!address){ alert('Todos los campos son obligatorios.'); throw new Error('Campos requeridos'); }
   const {error} = await sb.from('orders').update({
-    customer_name: name,
-    customer_phone: phone,
-    customer_city: city,
-    customer_address: address
+    customer_name: name, customer_phone: phone, customer_city: city, customer_address: address
   }).eq('id', currentOrder.id);
-  btn.disabled=false; btn.textContent='Guardar cambios';
-  if(error){alert('Error al guardar: '+error.message); return;}
-  // Update local state
-  currentOrder.customer_name = name;
-  currentOrder.customer_phone = phone;
-  currentOrder.customer_city = city;
-  currentOrder.customer_address = address;
-  // Update view fields
+  if(error){ alert('Error al guardar: '+error.message); throw new Error(error.message); }
+  currentOrder.customer_name = name; currentOrder.customer_phone = phone;
+  currentOrder.customer_city = city; currentOrder.customer_address = address;
   document.getElementById('d-name').textContent = name;
   document.getElementById('d-name-view').textContent = name;
   document.getElementById('d-phone').textContent = phone;
   document.getElementById('d-city').textContent = city;
   document.getElementById('d-address').textContent = address;
-  document.getElementById('edit-success').style.display='block';
-  setTimeout(()=>{
-    toggleEditMode();
-    loadOrders();
-  }, 1200);
+  const i = allOrders.findIndex(o=>o.id===currentOrder.id);
+  if(i>=0){allOrders[i].customer_name=name;allOrders[i].customer_phone=phone;}
 }
 
 // ===================== NEW ORDER MODAL =====================
@@ -1057,6 +1078,51 @@ async function createNewOrder(){
   await loadOrders();
   setTimeout(()=>closeNewOrderModal(), 1500);
 }
+
+// ── COLUMN VISIBILITY ──
+const COL_IDS = ['col-check','col-num','col-estado','col-fecha','col-hora','col-cliente','col-telefono','col-email','col-ciudad','col-productos','col-total','col-fuente','col-acciones'];
+const LS_COL_KEY = 'elixer_col_prefs';
+
+function toggleColPanel(e){
+  e.stopPropagation();
+  document.getElementById('col-toggle-panel').classList.toggle('open');
+}
+
+function saveColPrefs(){
+  const prefs = {};
+  COL_IDS.forEach(id => { const el = document.getElementById(id); if(el) prefs[id] = el.checked; });
+  localStorage.setItem(LS_COL_KEY, JSON.stringify(prefs));
+}
+
+function loadColPrefs(){
+  try{
+    const saved = localStorage.getItem(LS_COL_KEY);
+    if(!saved) return;
+    const prefs = JSON.parse(saved);
+    COL_IDS.forEach(id => { const el = document.getElementById(id); if(el && prefs[id]!==undefined) el.checked = prefs[id]; });
+  }catch(e){}
+}
+
+function applyColVisibility(){
+  let styleEl = document.getElementById('col-visibility-style');
+  if(!styleEl){ styleEl = document.createElement('style'); styleEl.id='col-visibility-style'; document.head.appendChild(styleEl); }
+  let css = '';
+  COL_IDS.forEach((id, i) => {
+    const checked = document.getElementById(id)?.checked ?? true;
+    if(!checked){
+      const n = i + 1;
+      css += `#orders-table col:nth-child(${n}),#orders-table thead th:nth-child(${n}),#orders-table tbody td:nth-child(${n}){display:none;}`;
+    }
+  });
+  styleEl.textContent = css;
+  saveColPrefs();
+}
+
+document.addEventListener('click', function(e){
+  const panel = document.getElementById('col-toggle-panel');
+  const btn = document.getElementById('col-toggle-btn');
+  if(panel && !panel.contains(e.target) && e.target !== btn) panel.classList.remove('open');
+});
 
 // ── BULK SELECTION ──
 let selectedIds = new Set();
