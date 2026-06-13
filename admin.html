@@ -651,8 +651,6 @@ function renderTable(){
     return;
   }
   document.getElementById('orders-table').style.display='table';
-  loadColPrefs();
-  applyColVisibility();
   document.getElementById('empty-state').style.display='none';
   const tbody=document.getElementById('orders-tbody');
   tbody.innerHTML=filtered.map(o=>{
@@ -1083,6 +1081,28 @@ async function createNewOrder(){
 const COL_IDS = ['col-check','col-num','col-estado','col-fecha','col-hora','col-cliente','col-telefono','col-email','col-ciudad','col-productos','col-total','col-fuente','col-acciones'];
 const LS_COL_KEY = 'elixer_col_prefs';
 
+// Aplicar CSS oculto inmediatamente desde localStorage (antes de cualquier render)
+(function(){
+  try{
+    const saved = localStorage.getItem(LS_COL_KEY);
+    if(!saved) return;
+    const prefs = JSON.parse(saved);
+    let css = '';
+    COL_IDS.forEach((id, i) => {
+      if(prefs[id] === false){
+        const n = i + 1;
+        css += `#orders-table col:nth-child(${n}),#orders-table thead th:nth-child(${n}),#orders-table tbody td:nth-child(${n}){display:none;}`;
+      }
+    });
+    if(css){
+      const s = document.createElement('style');
+      s.id = 'col-visibility-style';
+      s.textContent = css;
+      document.head.appendChild(s);
+    }
+  }catch(e){}
+})();
+
 function toggleColPanel(e){
   e.stopPropagation();
   document.getElementById('col-toggle-panel').classList.toggle('open');
@@ -1102,20 +1122,24 @@ async function saveColPrefs(){
 
 async function loadColPrefs(){
   let prefs = null;
-  // Intentar cargar desde Supabase primero
+  // Primero localStorage (instantáneo)
+  try{
+    const saved = localStorage.getItem(LS_COL_KEY);
+    if(saved) prefs = JSON.parse(saved);
+  }catch(e){}
+  // Luego intentar Supabase (puede tener versión más actualizada de otro dispositivo)
   try{
     const {data} = await sb.from('user_settings').select('value').eq('key','col_prefs').single();
-    if(data?.value) prefs = JSON.parse(data.value);
+    if(data?.value){
+      const sbPrefs = JSON.parse(data.value);
+      // Supabase gana si existen
+      prefs = sbPrefs;
+      localStorage.setItem(LS_COL_KEY, data.value);
+    }
   }catch(e){}
-  // Fallback a localStorage
-  if(!prefs){
-    try{
-      const saved = localStorage.getItem(LS_COL_KEY);
-      if(saved) prefs = JSON.parse(saved);
-    }catch(e){}
-  }
   if(!prefs) return;
   COL_IDS.forEach(id => { const el = document.getElementById(id); if(el && prefs[id]!==undefined) el.checked = prefs[id]; });
+  applyColVisibility();
 }
 
 function applyColVisibility(){
@@ -1138,6 +1162,9 @@ document.addEventListener('click', function(e){
   const btn = document.getElementById('col-toggle-btn');
   if(panel && !panel.contains(e.target) && e.target !== btn) panel.classList.remove('open');
 });
+
+// Cargar prefs al iniciar (una sola vez)
+document.addEventListener('DOMContentLoaded', () => { loadColPrefs(); });
 
 // ── BULK SELECTION ──
 let selectedIds = new Set();
