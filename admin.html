@@ -62,11 +62,13 @@
     table{border-collapse:collapse;white-space:nowrap;}
     table{width:100%;border-collapse:collapse;}
     thead tr{background:#F9FAFB;border-bottom:2px solid #E5E7EB;}
-    th{text-align:left;padding:12px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#6B7280;font-weight:700;white-space:nowrap;overflow:hidden;}
+    th{text-align:left;padding:12px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#6B7280;font-weight:700;white-space:nowrap;overflow:hidden;position:relative;}
+    .col-resize-handle{position:absolute;right:0;top:0;bottom:0;width:5px;cursor:col-resize;background:transparent;z-index:10;}
+    .col-resize-handle:hover,.col-resize-handle.dragging{background:rgba(201,168,76,0.6);}
     tbody tr{border-bottom:1px solid #F3F4F6;transition:background 0.15s;cursor:pointer;}
     tbody tr:hover{background:#FFFBEB;}
     tbody tr:last-child{border-bottom:none;}
-    td{padding:11px 10px;font-size:12px;color:#374151;vertical-align:middle;}
+    td{padding:11px 10px;font-size:12px;color:#374151;vertical-align:middle;white-space:nowrap;overflow:hidden;}
     td.name{color:#111;font-weight:600;white-space:nowrap;}
     td.total{color:var(--gold-dark);font-weight:700;font-size:13px;}
     td.name{color:#111;font-weight:600;}
@@ -334,18 +336,20 @@
     <div class="table-wrap">
       <div id="table-loading" class="loading">Cargando pedidos...</div>
       <table id="orders-table" style="display:none;">
-        <colgroup>
-          <col style="width:40px"/>
-          <col style="width:120px"/>
-          <col style="width:85px"/>
-          <col style="width:120px"/>
-          <col style="width:100px"/>
-          <col style="width:90px"/>
-          <col style="width:180px"/>
-          <col style="width:95px"/>
-          <col style="width:90px"/>
-          <col style="width:120px"/>
-          <col style="width:85px"/>
+        <colgroup id="orders-colgroup">
+          <col id="col-w-0" style="width:36px"/>
+          <col id="col-w-1" style="width:50px"/>
+          <col id="col-w-2" style="width:120px"/>
+          <col id="col-w-3" style="width:120px"/>
+          <col id="col-w-4" style="width:80px"/>
+          <col id="col-w-5" style="width:140px"/>
+          <col id="col-w-6" style="width:110px"/>
+          <col id="col-w-7" style="width:160px"/>
+          <col id="col-w-8" style="width:130px"/>
+          <col id="col-w-9" style="width:180px"/>
+          <col id="col-w-10" style="width:100px"/>
+          <col id="col-w-11" style="width:110px"/>
+          <col id="col-w-12" style="width:90px"/>
         </colgroup>
         <thead>
           <tr>
@@ -651,6 +655,8 @@ function renderTable(){
     return;
   }
   document.getElementById('orders-table').style.display='table';
+  loadColWidths();
+  initColResize();
   document.getElementById('empty-state').style.display='none';
   const tbody=document.getElementById('orders-tbody');
   tbody.innerHTML=filtered.map(o=>{
@@ -1165,6 +1171,82 @@ document.addEventListener('click', function(e){
 
 // Cargar prefs al iniciar (una sola vez)
 document.addEventListener('DOMContentLoaded', () => { loadColPrefs(); });
+
+// ── COLUMN RESIZE ──
+const LS_WIDTHS_KEY = 'elixer_col_widths';
+
+async function saveColWidths(){
+  const cols = document.querySelectorAll('#orders-colgroup col');
+  const widths = Array.from(cols).map(col => parseInt(col.style.width)||0);
+  const json = JSON.stringify(widths);
+  localStorage.setItem(LS_WIDTHS_KEY, json);
+  try{ await sb.from('user_settings').upsert({key:'col_widths',value:json},{onConflict:'key'}); }
+  catch(e){ console.warn('No se pudo guardar anchos en Supabase:', e); }
+}
+
+async function loadColWidths(){
+  let widths = null;
+  // Primero localStorage
+  try{
+    const saved = localStorage.getItem(LS_WIDTHS_KEY);
+    if(saved) widths = JSON.parse(saved);
+  }catch(e){}
+  // Luego Supabase
+  try{
+    const {data} = await sb.from('user_settings').select('value').eq('key','col_widths').single();
+    if(data?.value){ widths = JSON.parse(data.value); localStorage.setItem(LS_WIDTHS_KEY, data.value); }
+  }catch(e){}
+  if(!widths) return;
+  const cols = document.querySelectorAll('#orders-colgroup col');
+  widths.forEach((w,i) => { if(cols[i] && w > 0) cols[i].style.width = w+'px'; });
+}
+
+function initColResize(){
+  const table = document.getElementById('orders-table');
+  if(!table || table.dataset.resizeInit) return;
+  table.dataset.resizeInit = '1';
+  table.style.tableLayout = 'fixed';
+
+  const ths = table.querySelectorAll('thead th');
+  const cols = table.querySelectorAll('#orders-colgroup col');
+
+  ths.forEach((th, i) => {
+    if(i === ths.length - 1) return; // no resize en última col
+    const handle = document.createElement('div');
+    handle.className = 'col-resize-handle';
+    th.appendChild(handle);
+
+    handle.addEventListener('mousedown', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      handle.classList.add('dragging');
+
+      const startX = e.pageX;
+      const col = cols[i];
+      const startW = col ? parseInt(col.style.width) || th.getBoundingClientRect().width : th.getBoundingClientRect().width;
+
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+
+      const onMove = ev => {
+        const newW = Math.max(30, startW + (ev.pageX - startX));
+        if(col) col.style.width = newW + 'px';
+      };
+
+      const onUp = () => {
+        handle.classList.remove('dragging');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+        saveColWidths();
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      };
+
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  });
+}
 
 // ── BULK SELECTION ──
 let selectedIds = new Set();
