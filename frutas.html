@@ -384,7 +384,7 @@ footer{background:#111;padding:56px 40px 40px;}
     <p style="font-size:15px;color:var(--gray);max-width:500px;margin:12px auto 0;line-height:1.8;">Envío gratis a todo Colombia. Pagas cuando el producto llega a tu puerta.</p>
   </div>
   <div class="kits-grid">
-    <div class="kit-card" onclick="selectKit('Bomba de Frutas 500g',73500)">
+    <div class="kit-card" onclick="selectKit('Bomba de Frutas 500g',79000)">
       <div class="kit-card-top" style="background:rgba(245,166,35,0.1);color:var(--orange);">Producto individual</div>
       <div class="kit-card-imgs"><img src="Bomba_de_Frutas_Fondo_Transparente__4_.webp" alt="Bomba de Frutas" style="max-height:150px;max-width:100%;"/></div>
       <div class="kit-card-body">
@@ -395,7 +395,7 @@ footer{background:#111;padding:56px 40px 40px;}
           <div class="kit-includes-item"><span style="color:var(--orange);">✓</span>Sin parabenos ni siliconas</div>
           <div class="kit-includes-item"><span style="color:var(--orange);">✓</span>INVIMA NSOC07531-21CO</div>
         </div>
-        <div class="kit-price" style="color:var(--orange);">$73.500</div>
+        <div class="kit-price" style="color:var(--orange);">$79.000</div>
         <div class="kit-price-note" style="color:var(--gray);">Envío gratis — pago al recibir</div>
         <button class="kit-btn" style="background:var(--orange);color:#000;">Pedir este producto</button>
       </div>
@@ -565,7 +565,7 @@ footer{background:#111;padding:56px 40px 40px;}
         <label class="form-lbl" style="color:var(--orange);">Producto o kit</label>
         <select id="f-product" class="form-sel" onchange="updateSummary()" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22%3E%3Cpath d=%22M1 1l5 5 5-5%22 stroke=%22%23F5A623%22 stroke-width=%221.5%22 fill=%22none%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 14px center;">
           <option value="">— Elige un producto —</option>
-          <option value="Bomba de Frutas 500g|73500">Bomba de Frutas 500g — $73.500</option>
+          <option value="Bomba de Frutas 500g|79000">Bomba de Frutas 500g — $79.000</option>
           <option value="Shampoo Bomba de Frutas 500g|51500">Shampoo Bomba de Frutas 500g — $51.500</option>
           <option value="Kit Frutas + Shampoo - Bomba de Frutas 500g + Shampoo|110500">Kit Frutas + Shampoo — $110.500</option>
           <option value="Kit Mágico - Bomba de Frutas + Shampoo + Proteína 500g|157000">Kit Mágico (3 productos) — $157.000</option>
@@ -742,8 +742,8 @@ function mToggleAddon(e,id,name,price){
   updateModalSummary();
 }
 function updateModalSummary(){
-  let mTotal=73500;
-  let mLines='<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Bomba de Frutas Elixer</span><span>$73.500</span></div>';
+  let mTotal=79000;
+  let mLines='<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Bomba de Frutas Elixer</span><span>$79.000</span></div>';
   Object.values(mAddons).forEach(a=>{if(a.selected){mTotal+=a.price;mLines+=`<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>+ ${a.name}</span><span>$${a.price.toLocaleString('es-CO')}</span></div>`;}} );
   const hasA=Object.values(mAddons).some(a=>a.selected);
   const sumEl=document.getElementById('modal-summary');
@@ -761,8 +761,8 @@ async function submitModal(){
   if(!name||!phone||!city||!address){errEl.textContent='Por favor completa todos los campos obligatorios.';errEl.classList.add('show');return;}
   const btn=document.getElementById('modal-submit-btn');
   btn.disabled=true;btn.textContent='Enviando pedido...';
-  const products=[{name:'Bomba de Frutas Elixer',price:73500,qty:1}];
-  let total=73500;
+  const products=[{name:'Bomba de Frutas Elixer',price:79000,qty:1}];
+  let total=79000;
   Object.values(mAddons).forEach(a=>{if(a.selected){products.push({name:a.name,price:a.price,qty:1});total+=a.price;}} );
   const {error}=await sb.from('orders').insert({customer_name:name,customer_phone:phone,customer_city:city,customer_address:address,products,total_cop:total,notes:notes||null,customer_email:email||null,status:'pendiente',source:'landing_frutas'});
   if(error){errEl.textContent='Error al enviar. Intentalo de nuevo o escribenos por WhatsApp.';errEl.classList.add('show');btn.disabled=false;btn.textContent='Confirmar pedido — Pago al recibir';return;}
@@ -792,7 +792,7 @@ async function submitModal(){
     <div class="modal-header">
       <div>
         <div class="modal-title">Datos de tu pedido</div>
-        <div class="modal-subtitle">Bomba de Frutas Elixer — <strong style="color:#C9A84C;">$73.500</strong> · Envio gratis · Pago al recibir</div>
+        <div class="modal-subtitle">Bomba de Frutas Elixer — <strong style="color:#C9A84C;">$79.000</strong> · Envio gratis · Pago al recibir</div>
       </div>
       <button class="modal-close" onclick="cerrarModal()">&#x2715;</button>
     </div>
